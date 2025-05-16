@@ -38,7 +38,9 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static final String ENDPOINT_URL = "http://localhost:11434/api/generate";
     static final String MODEL = "deepseek-r1:70b";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
-    static final String command = "sbatch --wait llm-json-completion.sh " + MODEL + " prompt.tmp format.tmp";
+    static final String PROJECT_PATH = "/home/bs602422/projects/MicroRTS-LLM";
+    static final String MOVE_HISTORY_PATH = PROJECT_PATH + "/move_history.json";
+    static String command = "sbatch --wait " + PROJECT_PATH + "/src/ai/abstraction/llm-json-completion.sh " + MODEL; // <prompt> <format> will be added later
     // How often the LLM should act on the game state
     // More frequent LLM intervention is not necessarily better
     // Low = more frequent, higher = less freqeunt
@@ -49,20 +51,20 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         // Define coordinate schema
         JsonObject coord = new JsonObject();
-        coord.addProperty("type", "ARRAY");
+        coord.addProperty("type", "array");
         JsonObject coordItems = new JsonObject();
-        coordItems.addProperty("type", "INTEGER");
+        coordItems.addProperty("type", "integer");
         coord.add("items", coordItems);
         coord.addProperty("minItems", 2);
         coord.addProperty("maxItems", 2);
 
         // Define raw_move: string
         JsonObject rawMove = new JsonObject();
-        rawMove.addProperty("type", "STRING");
+        rawMove.addProperty("type", "string");
 
         // Define unit_type and action_type
         JsonObject unitType = new JsonObject();
-        unitType.addProperty("type", "STRING");
+        unitType.addProperty("type", "string");
         JsonArray unitTypeEnum = new JsonArray();
         unitTypeEnum.add(new JsonPrimitive("worker"));
         unitTypeEnum.add(new JsonPrimitive("light"));
@@ -73,7 +75,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         unitType.add("enum", unitTypeEnum);
 
         JsonObject actionType = new JsonObject();
-        actionType.addProperty("type", "STRING");
+        actionType.addProperty("type", "string");
         JsonArray actionTypeEnum = new JsonArray();
         actionTypeEnum.add(new JsonPrimitive("move"));
         actionTypeEnum.add(new JsonPrimitive("train"));
@@ -85,7 +87,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         // Combine all properties into the object schema
         JsonObject itemSchema = new JsonObject();
-        itemSchema.addProperty("type", "OBJECT");
+        itemSchema.addProperty("type", "object");
 
         JsonObject properties = new JsonObject();
         properties.add("raw_move", rawMove);  // Add raw_move here
@@ -102,13 +104,9 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         requiredFields.add(new JsonPrimitive("action_type"));
         itemSchema.add("required", requiredFields);
 
-        // Wrap the item schema into the response schema directly
-        JsonObject responseSchema = new JsonObject();
-        responseSchema.addProperty("type", "ARRAY");
-        responseSchema.add("items", itemSchema);
-
         // Final response schema
-        MOVE_RESPONSE_SCHEMA.add("response_schema", responseSchema);
+        MOVE_RESPONSE_SCHEMA.addProperty("type", "array");
+        MOVE_RESPONSE_SCHEMA.add("items", itemSchema);
     }
 
 
@@ -173,19 +171,24 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     UnitType barracksType;
     File promptFile;
     File formatFile;
+    File moveHistoryFile = new File(MOVE_HISTORY_PATH);
 
     public LLM_DeepseekR1(UnitTypeTable a_utt) {
         this(a_utt, new AStarPathFinding());
 
         try {
-            promptFile = File.createTempFile("prompt", null);
-            formatFile = File.createTempFile("format", null);
+            File dir = new File(PROJECT_PATH);
+            promptFile = File.createTempFile("prompt", null, dir);
+            formatFile = File.createTempFile("format", null, dir);
 
             String jsonContent = MOVE_RESPONSE_SCHEMA.toString();
 
             Files.write(formatFile.toPath(), jsonContent.getBytes(StandardCharsets.UTF_8));
  
-            System.out.println("Temp Files created: " + promptFile.toPath() + " " + formatFile.toPath());
+            // System.out.println("Temp Files created: " + promptFile.toPath() + " " + formatFile.toPath());
+
+            // Add files to command
+            command += " " + promptFile.getAbsolutePath() + " " + formatFile.getAbsolutePath();
 
             promptFile.deleteOnExit();
             formatFile.deleteOnExit();
@@ -299,8 +302,8 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         String finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
         // System.out.println(finalPrompt);
-        // Prompt gemini
         String response = prompt(finalPrompt);
+        logMoves(gs.getTime(), response);
         JsonParser parser = new JsonParser();
         JsonArray jsonResponse = parser.parse(response).getAsJsonArray();
 
@@ -489,14 +492,15 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
             // Start the process
             Process process = processBuilder.start();
+            // process.getErrorStream().transferTo(System.out); // Debugging
 
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.err.println("sbatch command failed with exit code: " + exitCode);
-                return null;
+                return "[]";
             }
             
-            String outputFilePath = "output.out";
+            String outputFilePath = PROJECT_PATH + "/output.out";
             String jsonContent = new String(Files.readAllBytes(Paths.get(outputFilePath)), StandardCharsets.UTF_8);
 
             // Parse JSON to extract "response"
@@ -504,15 +508,41 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             JsonObject jsonObject = parser.parse(jsonContent).getAsJsonObject();
             String response = jsonObject.get("response").getAsString();
 
-            System.out.println("Response extracted successfully.");
             return response;
 
         } catch (Exception e) {
+            System.err.println(e);
             e.printStackTrace();
-            return null;
+            return "[]";
         }
     }
 
+    public void logMoves(int turn, String moves) {
+        try {
+            JsonObject root;
+            JsonParser parser = new JsonParser();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            // Load existing file if it exists, otherwise create a new object
+            if (moveHistoryFile.exists()) {
+                String existing = Files.readString(moveHistoryFile.toPath(), StandardCharsets.UTF_8);
+                root = parser.parse(existing).getAsJsonObject();
+            } else {
+                root = new JsonObject();
+            }
+
+            // Store the moves under the turn number as key
+            root.addProperty(String.valueOf(turn), moves);
+
+            // Write updated content back to file
+            Files.write(
+                moveHistoryFile.toPath(),
+                gson.toJson(root).getBytes(StandardCharsets.UTF_8)
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to log moves", e);
+        }
+    }
 
     @Override
     public List<ParameterSpecification> getParameters()
