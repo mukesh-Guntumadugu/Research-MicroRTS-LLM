@@ -49,64 +49,47 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static {
         MOVE_RESPONSE_SCHEMA = new JsonObject();
 
-        // Define coordinate schema
-        JsonObject coord = new JsonObject();
-        coord.addProperty("type", "array");
-        JsonObject coordItems = new JsonObject();
-        coordItems.addProperty("type", "integer");
-        coord.add("items", coordItems);
-        coord.addProperty("minItems", 2);
-        coord.addProperty("maxItems", 2);
+        String schemaJson = """
+        {
+            "type": "object",
+            "properties": {
+                "thinking": {
+                    "type": "string",
+                    "description": "Plan out what moves you should take"
+                },
+                "moves": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "raw_move": { "type": "string" },
+                            "unit_position": {
+                                "type": "array",
+                                "items": { "type": "integer" },
+                                "minItems": 2,
+                                "maxItems": 2
+                            },
+                            "unit_type": {
+                                "type": "string",
+                                "enum": ["worker", "light", "heavy", "ranged", "base", "barracks"]
+                            },
+                            "action_type": {
+                                "type": "string",
+                                "enum": ["move", "train", "build", "harvest", "attack"]
+                            }
+                        },
+                        "required": ["raw_move", "unit_position", "unit_type", "action_type"]
+                    }
+                }
+            },
+            "required": ["thinking", "moves"],
+            "propertyOrdering": ["thinking", "moves"]
+        }
+        """;
 
-        // Define raw_move: string
-        JsonObject rawMove = new JsonObject();
-        rawMove.addProperty("type", "string");
-
-        // Define unit_type and action_type
-        JsonObject unitType = new JsonObject();
-        unitType.addProperty("type", "string");
-        JsonArray unitTypeEnum = new JsonArray();
-        unitTypeEnum.add(new JsonPrimitive("worker"));
-        unitTypeEnum.add(new JsonPrimitive("light"));
-        unitTypeEnum.add(new JsonPrimitive("heavy"));
-        unitTypeEnum.add(new JsonPrimitive("ranged"));
-        unitTypeEnum.add(new JsonPrimitive("base"));
-        unitTypeEnum.add(new JsonPrimitive("barracks"));
-        unitType.add("enum", unitTypeEnum);
-
-        JsonObject actionType = new JsonObject();
-        actionType.addProperty("type", "string");
-        JsonArray actionTypeEnum = new JsonArray();
-        actionTypeEnum.add(new JsonPrimitive("move"));
-        actionTypeEnum.add(new JsonPrimitive("train"));
-        actionTypeEnum.add(new JsonPrimitive("build"));
-        actionTypeEnum.add(new JsonPrimitive("harvest"));
-        actionTypeEnum.add(new JsonPrimitive("attack"));
-        // actionTypeEnum.add(new JsonPrimitive("idle")); // Disable idle for more ACTION!
-        actionType.add("enum", actionTypeEnum);
-
-        // Combine all properties into the object schema
-        JsonObject itemSchema = new JsonObject();
-        itemSchema.addProperty("type", "object");
-
-        JsonObject properties = new JsonObject();
-        properties.add("raw_move", rawMove);  // Add raw_move here
-        properties.add("unit_position", coord);
-        properties.add("unit_type", unitType);
-        properties.add("action_type", actionType);
-
-        itemSchema.add("properties", properties);
-
-        JsonArray requiredFields = new JsonArray();
-        requiredFields.add(new JsonPrimitive("raw_move"));
-        requiredFields.add(new JsonPrimitive("unit_position"));
-        requiredFields.add(new JsonPrimitive("unit_type"));
-        requiredFields.add(new JsonPrimitive("action_type"));
-        itemSchema.add("required", requiredFields);
-
-        // Final response schema
-        MOVE_RESPONSE_SCHEMA.addProperty("type", "array");
-        MOVE_RESPONSE_SCHEMA.add("items", itemSchema);
+        JsonParser parser = new JsonParser();
+        JsonObject responseSchema = parser.parse(schemaJson).getAsJsonObject();
+        MOVE_RESPONSE_SCHEMA.add("response_schema", responseSchema);
     }
 
 
@@ -303,15 +286,16 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         String finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
         // System.out.println(finalPrompt);
         String response = prompt(finalPrompt);
-        logMoves(gs.getTime(), response);
+        System.out.println(response);
         JsonParser parser = new JsonParser();
-        JsonArray jsonResponse = parser.parse(response).getAsJsonArray();
+        JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
+        JsonArray moveElements = jsonResponse.getAsJsonArray("moves");
 
         // Parse moves
         // System.out.println(response);
 
         // Loop through the response and handle each move
-        for (JsonElement moveElement : jsonResponse) {
+        for (JsonElement moveElement : moveElements) {
             JsonObject move = moveElement.getAsJsonObject();
             JsonArray unitPosition = move.getAsJsonArray("unit_position");
 
