@@ -78,7 +78,8 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                                 "enum": ["move", "train", "build", "harvest", "attack"]
                             }
                         },
-                        "required": ["raw_move", "unit_position", "unit_type", "action_type"]
+                        "required": ["raw_move", "unit_position", "unit_type", "action_type"],
+                        "propertyOrdering": ["raw_move", "unit_position", "unit_type", "action_type"]
                     }
                 }
             },
@@ -286,6 +287,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         String finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
         // System.out.println(finalPrompt);
         String response = prompt(finalPrompt);
+        logMoves(gs.getTime(), response);
         System.out.println(response);
         JsonParser parser = new JsonParser();
         JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
@@ -450,7 +452,6 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             }
 
             if (closestEnemy != null && closestDistance == 1) {
-                System.out.println("Attacking nearest unit!");
                 attack(u1, closestEnemy);
             }
         }
@@ -501,7 +502,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         }
     }
 
-    public void logMoves(int turn, String moves) {
+    public void logMoves(int turn, String jsonResponse) {
         try {
             JsonObject root;
             JsonParser parser = new JsonParser();
@@ -516,7 +517,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             }
 
             // Store the moves under the turn number as key
-            root.addProperty(String.valueOf(turn), moves);
+            root.addProperty(String.valueOf(turn), jsonResponse);
 
             // Write updated content back to file
             Files.write(
@@ -524,7 +525,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                 gson.toJson(root).getBytes(StandardCharsets.UTF_8)
             );
         } catch (IOException e) {
-            throw new RuntimeException("Failed to log moves", e);
+            throw new RuntimeException("Failed to jsonResponse", e);
         }
     }
 
