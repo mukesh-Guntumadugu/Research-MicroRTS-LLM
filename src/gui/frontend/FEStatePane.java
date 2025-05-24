@@ -7,6 +7,7 @@
 package gui.frontend;
 
 import ai.BranchingFactorCalculatorBigInteger;
+import ai.abstraction.*;
 import ai.core.AI;
 import ai.core.AIWithComputationBudget;
 import ai.core.ContinuingAI;
@@ -14,15 +15,6 @@ import ai.core.PseudoContinuingAI;
 import ai.PassiveAI;
 import ai.RandomAI;
 import ai.RandomBiasedAI;
-import ai.abstraction.HeavyDefense;
-import ai.abstraction.HeavyRush;
-import ai.abstraction.LightDefense;
-import ai.abstraction.LightRush;
-import ai.abstraction.RangedDefense;
-import ai.abstraction.RangedRush;
-import ai.abstraction.WorkerDefense;
-import ai.abstraction.WorkerRush;
-import ai.abstraction.WorkerRushPlusPlus;
 import ai.abstraction.cRush.CRush_V1;
 import ai.abstraction.cRush.CRush_V2;
 import ai.abstraction.partialobservability.POHeavyRush;
@@ -161,7 +153,9 @@ public class FEStatePane extends JPanel {
                    AHTNAI.class,
                    InformedNaiveMCTS.class,
                    PuppetSearchMCTS.class,
-                   SCV.class
+                   SCV.class,
+                   LLM_DeepseekR1.class, // LLM_DeepseekR1 for response
+                   LLM_Gemini.class // LLM_Gemini for response
                   };
 
     
@@ -465,7 +459,7 @@ public class FEStatePane extends JPanel {
             p1.add(ptmp);
         }
         {
-            String colorSchemes[] = {"Color Scheme Black","Color Scheme White"};
+            String colorSchemes[] = {"Color Scheme White","Color Scheme Black"}; // "Color Scheme Black"
             JComboBox b = new JComboBox(colorSchemes);
             b.setAlignmentX(Component.CENTER_ALIGNMENT);
             b.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -473,10 +467,10 @@ public class FEStatePane extends JPanel {
                 public void actionPerformed(ActionEvent e)
                 {
                     JComboBox combo = (JComboBox)e.getSource();
-                    if (combo.getSelectedIndex()==0) {
+                    if (combo.getSelectedIndex()==1) {
                         statePanel.setColorScheme(PhysicalGameStatePanel.COLORSCHEME_BLACK);
                     }
-                    if (combo.getSelectedIndex()==1) {
+                    if (combo.getSelectedIndex()==0) {
                         statePanel.setColorScheme(PhysicalGameStatePanel.COLORSCHEME_WHITE);
                     }
                     statePanel.repaint();
@@ -591,30 +585,41 @@ public class FEStatePane extends JPanel {
                                     if ((ai2 instanceof PseudoContinuingAI) && (((PseudoContinuingAI)ai2).getbaseAI() instanceof MouseController)) isMouseController = true;
                                     
                                     if (isMouseController) {
+                                       // System.out.println(" inside 588 FeState Pan ");
                                         PhysicalGameStatePanel pgsp = new PhysicalGameStatePanel(statePanel);
                                         pgsp.setStateDirect(gs);
-                                        w = new PhysicalGameStateMouseJFrame("Game State Visualizer (Mouse)",640,640,pgsp);
-                                        
+                                        w = new PhysicalGameStateMouseJFrame("Game State Visualizer 79987 ",640,640,pgsp);
+                                        // System.exit(0); // need to remove this after
                                         boolean mousep1 = false;
                                         boolean mousep2 = false;
                                         if (ai1 instanceof MouseController) {
                                             ((MouseController)ai1).setFrame((PhysicalGameStateMouseJFrame)w);
                                             mousep1 = true;
+                                           // System.out.println(" inside 598 ");
+                                          //  System.exit(0);
                                         } else if ((ai1 instanceof PseudoContinuingAI) && (((PseudoContinuingAI)ai1).getbaseAI() instanceof MouseController)) {
                                             ((MouseController)((PseudoContinuingAI)ai1).getbaseAI()).setFrame((PhysicalGameStateMouseJFrame)w);
                                             mousep1 = true;
+                                          //  System.out.println(" inside 603 ");
+
                                         }
                                         if (ai2 instanceof MouseController) {
                                             ((MouseController)ai2).setFrame((PhysicalGameStateMouseJFrame)w);
                                             mousep2 = true;
+                                           // System.out.println(" inside 609 ");
+                                           // System.exit(0);
                                         } else if ((ai2 instanceof PseudoContinuingAI) && (((PseudoContinuingAI)ai2).getbaseAI() instanceof MouseController)) {
                                             ((MouseController)((PseudoContinuingAI)ai2).getbaseAI()).setFrame((PhysicalGameStateMouseJFrame)w);
                                             mousep2 = true;
+                                          //  System.out.println(" inside 614 ");
+                                           // System.exit(0);
                                         }
                                         if (mousep1 && !mousep2) pgsp.setDrawFromPerspectiveOfPlayer(0);
                                         if (!mousep1 && mousep2) pgsp.setDrawFromPerspectiveOfPlayer(1);
                                     } else {
                                         w = PhysicalGameStatePanel.newVisualizer(gs,640,640,!fullObservabilityBox.isSelected(),statePanel.getColorScheme());
+
+                                        // not going to this
                                     }
 
                                     Trace trace = null;
@@ -628,8 +633,11 @@ public class FEStatePane extends JPanel {
                                     do{
                                         if (System.currentTimeMillis()>=nextTimeToUpdate) {
                                             
-//                                            System.out.println("----------------------------------------");
-//                                            System.out.println(gs);
+                                          // System.out.println("----------------------------------------");
+                                           // System.out.println(gs);
+                                          //  System.out.println(" inside 636 ");
+                                            //System.exit(0);
+
                                             
                                             PlayerAction pa1 = null;
                                             PlayerAction pa2 = null;
@@ -662,7 +670,10 @@ public class FEStatePane extends JPanel {
                                         } else {
                                             Thread.sleep(1);
                                         }
-                                        if (!w.isVisible()) break;  // if the user has closed the window
+                                        if (!w.isVisible()) {
+                                          //  System.out.println(" inside 672 ");
+                                            break;  // if the user has closed the window
+                                        }
                                     }while(!gameover && gs.getTime()<MAXCYCLES);
                                     
                                     if (trace!=null) {
@@ -880,7 +891,7 @@ public class FEStatePane extends JPanel {
     public AI createAIInternal(int idx, int player, UnitTypeTable utt) throws Exception {
 
         if (AIs[idx]==MouseController.class) {
-            return new MouseController(null);
+            return new MouseController(utt);
         } else {
             Constructor cons = AIs[idx].getConstructor(UnitTypeTable.class);
             AI AI_instance = (AI)cons.newInstance(utt);

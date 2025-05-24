@@ -12,8 +12,8 @@ public class MouseGame extends Game {
         super(gameSettings);
 
         PhysicalGameStatePanel pgsp = new PhysicalGameStatePanel(gs);
-        w = new PhysicalGameStateMouseJFrame("Game State Visualizer (Mouse)", 640, 640, pgsp);
 
+        w = new PhysicalGameStateMouseJFrame("Game State Visualizer(Mouse) ", 740, 740, pgsp); //
         this.ai1 = new MouseController(w);
     }
 

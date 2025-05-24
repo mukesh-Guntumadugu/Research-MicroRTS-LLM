@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  *
@@ -39,7 +40,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static final String ENDPOINT_URL = "http://localhost:11434/api/generate";
     static final String MODEL = "deepseek-r1:70b";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
-    static final String PROJECT_PATH = "/home/bs602422/projects/MicroRTS-LLM";
+    static final String PROJECT_PATH = "/Users/mukesh/projects/MicroRTS-LLM";
     static final String MOVE_HISTORY_PATH = PROJECT_PATH + "/move_history.json";
     static String command = "sbatch --wait " + PROJECT_PATH + "/src/ai/abstraction/llm-json-completion.sh " + MODEL; // <prompt> <format> will be added later
     // How often the LLM should act on the game state
@@ -48,8 +49,6 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static final Integer LLM_INTERVAL = 50;
 
     static {
-        MOVE_RESPONSE_SCHEMA = new JsonObject();
-
         String schemaJson = """
         {
             "type": "object",
@@ -90,11 +89,10 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         """;
 
         JsonParser parser = new JsonParser();
-        JsonObject responseSchema = parser.parse(schemaJson).getAsJsonObject();
-        MOVE_RESPONSE_SCHEMA.add("response_schema", responseSchema);
+        MOVE_RESPONSE_SCHEMA = parser.parse(schemaJson).getAsJsonObject();
     }
 
-    private Set<Long> allyUnitsGeneratedIDs;
+    private Set<Long> allyUnitsGeneratedIDs = new HashSet<>();
     private Integer moveRejects = 0;
     private Integer moveAccepts = 0;
 
@@ -166,7 +164,9 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         try {
             File dir = new File(PROJECT_PATH);
-            promptFile = File.createTempFile("prompt", null, dir);
+            System.out.println(" dir : "+dir);
+            promptFile = File.createTempFile("prompt", null, dir); // why are we getting
+            System.out.println(" 164  promptFile : "+promptFile);
             formatFile = File.createTempFile("format", null, dir);
 
             String jsonContent = MOVE_RESPONSE_SCHEMA.toString();
@@ -300,6 +300,52 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         // Collect metrics
         JsonObject llmMetrics = new JsonObject();
+
+
+
+        // remove it
+        try{
+        // Get the output file (replace path with yours)
+        File outputFile = new File(System.getProperty("user.home") + "/projects/MicroRTS-LLM/output.out");
+
+// Read the file content
+        String outputString = Files.readString(outputFile.toPath(), StandardCharsets.UTF_8);
+
+// Parse using Gson parser (compatible with older versions)
+            JsonParser safeParser = new JsonParser();
+            JsonObject outputJson = safeParser.parse(outputString).getAsJsonObject();
+
+
+// Extract response
+        JsonObject responseJson = outputJson.getAsJsonObject("response");
+
+        int evalCount = 0;
+        int evalDuration = 0;
+
+        if (responseJson != null && responseJson.has("eval_count") && responseJson.get("eval_count").isJsonPrimitive()) {
+            evalCount = responseJson.get("eval_count").getAsInt();
+        } else {
+            System.err.println("Missing or invalid 'eval_count' in response");
+        }
+
+        if (responseJson != null && responseJson.has("eval_duration") && responseJson.get("eval_duration").isJsonPrimitive()) {
+            evalDuration = responseJson.get("eval_duration").getAsInt();
+        } else {
+            System.err.println("Missing or invalid 'eval_duration' in response");
+        }
+
+
+
+    } catch (IOException e) {
+        System.err.println("Error reading output file: " + e.getMessage());
+        e.printStackTrace();
+    } catch (Exception e) {
+        System.err.println("Error parsing JSON: " + e.getMessage());
+        e.printStackTrace();
+    }
+        // sure do
+
+
         llmMetrics.addProperty("eval_duration", jsonResponse.get("eval_duration").getAsInt());
         llmMetrics.addProperty("eval_tokens", jsonResponse.get("eval_count").getAsInt());
         llmMetrics.addProperty("moves_generated", jsonResponse.get("response").getAsJsonObject().getAsJsonArray("moves").size());
@@ -511,14 +557,28 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
     public String prompt(String prompt) {
         try {
+            System.out.println(" 514 path is "+promptFile.toPath());
             Files.write(promptFile.toPath(), prompt.getBytes(StandardCharsets.UTF_8));
-
+            System.out.println(" 516 path is ");
             ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
+            ProcessBuilder processBuilder1 = new ProcessBuilder("which", "sbatch");
+            Process p = processBuilder1.start();
+            p.getInputStream().transferTo(System.out);
+            p.waitFor();
+            String home = System.getProperty("user.home");
+            String fakeSbatch = home + "/mockbin/sbatch";
+            ProcessBuilder processBuilder2 = new ProcessBuilder(fakeSbatch, "your_script.sh");
+            Process process = processBuilder2.start();
+            System.out.println("Trying: " + fakeSbatch);
+            System.out.println("File exists: " + new File(fakeSbatch).exists());
+            System.out.println(" 518 path is ");
 
             // Start the process
-            Process process = processBuilder.start();
-            // process.getErrorStream().transferTo(System.out); // Debugging
-
+           // Process process = processBuilder.start(); // 520 line number
+            // Process process = new ProcessBuilder("sbatch", "your_script.sh").start();
+            //Process process = new ProcessBuilder("/Users/yourname/mockbin/sbatch", "your_script.sh").start();
+            //process.getErrorStream().transferTo(System.out); // Debugging
+            System.out.println(" 522 path is ");
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.err.println("sbatch command failed with exit code: " + exitCode);
@@ -526,7 +586,10 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             }
             
             String outputFilePath = PROJECT_PATH + "/output.out";
+            System.out.println(" 530  PROJECT_PATH : "+PROJECT_PATH);
+            System.out.println(" 531  PROJECT_PATH : "+outputFilePath);
             String jsonContent = new String(Files.readAllBytes(Paths.get(outputFilePath)), StandardCharsets.UTF_8);
+            System.out.println(" 533  jsonContent : "+jsonContent);
 
             return jsonContent;
 
@@ -538,6 +601,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             // return response;
 
         } catch (Exception e) {
+            System.err.println(" 540 : ");
             System.err.println(e);
             e.printStackTrace();
             return "[]";

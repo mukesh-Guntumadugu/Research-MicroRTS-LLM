@@ -35,6 +35,7 @@ public abstract class AIWithComputationBudget extends AI {
     public AIWithComputationBudget(int timeBudget, int iterationsBudget) {
         TIME_BUDGET = timeBudget;
         ITERATIONS_BUDGET = iterationsBudget;
+        System.out.println(" in this 3 file AIWithComputationBudget "+this.getClass().getName()+"  nd mg546924 38. timeBudget:  "+timeBudget+"  iterationsBudget : "+iterationsBudget);
     }
     
     /**

@@ -162,6 +162,10 @@ public class UnitTypeTable  {
         // WORKER: 
         UnitType worker = new UnitType();
         worker.name = "Worker";
+
+        System.out.println(" 166  gmu3r2g   searching for Move flow of UnittypeTable  : -> "+this.getClass().getName()+" PGSAI ");
+
+
         worker.cost = 1;
         worker.hp = 1;
         switch(version) {

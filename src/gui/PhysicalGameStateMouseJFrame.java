@@ -27,6 +27,12 @@ public class PhysicalGameStateMouseJFrame extends JFrame {
         panel.setPreferredSize(new Dimension(dx, dy-64));
         mousePanel.setPreferredSize(new Dimension(dx, 64));
 
+        System.out.println(" panel : "+a_panel);
+        System.out.println(" mousePanel : "+mousePanel);
+        System.out.println(" panel : "+panel);
+        System.out.println(" panel :  inside of this masn ");
+
+
         getContentPane().removeAll();
         getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
         getContentPane().add(panel);
@@ -71,6 +77,11 @@ public class PhysicalGameStateMouseJFrame extends JFrame {
         }
         
         return null;
+    }
+    // New pass method added here
+    public void pass() {
+        System.out.println("Pass action invoked.");
+        // You could add logic to skip a turn, clear UI state, etc.
     }
         
 }

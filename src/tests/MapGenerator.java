@@ -34,6 +34,8 @@ public class MapGenerator {
         resourceType = utt.getUnitType("Resource");
         baseType = utt.getUnitType("Base");
         barracksType = utt.getUnitType("Barracks");
+        System.out.println(" 37   gmu3r2g   searching for Move flow of MapGenerator  : -> "+this.getClass().getName()+" MapGenerator ");
+
         workerType = utt.getUnitType("Worker");
         lightType = utt.getUnitType("Light");
         heavyType = utt.getUnitType("Heavy");

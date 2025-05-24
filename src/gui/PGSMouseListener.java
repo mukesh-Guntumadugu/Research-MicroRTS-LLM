@@ -38,6 +38,7 @@ public class PGSMouseListener implements MouseListener, MouseMotionListener, Key
         frame = a_frame;
         gs = a_gs;
         playerID = a_playerID;
+        System.out.println(" AI "+AI+" : frame "+frame);
     }
     
     public void setGameState(GameState a_gs) {
@@ -182,9 +183,38 @@ public class PGSMouseListener implements MouseListener, MouseMotionListener, Key
         for(Unit selectedUnit:selectedUnits) { 
             panel.highlight(selectedUnit);
         }
-        if (unit!=null) panel.highlight(unit);
-        if (selectedButton!=null) mousePanel.highlight(selectedButton);
-        if (button!=null) mousePanel.highlight(button);
+        System.out.println( " unit : selectedButton : button"+unit+" selectedButton : "+ selectedButton+" button : "+button);
+        if (unit!=null){ // mouse are keybord
+            System.out.println(" in line 187 pgsMouseListener   "+unit);
+            /*try {
+                System.out.println(" temporary fix 0 ");
+               // Thread.sleep(60000);  // pause for 2 min
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }*/
+            panel.highlight(unit);
+        }
+        if (selectedButton!=null) { // if you click on the button then
+            System.out.println(" in line 191 pgsMouseListener  selectedButton  "+selectedButton);
+           // System.exit(1);
+            /*try {
+                System.out.println(" temporary fix 1 ");
+                Thread.sleep(60000);  // pause for 2 min
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }*/
+            mousePanel.highlight(selectedButton);}
+        if (button!=null) { // if you click on the button then
+            System.out.println(" in line 195 pgsMouseListener  button   "+button);
+           // System.exit(1);
+            /*try {
+                System.out.println(" temporary fix 3");
+                Thread.sleep(60000);  // pause for 2 min
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }*/
+            mousePanel.highlight(button);}
+
     }
 
     public void mousePressed(MouseEvent e) {
@@ -196,7 +226,11 @@ public class PGSMouseListener implements MouseListener, MouseMotionListener, Key
         }
     }
 
+
     public void mouseReleased(MouseEvent e) {
+
+        System.out.println(" in line 232 PGS Mouse listener look in this there is an exception  ");
+
         // identify the units to be selected:
         if (!insideOfGameArea(e.getX(), e.getY())) {
             frame.panel.m_mouse_selection_x0 = frame.panel.m_mouse_selection_x1 = -1;

@@ -66,6 +66,9 @@ public class PGSAI extends AIWithComputationBudget {
     
     public PGSAI(int time, int max_playouts, int la, int a_I, int a_R, EvaluationFunction e, UnitTypeTable a_utt, PathFinding a_pf) {
         super(time, max_playouts);
+
+        System.out.println(" gmu3r2g   searching for Move flow of worker  : -> "+this.getClass().getName()+" PGSAI ");
+
         LOOKAHEAD = la;
         I = a_I;
         R = a_R;

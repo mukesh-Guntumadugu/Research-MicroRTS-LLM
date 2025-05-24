@@ -18,6 +18,7 @@ import java.util.List;
 
 import rts.*;
 import rts.units.Unit;
+import rts.units.UnitTypeTable;
 
 /**
  *
@@ -39,8 +40,10 @@ public class MouseController extends AbstractionLayerAI {
     PGSMouseListener m_mouseListener;
     
     public MouseController(PhysicalGameStateMouseJFrame frame) {
-        super(new BFSPathFinding());
+        super(new BFSPathFinding()); //
+        System.out.println("  43  MouseController  "+this.getClass().getName()+"  :  "+Thread.currentThread().getStackTrace()[1]+": frame"+frame);
         m_frame = frame;
+        System.out.println(" 45  MouseController  "+this.getClass().getName()+"  :  "+Thread.currentThread().getStackTrace()[1] +"  m_frame : "+m_frame);
         reset();
     }
     
@@ -48,21 +51,37 @@ public class MouseController extends AbstractionLayerAI {
         m_frame = frame;
         reset();
     }
+    UnitTypeTable utt;
+
+    public MouseController(UnitTypeTable utt) {
+        super(new BFSPathFinding());  // Use AStarPathFinding if available
+        this.utt = utt;
+    }
+    public MouseController() {
+        super(new BFSPathFinding());  // Use AStarPathFinding if available
+    }
+
     
     public void reset() {
         // attach the mouse listener to the frame (make sure we only add one, and also remove the old ones):
         if (m_frame!=null) {
-            MouseListener []mla = m_frame.getMouseListeners();
+            MouseListener []mla = m_frame.getMouseListeners(); // PhysicalGameStateMouseJFrame
             for(MouseListener ml:mla) {
+                System.out.println("Removed:  59 in MouseController  " + ml.getClass().getName());
                 if (ml instanceof PGSMouseListener) m_frame.removeMouseListener(ml);
             }
-            m_mouseListener = new PGSMouseListener(this, m_frame, null, -1);
-            m_frame.addMouseListener(m_mouseListener);
+            m_mouseListener = new PGSMouseListener(this, m_frame, null, -1); // PGSMOUseListener
+            System.out.println(" in 63 : gmu3r2g  MouseController "+this.getClass().getName()+" 63  : m_mouseListener"+m_mouseListener);
+            m_frame.addMouseListener(m_mouseListener); // PhysicalGameStateMouseJFrame -- src/frontend/ FEstatepan
             m_frame.addMouseMotionListener(m_mouseListener);
             m_frame.addKeyListener(m_mouseListener);
         }
     }
-    
+
+
+
+
+
     public AI clone() {
         return new MouseController(m_frame);
     }

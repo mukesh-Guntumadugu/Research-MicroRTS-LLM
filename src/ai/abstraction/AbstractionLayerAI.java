@@ -41,7 +41,8 @@ public abstract class AbstractionLayerAI extends AIWithComputationBudget {
     protected GameState lastGameState;
 
     public AbstractionLayerAI(PathFinding a_pf) {
-        super(-1, -1);
+        super(-1, -1);  // AIwithComputationbudget
+        System.out.println(" in this  45 : abstract layer ai "+this.getClass().getName()+"  1 second class  nd mg546924 45 "+a_pf);
         pf = a_pf;
     }
 
@@ -51,7 +52,9 @@ public abstract class AbstractionLayerAI extends AIWithComputationBudget {
     }
 
     public void reset() {
-        actions.clear();
+        System.out.println(" in this 55 second class  nd mg546924 56 ");
+        actions.clear(); // wipes out the old actions
+        System.out.println(" in this 57 second class  nd mg546924 56 ");
     }
        
 
@@ -103,6 +106,8 @@ public abstract class AbstractionLayerAI extends AIWithComputationBudget {
         for (Pair<Unit, UnitAction> desire : desires) {
             ResourceUsage r2 = desire.m_b.resourceUsage(desire.m_a, pgs);
             if (pa.consistentWith(r2, gs)) {
+                // ✅ Debug output for each unit's final action
+                System.out.println(" gmu3r2g : Final UnitAction for " + desire.m_a + ": " + desire.m_b);
                 pa.addUnitAction(desire.m_a, desire.m_b);
                 pa.getResourceUsage().merge(r2);
             }
@@ -130,6 +135,10 @@ public abstract class AbstractionLayerAI extends AIWithComputationBudget {
 
     public void harvest(Unit u, Unit target, Unit base) {
         actions.put(u, new Harvest(u, target, base, pf));
+        System.out.println("Assigned Harvest to unit: " + u + " target: " + target + " base: " + base);
+        System.out.println("Current actions map: " + actions);
+        System.out.println(" ---> gmu3r2g inside 136 : abstraction layer ai : 136  harvest  ");
+
     }
 
     public void attack(Unit u, Unit target) {

@@ -23,7 +23,8 @@ import rts.UnitAction;
 import rts.UnitActionAssignment;
 import rts.units.Unit;
 import util.Pair;
-
+import javax.swing.JButton;
+import java.awt.BorderLayout;
 /**
  *
  * @author santi
@@ -73,6 +74,7 @@ public class PhysicalGameStatePanel extends JPanel {
     public PhysicalGameStatePanel(GameState a_gs) {
         this(a_gs, new SimpleEvaluationFunction());
     }
+
 
 
     public PhysicalGameStatePanel(PhysicalGameStatePanel pgsp) {
@@ -139,6 +141,7 @@ public class PhysicalGameStatePanel extends JPanel {
         frame = new PhysicalGameStateJFrame("Game State Visualizer", dx, dy, ad);
         return frame;
     }
+
 
     public GameState getGameState() {
         return gs;
@@ -271,7 +274,34 @@ public class PhysicalGameStatePanel extends JPanel {
             int y1 = Math.max(m_mouse_selection_y0, m_mouse_selection_y1);
             g.drawRect(x0, y0, x1 - x0, y1 - y0);
         }
+    } /*
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);  // fills Swing’s background area
+
+        // ✅ Add this line:
+        g.setColor(getBackground());
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        Graphics2D g2d = (Graphics2D)g;
+        if (gs != null) {
+            synchronized (gs) {
+                draw(g2d, this, this.getWidth(), this.getHeight(), gs, pogs, colorScheme, fullObservability, drawFromPerspectiveOfPlayer, evalFunction);
+            }
+        }
+
+        if (m_mouse_selection_x0 >= 0) {
+            g.setColor(Color.green);
+            int x0 = Math.min(m_mouse_selection_x0, m_mouse_selection_x1);
+            int x1 = Math.max(m_mouse_selection_x0, m_mouse_selection_x1);
+            int y0 = Math.min(m_mouse_selection_y0, m_mouse_selection_y1);
+            int y1 = Math.max(m_mouse_selection_y0, m_mouse_selection_y1);
+            g.drawRect(x0, y0, x1 - x0, y1 - y0);
+        }
     }
+    */
+
+
 
 
     public static void draw(Graphics2D g2d,
@@ -466,12 +496,35 @@ public class PhysicalGameStatePanel extends JPanel {
                 if (colorScheme==COLORSCHEME_WHITE) g2d.setColor(Color.gray);
             }
             if (u.getType().name.equals("Worker")) {
+               // System.out.println(" ------------- ");
+               // System.out.println(" 496 : Physical Game State Panel  gmu3r2g   searching for Move flow of worker  : ->    ");
+               // System.out.println(" ------------- ");
                 g2d.setColor(Color.gray);
                 reduction = grid/4;
+
+
+              //  System.out.println("✅ Worker selected");
+
+                JButton baseButton1 = new JButton("Base");
+                JButton barracksButton1 = new JButton("Barracks");
+
+              /*
+              *   actionPanel.removeAll(); // Clear previous buttons
+                actionPanel.add(baseButton1);
+                actionPanel.add(barracksButton1);
+
+                actionPanel.revalidate();
+                actionPanel.repaint();
+*/
             }
             if (u.getType().name.equals("Light")) {
                 g2d.setColor(LIGHT);
                 reduction = grid/8;
+               // System.out.println(" ------------- ");
+               // System.out.println(" 506 : Physical Game State Panel  gmu3r2g   searching for Move flow of worker  : ->    ");
+               // System.out.println(" ------------- ");
+              // System.out.println("I am here. Something went wrong.");
+              //  System.exit(1);
             }
             if (u.getType().name.equals("Heavy")) g2d.setColor(HEAVY);
             if (u.getType().name.equals("Ranged")) {
