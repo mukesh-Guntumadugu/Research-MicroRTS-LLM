@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.Set;
+import java.util.HashSet;
 
 /**
  *
@@ -48,8 +49,6 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static final Integer LLM_INTERVAL = 50;
 
     static {
-        MOVE_RESPONSE_SCHEMA = new JsonObject();
-
         String schemaJson = """
         {
             "type": "object",
@@ -90,11 +89,10 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
         """;
 
         JsonParser parser = new JsonParser();
-        JsonObject responseSchema = parser.parse(schemaJson).getAsJsonObject();
-        MOVE_RESPONSE_SCHEMA.add("response_schema", responseSchema);
+        MOVE_RESPONSE_SCHEMA = parser.parse(schemaJson).getAsJsonObject();
     }
 
-    private Set<Long> allyUnitsGeneratedIDs;
+    private Set<Long> allyUnitsGeneratedIDs = new HashSet<>();
     private Integer moveRejects = 0;
     private Integer moveAccepts = 0;
 
