@@ -300,7 +300,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         String response = prompt(finalPrompt);
 
-        System.out.println(response);
+        // System.out.println(response);
         JsonParser parser = new JsonParser();
         JsonObject sbatchOutputJson = parser.parse(response).getAsJsonObject();
         JsonObject llmOutputJson = parser.parse(sbatchOutputJson.get("response").getAsString()).getAsJsonObject();
