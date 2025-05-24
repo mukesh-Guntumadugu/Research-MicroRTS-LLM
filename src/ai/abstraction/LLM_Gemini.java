@@ -68,7 +68,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
                                 "enum": ["move", "train", "build", "harvest", "attack"]
                             }
                         },
-                        "required": ["raw_move", "unit_position", "unit_type", "action_type"]
+                        "required": ["raw_move", "unit_position", "unit_type", "action_type"],
+                        "propertyOrdering": ["raw_move", "unit_position", "unit_type", "action_type"]
                     }
                 }
             },
@@ -89,13 +90,19 @@ public class LLM_Gemini extends AbstractionLayerAI {
     Each step, each player can assign actions to their units if they are not already doing an action. Each unit can only be assigned ONE action.
     Players can only assign actions to their ally units.
     There are 6 available actions:
-    - move((Target_x, Target_y)): Unit will move to target location.
-    - train(Unit_Type): Unit will train the provided unit type (only bases and barracks can use this action).
-    - build((Target_x, Target_y), Building_Type): Unit will build the provided building type at the target location, consuming the resource cost from the ally base (only workers can use this action).
-    - harvest((Resource_x, Resource_y), (Ally_Base_x, Ally_Base_y)): Unit will navigate to the target resource, collect a resource and bring it back to the target ally base.
-    - attack((Enemy_x, Enemy_y)): Unit will navigate to, and attack the target enemy.
-    - idle(): The target unit will do nothing for a round. This is the default for all available units that are not assigned an action.
-    The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner. BUILD A BARRACKS!
+    - `move` - Unit will move to target location.
+        - Arguments: ((Target_x, Target_y))
+    - `train` - Unit will train the provided unit type (only bases and barracks can use this action).
+        - Arguments: (Unit_Type)
+    - `build` - Unit will build the provided building type at the target location, consuming the resource cost from the ally base (only workers can use this action).
+        - Arguments: ((Target_x, Target_y), Building_Type)
+    - `harvest` - Unit will navigate to the target resource, collect a resource and bring it back to the target ally base.
+        - Arguments: ((Resource_x, Resource_y), (Ally_Base_x, Ally_Base_y))
+    - `attack` - Unit will navigate to, and attack the target enemy.
+        - Arguments: ((Enemy_x, Enemy_y))
+    - `idle` - The target unit will do nothing for a round. This is the default for all available units that are not assigned an action.
+        - Arguments: ()
+    The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner.
 
     Unit types:
     | Unit Type | HP | Cost | Attack Damage | Attack Range | Speed | Abilities                                                       |
@@ -127,11 +134,13 @@ public class LLM_Gemini extends AbstractionLayerAI {
     Game state format:
     The game state consists the map size and a list of feature locations (zero-indexed) within the the map bounds. Units and buildings have different properties associated with their current state. All units and buildings (except resources) have an 'available' property. If a unit or building is available an action issued to it will be accepted.
 
-    Move format:
-    Return a list of actions to take for each available unit or building in the following format:
-    (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
-    (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
-    etc ...""";
+    Raw Move format: `(<X>, <Y>): <Unit_Type> <Action>(<Action_Arguments>)`
+    - X: The X position of the unit to perform the action
+    - Y: The Y position of the unit to perform the action
+    - Unit_Type: The unit type of the unit performing the action
+    - Action: The action for the unit to perform
+    - Action_Arguments: The arguments of the action being performed
+    """;
 
     Random r = new Random();
     protected UnitTypeTable utt;
