@@ -38,9 +38,9 @@ import java.util.HashSet;
  */
 public class LLM_DeepseekR1 extends AbstractionLayerAI {
     static final String ENDPOINT_URL = "http://localhost:11434/api/generate";
-    static final String MODEL = "deepseek-r1:70b";
+    static final String MODEL = "deepseek-r1:32b";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
-    static final String PROJECT_PATH = "/Users/mukesh/projects/MicroRTS-LLM";
+    static final String PROJECT_PATH = "/home/bs602422/projects/MicroRTS-LLM";
     static final String MOVE_HISTORY_PATH = PROJECT_PATH + "/move_history.json";
     static String command = "sbatch --wait " + PROJECT_PATH + "/src/ai/abstraction/llm-json-completion.sh " + MODEL; // <prompt> <format> will be added later
     // How often the LLM should act on the game state
@@ -93,8 +93,8 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     }
 
     private Set<Long> allyUnitsGeneratedIDs = new HashSet<>();
-    private Integer moveRejects = 0;
-    private Integer moveAccepts = 0;
+    private Integer gameMoveRejects = 0;
+    private Integer gameMoveAccepts = 0;
 
     String PROMPT = """
     Game Rules:
@@ -102,13 +102,19 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     Each step, each player can assign actions to their units if they are not already doing an action. Each unit can only be assigned ONE action.
     Players can only assign actions to their ally units.
     There are 6 available actions:
-    - move((Target_x, Target_y)): Unit will move to target location.
-    - train(Unit_Type): Unit will train the provided unit type (only bases and barracks can use this action).
-    - build((Target_x, Target_y), Building_Type): Unit will build the provided building type at the target location, consuming the resource cost from the ally base (only workers can use this action).
-    - harvest((Resource_x, Resource_y), (Ally_Base_x, Ally_Base_y)): Unit will navigate to the target resource, collect a resource and bring it back to the target ally base.
-    - attack((Enemy_x, Enemy_y)): Unit will navigate to, and attack the target enemy.
-    - idle(): The target unit will do nothing for a round. This is the default for all available units that are not assigned an action.
-    The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner. BUILD A BARRACKS!
+    - `move` - Unit will move to target location.
+        - Arguments: ((Target_x, Target_y))
+    - `train` - Unit will train the provided unit type (only bases and barracks can use this action).
+        - Arguments: (Unit_Type)
+    - `build` - Unit will build the provided building type at the target location, consuming the resource cost from the ally base (only workers can use this action).
+        - Arguments: ((Target_x, Target_y), Building_Type)
+    - `harvest` - Unit will navigate to the target resource, collect a resource and bring it back to the target ally base.
+        - Arguments: ((Resource_x, Resource_y), (Ally_Base_x, Ally_Base_y))
+    - `attack` - Unit will navigate to, and attack the target enemy.
+        - Arguments: ((Enemy_x, Enemy_y))
+    - `idle` - The target unit will do nothing for a round. This is the default for all available units that are not assigned an action.
+        - Arguments: ()
+    The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner.
 
     Unit types:
     | Unit Type | HP | Cost | Attack Damage | Attack Range | Speed | Abilities                                                       |
@@ -140,11 +146,13 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
     Game state format:
     The game state consists the map size and a list of feature locations (zero-indexed) within the the map bounds. Units and buildings have different properties associated with their current state. All units and buildings (except resources) have an 'available' property. If a unit or building is available an action issued to it will be accepted.
 
-    Move format:
-    Return a list of actions to take for each available unit or building in the following format:
-    (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
-    (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
-    etc ...""";
+    Raw Move format: `(<X>, <Y>): <Unit_Type> <Action>(<Action_Arguments>)`
+    - X: The X position of the unit to perform the action
+    - Y: The Y position of the unit to perform the action
+    - Unit_Type: The unit type of the unit performing the action
+    - Action: The action for the unit to perform
+    - Action_Arguments: The arguments of the action being performed
+    """;
 
     Random r = new Random();
     protected UnitTypeTable utt;
@@ -164,9 +172,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         try {
             File dir = new File(PROJECT_PATH);
-            System.out.println(" dir : "+dir);
-            promptFile = File.createTempFile("prompt", null, dir); // why are we getting
-            System.out.println(" 164  promptFile : "+promptFile);
+            promptFile = File.createTempFile("prompt", null, dir);
             formatFile = File.createTempFile("format", null, dir);
 
             String jsonContent = MOVE_RESPONSE_SCHEMA.toString();
@@ -294,72 +300,14 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
         String response = prompt(finalPrompt);
 
-        System.out.println(response);
+        // System.out.println(response);
         JsonParser parser = new JsonParser();
-        JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
+        JsonObject sbatchOutputJson = parser.parse(response).getAsJsonObject();
+        JsonObject llmOutputJson = parser.parse(sbatchOutputJson.get("response").getAsString()).getAsJsonObject();
+        JsonArray movesArray = llmOutputJson.getAsJsonArray("moves");
 
-        // Collect metrics
-        JsonObject llmMetrics = new JsonObject();
-
-
-
-        // remove it
-        try{
-        // Get the output file (replace path with yours)
-        File outputFile = new File(System.getProperty("user.home") + "/projects/MicroRTS-LLM/output.out");
-
-// Read the file content
-        String outputString = Files.readString(outputFile.toPath(), StandardCharsets.UTF_8);
-
-// Parse using Gson parser (compatible with older versions)
-            JsonParser safeParser = new JsonParser();
-            JsonObject outputJson = safeParser.parse(outputString).getAsJsonObject();
-
-
-// Extract response
-        JsonObject responseJson = outputJson.getAsJsonObject("response");
-
-        int evalCount = 0;
-        int evalDuration = 0;
-
-        if (responseJson != null && responseJson.has("eval_count") && responseJson.get("eval_count").isJsonPrimitive()) {
-            evalCount = responseJson.get("eval_count").getAsInt();
-        } else {
-            System.err.println("Missing or invalid 'eval_count' in response");
-        }
-
-        if (responseJson != null && responseJson.has("eval_duration") && responseJson.get("eval_duration").isJsonPrimitive()) {
-            evalDuration = responseJson.get("eval_duration").getAsInt();
-        } else {
-            System.err.println("Missing or invalid 'eval_duration' in response");
-        }
-
-
-
-    } catch (IOException e) {
-        System.err.println("Error reading output file: " + e.getMessage());
-        e.printStackTrace();
-    } catch (Exception e) {
-        System.err.println("Error parsing JSON: " + e.getMessage());
-        e.printStackTrace();
-    }
-        // sure do
-
-
-        llmMetrics.addProperty("eval_duration", jsonResponse.get("eval_duration").getAsInt());
-        llmMetrics.addProperty("eval_tokens", jsonResponse.get("eval_count").getAsInt());
-        llmMetrics.addProperty("moves_generated", jsonResponse.get("response").getAsJsonObject().getAsJsonArray("moves").size());
-        JsonObject gameplayMetrics = new JsonObject();
-        gameplayMetrics.addProperty("move_rejects", moveRejects);
-        gameplayMetrics.addProperty("move_accepts", moveAccepts);
-        gameplayMetrics.addProperty("move_total", moveAccepts + moveRejects);
-        gameplayMetrics.addProperty("cycle", gs.getTime());
-        JsonObject metricsObject = new JsonObject();
-        metricsObject.add("gameplay", gameplayMetrics);
-        metricsObject.add("llm", llmMetrics);
-
-        logJsonObject(gs.getTime(), metricsObject);
-        JsonArray movesArray = jsonResponse.getAsJsonArray("moves");
+        int turnMoveAccepts = 0;
+        int turnMoveRejects = 0;
 
         // Loop through the response and handle each move
         for (JsonElement moveElement : movesArray) {
@@ -373,7 +321,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
             if (unit.getPlayer() != player) {
                 System.out.println("Cannot issue action to neutral/enemy unit ("+unitX+", "+unitY+")");
-                moveRejects++;
+                gameMoveRejects++; turnMoveRejects++;
                 continue;
             }
 
@@ -389,7 +337,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                 case "move":
                     if (unit.getType() == baseType || unit.getType() == barracksType) {
                         System.out.println("'move' failed because unit ("+unitX+", "+unitY+") is a base or barracks");
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     pattern = Pattern.compile("\\(\\s*\\d+,\\s*\\d+\\):.*?move\\(\\(\\s*(\\d+),\\s*(\\d+)\\s*\\)\\)");
@@ -400,10 +348,10 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                         int targetY = Integer.parseInt(matcher.group(2));
 
                         move(unit, targetX, targetY);
-                        moveAccepts++;
+                        gameMoveAccepts++; turnMoveAccepts++;
                     } else {
                         System.out.println("'move' regex failed to match for raw_move: " + rawMove);
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     break;
@@ -411,7 +359,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                 case "harvest":
                     if (unit.getType() != workerType) {
                         System.out.println("'harvest' failed because unit ("+unitX+", "+unitY+") is not a worker");
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
                     // Parse the resource position and ally base position for harvest action
 
@@ -428,13 +376,13 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
                         if (resourceUnit != null && baseUnit != null) {
                             harvest(unit, resourceUnit, baseUnit);
-                            moveAccepts++;
+                            gameMoveAccepts++; turnMoveAccepts++;
                         } else {
-                            moveRejects++;
+                            gameMoveRejects++; turnMoveRejects++;
                         }
                     } else {
                         System.out.println("'harvest' regex failed to match for raw_move: " + rawMove);
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     break;
@@ -442,7 +390,7 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                 case "train":
                     if (unit.getType() != baseType && unit.getType() != barracksType) {
                         System.out.println("'train' failed because unit ("+unitX+", "+unitY+") is not a base or barracks");
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     pattern = Pattern.compile("\\(\\s*\\d+,\\s*\\d+\\):.*?train\\(\\s*['\"]?(\\w+)['\"]?\\s*\\)");
@@ -452,17 +400,17 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                         String stringTrainUnitType = matcher.group(1);
                         UnitType trainUnitType = stringToUnitType(stringTrainUnitType);
                         train(unit, trainUnitType);
-                        moveAccepts++;
+                        gameMoveAccepts++; turnMoveAccepts++;
                     } else {
                         System.out.println("'train' regex failed to match for raw_move: " + rawMove);
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
                     break;
 
                 case "build":
                     if (unit.getType() != workerType) {
                         System.out.println("'build' failed because unit ("+unitX+", "+unitY+") is not a worker");
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     pattern = Pattern.compile("\\(\\s*\\d+,\\s*\\d+\\):.*?build\\(\\s*\\(\\s*(\\d+),\\s*(\\d+)\\s*\\),\\s*['\"]?(\\w+)['\"]?\\s*\\)");
@@ -474,10 +422,10 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
                         String stringBuildUnitType = matcher.group(3);
                         UnitType unitBuildType = stringToUnitType(stringBuildUnitType);
                         build(unit, unitBuildType, buildX, buildY);
-                        moveAccepts++;
+                        gameMoveAccepts++; turnMoveAccepts++;
                     } else {
                         System.out.println("'build' regex failed to match for raw_move: " + rawMove);
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     break;
@@ -494,25 +442,25 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
                         if (enemyUnit != null) {
                             attack(unit, enemyUnit);
-                            moveAccepts++;
+                            gameMoveAccepts++; turnMoveAccepts++;
                         } else {
-                            moveRejects++;
+                            gameMoveRejects++; turnMoveRejects++;
                         }
                     } else {
                         System.out.println("'attack' regex failed to match for raw_move: " + rawMove);
-                        moveRejects++;
+                        gameMoveRejects++; turnMoveRejects++;
                     }
 
                     break;
 
                 case "idle":
                     idle(unit);
-                    moveAccepts++;
+                    gameMoveAccepts++; turnMoveAccepts++;
                     break;
 
                 default:
                     System.out.println("Unknown action type: " + actionType);
-                    moveRejects++;
+                    gameMoveRejects++; turnMoveRejects++;
                     break;
             }
         }
@@ -542,6 +490,27 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
             }
         }
 
+        // Collect metrics
+        JsonObject turnMetrics = new JsonObject();
+        turnMetrics.addProperty("game_cycle", gs.getTime());
+        turnMetrics.addProperty("llm_response_time", sbatchOutputJson.get("eval_duration").getAsString());
+        turnMetrics.addProperty("llm_output_tokens", sbatchOutputJson.get("eval_count").getAsString());
+        turnMetrics.add("llm_response", llmOutputJson);
+        turnMetrics.addProperty("moves_generated", llmOutputJson.getAsJsonArray("moves").size());
+        turnMetrics.addProperty("moves_rejected", turnMoveRejects);
+        turnMetrics.addProperty("moves_accepted", turnMoveAccepts);
+
+        JsonObject gameMetrics = new JsonObject();
+        gameMetrics.addProperty("total_moves_rejected", gameMoveRejects);
+        gameMetrics.addProperty("total_moves_accepted", gameMoveAccepts);
+        gameMetrics.addProperty("total_moves_generated", gameMoveAccepts + gameMoveRejects);
+
+        JsonObject metricsObject = new JsonObject();
+        metricsObject.add("turn_metrics", turnMetrics);
+        metricsObject.add("game_metrics", gameMetrics);
+
+        logJsonObject(metricsObject);
+
         // This method simply takes all the unit actions executed so far, and packages them into a PlayerAction
         return translateActions(player, gs);
     }
@@ -557,58 +526,33 @@ public class LLM_DeepseekR1 extends AbstractionLayerAI {
 
     public String prompt(String prompt) {
         try {
-            System.out.println(" 514 path is "+promptFile.toPath());
             Files.write(promptFile.toPath(), prompt.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" 516 path is ");
+
             ProcessBuilder processBuilder = new ProcessBuilder(command.split(" "));
-            ProcessBuilder processBuilder1 = new ProcessBuilder("which", "sbatch");
-            Process p = processBuilder1.start();
-            p.getInputStream().transferTo(System.out);
-            p.waitFor();
-            String home = System.getProperty("user.home");
-            String fakeSbatch = home + "/mockbin/sbatch";
-            ProcessBuilder processBuilder2 = new ProcessBuilder(fakeSbatch, "your_script.sh");
-            Process process = processBuilder2.start();
-            System.out.println("Trying: " + fakeSbatch);
-            System.out.println("File exists: " + new File(fakeSbatch).exists());
-            System.out.println(" 518 path is ");
 
             // Start the process
-           // Process process = processBuilder.start(); // 520 line number
-            // Process process = new ProcessBuilder("sbatch", "your_script.sh").start();
-            //Process process = new ProcessBuilder("/Users/yourname/mockbin/sbatch", "your_script.sh").start();
-            //process.getErrorStream().transferTo(System.out); // Debugging
-            System.out.println(" 522 path is ");
+            Process process = processBuilder.start();
+            // process.getErrorStream().transferTo(System.out); // Debugging
+
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 System.err.println("sbatch command failed with exit code: " + exitCode);
-                return "[]";
+                return "{}";
             }
             
             String outputFilePath = PROJECT_PATH + "/output.out";
-            System.out.println(" 530  PROJECT_PATH : "+PROJECT_PATH);
-            System.out.println(" 531  PROJECT_PATH : "+outputFilePath);
             String jsonContent = new String(Files.readAllBytes(Paths.get(outputFilePath)), StandardCharsets.UTF_8);
-            System.out.println(" 533  jsonContent : "+jsonContent);
 
             return jsonContent;
 
-            // Parse JSON to extract "response"
-            // JsonParser parser = new JsonParser();
-            // JsonObject jsonObject = parser.parse(jsonContent).getAsJsonObject();
-            // String response = jsonObject.get("response").getAsString();
-
-            // return response;
-
         } catch (Exception e) {
-            System.err.println(" 540 : ");
             System.err.println(e);
             e.printStackTrace();
             return "[]";
         }
     }
 
-    public void logJsonObject(int turn, JsonObject jsonObject) {
+    public void logJsonObject(JsonObject jsonObject) {
         try {
             JsonArray root;
             JsonParser parser = new JsonParser();
