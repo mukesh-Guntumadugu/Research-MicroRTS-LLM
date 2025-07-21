@@ -121,60 +121,61 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      */
     String PROMPT = """
-          Strategy Game Instructions
-                  You are controlling a strategy game. Your job is to issue the correct actions for each of your units and buildings in every turn.
+          Players can only assign actions to their units. can assign multiple actions at they same time
+                         There are 6 available actions:
+                         - move((Target_x, Target_y)): Unit will move to target location. and workers can go to they resourses position so that base can produse more workers are light, heavy resorses
+                         - train(Unit_Type): Unit will train the provided unit type (only bases and barracks can use this action).
+                         - build((Target_x, Target_y), Building_Type): Unit will build the provided building type at the target location, consuming the resource cost from the ally base (only workers can use this action).
+                            produse all workers do not wait for the other upponent all ways relise all the workers from your base
+                         - harvest((Resource_x, Resource_y), (Ally_Base_x, Ally_Base_y)): Unit will navigate to the target resource, collect a resource and bring it back to the target ally base.
+                            Important Note:
+                                 - The harvest action is a multi-step process.
+                                 - If the worker is **not adjacent** to the resource, it must first **move** toward it.
+                                 - Once adjacent, it will perform the **harvest** action.
+                                 - Then it must **return to the base**, possibly by moving again, and once adjacent to the base, it performs the **return** action.
+                                 - The model should only issue a `harvest((resource_x, resource_y), (base_x, base_y))` action for a worker. The game will automatically handle whether the unit needs to move, harvest, or return.
+                         - attack((Enemy_x, Enemy_y)): Unit will navigate to, and attack the target enemy.
+                          the enemy is near to you attack they enemy do your previous job after words
+                         attack as soon as possible don't wast time once you are getting more workers send all of them to attack they base (5, 6) Enemy Base Unit
+                         The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner.
             
-                  🎯 Strategy Objective
-                  Always assign one worker to perform the harvest action (keep gathering resources).
             
-                  All other workers and combat units must attack the enemy — go fully aggressive (all-in).
             
-                  Your base should keep training new workers if you have resources.
             
-                  As soon as a barracks is available, start training combat units (light, heavy, ranged) and send them to attack.
+                         Unit types:
+                         | Unit Type | HP | Cost | Attack Damage | Attack Range | Speed | Abilities                                                       |
+                         |-----------|----|------|---------------|--------------|-------|-----------------------------------------------------------------|
+                         | worker    | 1  | 1    | 1             | 1            | 1     | Trained from base, Gathers resources, builds base and barracks  |
+                         | light     | 4  | 2    | 2             | 1            | 2     | Trained from barracks, High Speed                               |
+                         | heavy     | 8  | 3    | 4             | 1            | 1     | Trained from barracks, High HP, High Damage                     |
+                         | ranged    | 3  | 2    | 1             | 3            | 1     | Trained from barracks, High Range                               |
             
-                  🛠️ Available Actions
-                  move((x, y)): Move the unit to a specified location
             
-                  attack((enemy_x, enemy_y)): Attack the enemy unit or building at given position
             
-                  harvest((resource_x, resource_y), (base_x, base_y)): Worker will collect resource and return it to base
             
-                  build((x, y), building_type): Worker will construct a base or barracks at given location
+                         Building types:
+                         | Building Type | HP  | Cost | Abilities                               |
+                         |---------------|-----|------|-----------------------------------------|
+                         | base          | 10  | 10   | Produces workers, Stores resources      |
+                         | barracks      | 5   | 5    | Produces Light, Heavy, and Ranged units |
             
-                  train(unit_type): Base or barracks will produce a unit
+                          for one worker try to do harvest all time : in simple words on worker harvest and all workers try to attack all in.
+                          attack as soon as possible like all in
+                          after getting one worker start harvesting
             
-                  🪓 Harvesting Rules
-                  Use this format:
-                  harvest((resource_x, resource_y), (base_x, base_y))
             
-                  The game engine handles all the logic — moving to the resource, harvesting, moving to the base, and returning it.
+                         "You are controlling a strategy game where players manage units and buildings. Your job is to issue the correct action for each of your units on every turn.\\\\n\\\\n### 🎯 Important Instructions for HARVEST Action\\\\n- Use the `harvest((resource_x, resource_y), (base_x, base_y))` action for workers.\\\\n- This is a **multi-phase action**:\\\\n  1. The worker will automatically **move** to the resource.\\\\n  2. Once adjacent, it will **harvest** it.\\\\n  3. Then the worker will **move** back to the base.\\\\n  4. Once adjacent to the base, it will **return** the resource.\\\\n- You must only issue the `harvest(...)` action ONCE per unit. The game will handle all internal sub-steps.\\\\n- Do not manually issue `move`, `harvest`, or `return` separately.\\\\n\\\\n### ✅ Correct Format\\\\nReturn a list of actions for each available unit in this format:\\\\n```plaintext\\\\n(<x>, <y>): <unit_type> <action>(<args>)\\\\n```\\\\nExample:\\\\n```plaintext\\\\n(2, 0): worker harvest((0, 0), (2, 1))\\\\n(2, 1): base train(worker)\\\\n```\\\\n\\\\n### 💡 Available Actions\\\\n- move((x, y))\\\\n- attack((enemy_x, enemy_y))\\\\n- build((x, y), building_type)\\\\n- train(unit_type)\\\\n- harvest((resource_x, resource_y), (base_x, base_y))\\\\n\\\\n### 🗺️ Map Information\\\\nYou will be told where units, resources, and bases are located.\\\\nUse this information to plan your moves logically.\\\\n\\\\nNow output JSON in this format:\\\\n```json\\\\n{\\\\n  \\\\"thinking\\\\": \\\\"<Your strategy>\\\\",\\\\n  \\\\"moves\\\\": [\\\\n    {\\\\n      \\\\"raw_move\\\\": \\\\"(x, y): unit_type action(...)\\\\",\\\\n      \\\\"unit_position\\\\": [x, y],\\\\n      \\\\"unit_type\\\\": \\\\"worker\\\\",\\\\n      \\\\"action_type\\\\": \\\\"harvest\\\\"\\\\n    },\\\\n    ...\\\\n  ]\\\\n}\\\\n```"
+                         play to win chatgpt & Evil 
+                         
             
-                  You should NOT manually give move, harvest, and return separately.
             
-                  Just issue harvest(...) once and the worker will follow the correct sequence.
             
-                  Example:
+                         Move format:
+                         Return a list of actions to take for each available unit or building in the following format:
+                         (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
+                         (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
+                         etc ...""
             
-                  (2, 0): worker harvest((0, 0), (2, 1))
-                  ⚔️ All-In Attack Instructions
-                  All other units (including idle workers, light, heavy, and ranged units) must attack the closest enemy.
-            
-                  You can issue:
-            
-                  
-                  (x, y): unit_type attack((enemy_x, enemy_y))
-                  Example:
-                  (1, 0): worker attack((5, 6))
-                  (3, 1): light attack((6, 5))
-                  ✅ Summary
-                  Only one worker should harvest every turn.
-            
-                  All other units should attack the enemy as fast as possible.
-            
-                  Base keeps training new workers.
-            
-                  Prioritize aggression after securing 1 harvester and the base needs to produse all the workers to attack the enemy .
             
     """;
     /*
@@ -321,9 +322,6 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      * head a issue check it will work properly are not write now we are adding json responses
      * this format is bad need to update
-     *
-     *
-     *
      *
      */
     private void logEndGameMetrics() {
