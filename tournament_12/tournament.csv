@@ -1,0 +1,17 @@
+tournaments.FixedOpponentsTournament
+AIs
+	RandomBiasedAI
+opponent AIs
+	SCV
+	LLM_DeepseekR1(AStarPathFinding)
+maps
+	/Users/mukesh/Desktop/MicroRTS-LLM/maps/basesWorkers32x32A.xml
+iterations	10
+maxGameLength	3000
+timeBudget	100
+iterationsBudget	-1
+fullObservability	true
+timeoutCheck	true
+runGC	false
+iteration	map	ai1	ai2	time	winner	crashed	timedout
+0	0	0	0	2625	1	-1	-1

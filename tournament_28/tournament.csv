@@ -1,0 +1,39 @@
+tournaments.FixedOpponentsTournament
+AIs
+	LLM_DeepseekR1(AStarPathFinding)
+opponent AIs
+	SCV
+maps
+	/Users/mukesh/Desktop/MicroRTS-LLM/maps/24x24/basesWorkers24x24L.xml
+iterations	10
+maxGameLength	30000000
+timeBudget	10
+iterationsBudget	-1
+fullObservability	true
+timeoutCheck	true
+runGC	false
+iteration	map	ai1	ai2	time	winner	crashed	timedout
+0	0	0	0	0	1	0	-1
+1	0	0	0	0	1	0	-1
+2	0	0	0	0	1	0	-1
+3	0	0	0	0	1	0	-1
+4	0	0	0	0	1	0	-1
+5	0	0	0	0	1	0	-1
+6	0	0	0	0	1	0	-1
+7	0	0	0	0	1	0	-1
+8	0	0	0	0	1	0	-1
+9	0	0	0	0	1	0	-1
+Wins:
+0	
+Ties:
+0	
+Average Game Length:
+0.0	
+AI crashes:
+10	
+opponent AI crashes:
+0	
+AI timeout:
+0	
+opponent AI timeout:
+0	

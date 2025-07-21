@@ -1,0 +1,3459 @@
+[2025-07-16 20:59:38.675]
+{
+  "thinking": "The first turn should be focused on gathering resources. Since there is a resource node at (0, 0), the worker at (2, 1) should harvest it and return to the base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:39.783]
+{
+  "thinking": "The ally base should produce a worker to start gathering resources. This will help the base accumulate more resources for future unit production.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 20:59:41.224]
+{
+  "thinking": "The highest priority is to increase the amount of workers to collect the resources to expand the base, I will focus on getting more workers from the base and move the workers to the resource nodes",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:42.708]
+{
+  "thinking": "The current turn is 70, and I need to make efficient use of my units. My ally base at (2, 1) is producing a unit, and my worker at (2, 0) is idling. The enemy has a base at (5, 6) and a worker at (6, 7) harvesting. I will move my worker towards the closest resource node (0, 0) to begin harvesting resources to expand my base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:44.135]
+{
+  "thinking": "The ally worker at (2, 0) should harvest the resource at (0, 0) and bring it back to the ally base at (2, 1). The ally base at (2, 1) should train a worker.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 20:59:45.507]
+{
+  "thinking": "The ally worker should harvest resources from the nearest resource node and bring them back to the ally base. The ally base should continue to produce workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 20:59:47.060]
+{
+  "thinking": "The base should continue producing workers to gather resources. The worker should harvest resources to allow the base to produce more units. Since the opponent has workers near the base, attack with the worker. ",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:48.751]
+{
+  "thinking": "The current turn is 110. I should focus on gathering resources and building more units. I have 3 workers and 1 base. I will have the workers gather resources and the base train workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 20:59:50.408]
+{
+  "thinking": "The ally base should produce more workers. The ally workers should harvest resources to help produce more units. The enemy workers should be attacked.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 1): worker attack((6, 7))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:52.243]
+{
+  "thinking": "The ally base should continue to produce workers. The worker at (2, 0) should harvest from the neutral resource node at (0, 0) and bring it back to the ally base at (2, 1). The worker at (1, 2) should build a barracks at (1, 3).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(1, 2): worker build((1, 3), barracks)",
+      "unit_position": [
+        1,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:54.045]
+{
+  "thinking": "The ally base has resources. Train workers to harvest resources and build more buildings. Ally workers should harvest resources and one build a barracks. This will increase resource production and allow for training combat units.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(1, 2): worker build((0, 3), barracks)",
+      "unit_position": [
+        1,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:55.889]
+{
+  "thinking": "The ally base should continue producing workers to gather resources. The worker at (2,0) should harvest resources from (0,0) and return them to the base at (2,1). The worker at (0,2) should harvest resources from (0,0) and return them to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:57.825]
+{
+  "thinking": "The opponent has more workers than us. We must make sure we have enough workers so our base can produce more units. We should harvest all resources to make sure we have enough. The nearest resource node to our worker at (0,2) is at (0,0), and the nearest base to the resource node is at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(2, 0): worker move((0, 0))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(3, 1): worker move((0, 0))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 20:59:59.806]
+{
+  "thinking": "The base will produce workers to harvest resources. Workers will harvest resources to allow the base to produce more workers and barracks. Workers will build barracks to allow the production of military units. Military units will attack the enemy base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:02.182]
+{
+  "thinking": "The highest priority is to expand resource gathering. Secondly, it is important to continue building workers and increasing the number of offensive units, and finally send workers to harvest resources and build new structures. I will prioritize actions as follows: expanding my harvesting operations by moving all workers to available resources, and training more workers. Simultaneously, the base will continue to train workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:04.460]
+{
+  "thinking": "The ally base should produce more workers to increase resource collection and expansion capabilities. Ally workers should focus on harvesting resources to support unit production and building construction. Specifically, sending the workers to the closest resource node to maximize the collection efficiency.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:06.816]
+{
+  "thinking": "The ally base should produce workers to increase resource collection. Workers should harvest resources to allow for training more units and building barracks.  Workers will harvest resources and take them back to base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:09.666]
+{
+  "thinking": "The ally base should train workers to gather resources for building barracks and attacking. Workers should harvest resources and bring them back to the base. Prioritize harvesting resources and building barracks. The worker at (2,0) harvests resources, the worker at (0,2) builds barracks, and the base at (2,1) trains workers. Other workers help.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(0, 2): worker build((1, 2), barracks)",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:11.819]
+{
+  "thinking": "I need to coordinate my workers to harvest resources and expand while also preparing for potential attacks. I will prioritize harvesting resources to allow the base to produce more workers. I will also focus on building a barracks to train combat units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:14.687]
+{
+  "thinking": "The ally base should produce workers to increase resource gathering and building capabilities.  Ally workers should harvest resources to supply the base. Workers should prioritize building a barracks near the base to enable unit production. One worker should focus on scouting and attacking enemy workers to weaken their economy. The base will continuously produce workers.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(3, 1): worker build((3, 2), barracks)",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 1): worker attack((4, 4))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:17.543]
+{
+  "thinking": "The highest priority is to gather resources. I will send two workers to the closest resource location. After that, I will continue training more workers. I will keep other workers around to protect my base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:20.627]
+{
+  "thinking": "The ally base should continue training workers to maximize resource gathering efficiency. The workers should harvest resources from the nearest resource node and bring them back to the base. Prioritize the worker at (2, 0) to harvest the resource at (0, 0), since is closer than the resource at (7, 7), and send workers (0, 2), (3, 1) to harvest at (0, 0) as well. Other workers should go to resource node (7,7) and harvest the light resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 3): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        1,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:23.054]
+{
+  "thinking": "The game is reaching its final turns, prioritize attacking the enemy base with all available units. Send workers to harvest resources and bring them back to the base to ensure worker production continues, which can further assist in the attack.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:25.197]
+{
+  "thinking": "I need to continue harvesting resources to build more units and expand my base. I should also start attacking the enemy base and workers to weaken their economy and military.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:27.275]
+{
+  "thinking": "The highest priority is to eliminate the enemy units as efficiently as possible. First I\u0027ll move all the ally worker units towards the enemy worker unit, and the base will train a worker to replace the lost unit",
+  "moves": [
+    {
+      "action_type": "move",
+      "raw_move": "(2, 0): worker move((3, 5))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(0, 2): worker move((3, 5))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(2, 2): worker move((3, 5))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:29.617]
+{
+  "thinking": "The ally base should produce more workers to help gather resources and expand. The workers should focus on gathering resources to allow for more unit production and building construction. One worker should build a barracks near the base. The workers closest to resources should harvest them and bring them back to the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(2, 2): worker build((3, 3), barracks)",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:31.970]
+{
+  "thinking": "We have 3 workers, one base. Focus on gathering resources to produce units. Worker at (3,0) should harvest from (0,0) and bring it back to base (2,1). Worker at (0,3) should harvest from (0,0) and bring it back to base (2,1). Worker at (2,3) should harvest from (0,0) and bring it back to base (2,1). The base should train workers for now.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:34.046]
+{
+  "thinking": "The opponent has 3 workers and a base. I have 1 base and 3 workers. I should use my workers to harvest and my base to produce workers to have a size advantage.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:36.369]
+{
+  "thinking": "The highest priority is to eliminate the enemy workers to prevent them from gathering resources and constructing buildings. Prioritize attacking the closest enemy worker units with our worker units. Also, continue harvesting resources to ensure a steady income for training new units.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 2): worker attack((1, 6))",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 3): worker attack((5, 5))",
+      "unit_position": [
+        2,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:38.979]
+{
+  "thinking": "The game is still in the early stages, and I need to focus on building up my economy and defenses. I\u0027ll start by having my workers harvest resources and then build a barracks to train combat units. I want to prioritize harvesting from the closer resource node first, then building a barracks near my base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:41.023]
+{
+  "thinking": "My goal is to eliminate the enemy base and prevent them from gathering resources. I will have my workers harvest resources to build more combat units and attack the enemy base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:42.785]
+{
+  "thinking": "The game is about to end, I will focus on attacking the enemy base with all my units.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 3): worker attack((5, 6))",
+      "unit_position": [
+        1,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 4): worker attack((5, 6))",
+      "unit_position": [
+        1,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:44.808]
+{
+  "thinking": "The ally base should produce workers to gather resources and build barracks. The workers should harvest resources from the closest resource node and bring them back to the base. Since workers are idle, they should start harvesting resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:46.714]
+{
+  "thinking": "Prioritize resource collection to enable training more units. Move workers to gather resources and bring them back to the base. Simultaneously, train more workers at the base to expand resource gathering capabilities. Attack enemy workers to disrupt their resource collection.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:48.616]
+{
+  "thinking": "The current turn is 380/5000. I have two workers and a base. The enemy has a base and several workers. I should focus on building more workers and harvesting resources to expand my base and create an army. I\u0027ll have one worker harvest resources and the other build a barracks. The base will produce workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(3, 5): worker build((4, 4), barracks)",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:50.330]
+{
+  "thinking": "The game is still in progress. I need to continue gathering resources and producing units to attack the enemy base. Focus on improving resource collection and military might.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:52.541]
+{
+  "thinking": "The game is nearing its end (turn 400/5000), and I need to focus on maximizing resource collection and potentially attacking the enemy base if possible. I will assign the worker units to harvest resources and bring them back to the ally base. I will also instruct the base to keep producing workers, and keep checking if I can use my worker to attack or the base to produce units. Because i can only select 3 actions at a time, I will start by selecting the 2 workers near the ally base to harvest the resources and the base to train workers",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:54.383]
+{
+  "thinking": "I need to focus on gathering resources and defending my base. I will have the workers gather resources and the base produce more workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:56.122]
+{
+  "thinking": "The ally base at (2, 1) should train a worker to ensure resource collection continues. The two ally workers will harvest resources and bring them back to the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:00:57.397]
+{
+  "thinking": "The ally worker is close to the enemy base. Attack it. Ally base trains worker",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 5): worker attack((5, 6))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:00:58.692]
+{
+  "thinking": "The ally worker is currently moving to (0,0). Since our base has no resources, it is essential to get resources. Let the worker finish moving to (0,0) to start collecting it. Also, no other units are available, so no other actions will be taken.",
+  "moves": [
+    {
+      "action_type": "move",
+      "raw_move": "(3, 5): worker move((0, 0))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:00.054]
+{
+  "thinking": "The ally base should train workers to gather resources. The ally worker should harvest resources from the nearest resource node and bring them back to the base. This will allow the base to produce more units. The enemy workers should be attacked to prevent them from gathering resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:01.448]
+{
+  "thinking": "The ally worker should harvest resources from the closest resource node and bring them back to the base. The ally base should train workers to gather resources and expand.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:02.519]
+{
+  "thinking": "The ally worker will harvest the resources and bring them back to the base to produce more workers. Since the enemy workers are far away, I will focus on harvesting resources to build a barracks to produce more units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:03.686]
+{
+  "thinking": "The ally worker will harvest resources from the neutral resource node at (0, 0) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:04.951]
+{
+  "thinking": "The ally worker will harvest resources from the closest resource node. The ally base will train workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:06.067]
+{
+  "thinking": "The ally worker unit should harvest resources from the nearest resource node (0,0) and return them to the ally base (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:07.477]
+{
+  "thinking": "The ally worker should harvest resources from the nearest resource node and bring them back to the ally base to ensure the base has enough resources to produce more units. Since the closest resource node is at (0, 0), the worker will harvest from there and bring the resources to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:08.974]
+{
+  "thinking": "The ally worker should harvest resources to help the base produce more workers. The ally base should produce more workers to help gather more resources and build more buildings.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:10.400]
+{
+  "thinking": "The enemy workers are gathering resources which allows the enemy base to build more units, killing them will slow down the enemy economy and unit production, since we can only perform two actions, and our worker is closer to an enemy worker, we should attack that one.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 6): worker attack((4, 2))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:12.304]
+{
+  "thinking": "My worker is currently moving to the resource node. Let\u0027s focus on harvesting and ensuring we have enough resources. Since the worker is going to the resource node at (0,0) when it arrives it needs to harvest. I will issue it that command when it get there, which is now. I also want to create a worker.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:13.425]
+{
+  "thinking": "The worker is close to the resource. I\u0027ll have the worker harvest resources and bring them back to base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:14.798]
+{
+  "thinking": "The worker at (4, 5) is currently moving to the resource node. Let\u0027s have it harvest from the resource node at (0, 0) and bring it back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        5
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:15.991]
+{
+  "thinking": "The ally worker is idle and near the enemy base and workers. It should attack the enemy worker at (6,1).",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((6, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:17.117]
+{
+  "thinking": "The enemy base is low on HP. Attack with the worker. No need to expand right now. The worker should attack the base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((5, 6))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:19.009]
+{
+  "thinking": "My base needs more resources and the worker should continue harvesting. The enemy base is weak. I will tell my worker to attack the enemy base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:20.599]
+{
+  "thinking": "The enemy base is low on HP so I should try to kill it. Also, the enemy has multiple workers. I should eliminate the enemy workers before focusing on the base. I will move my worker to attack the closest enemy worker, and move my base to produce a worker.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((5, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:21.789]
+{
+  "thinking": "The enemy base is about to be destroyed, so let\u0027s continue attacking it with the worker. Also, the ally worker will continue gathering resources from the resource node at (0, 0) and bringing them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((5, 6))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:22.913]
+{
+  "thinking": "The ally worker unit at (4, 6) is idle. It should harvest resources from the resource node at (0, 0) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:23.917]
+{
+  "thinking": "The ally worker should harvest the resource at (0,0) and return to the ally base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:25.293]
+{
+  "thinking": "The ally worker should harvest resources to increase the amount of resources in base to create units, and defend the base from the enemy. It should go to the nearest resourse node and harvest to the base. Once it harvest we can create more light units to attack the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:26.721]
+{
+  "thinking": "The highest priority is to attack the enemy workers, then harvest resources, and finally train units.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((5, 0))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:28.278]
+{
+  "thinking": "The ally worker unit at (4,6) is currently moving to resource node (0,0). The base unit at (2,1) should continue to train worker units to expand resource gathering operations. The enemy worker units at (4,0), (6,3), and (6,4) should be attacked to diminish the enemy\u0027s economy.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): worker attack((4, 0))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:29.543]
+{
+  "thinking": "The worker is currently moving to the neutral resource node at (0,0). Since it is turn 670, I will continue to have it harvest from the node and bring the resources back to the ally base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(5, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        5,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:30.997]
+{
+  "thinking": "The ally worker at (4,6) is currently moving to resource at (0,0). Let it continue harvesting. Since we have a base, we should start producing workers to gather more resources.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:32.133]
+{
+  "thinking": "The worker at (4, 5) is currently moving towards a resource node. I will let it continue. I do not have any resources, so I cannot train any new workers yet. I will leave the base to idle.",
+  "moves": [
+    {
+      "action_type": "move",
+      "raw_move": "(4, 5): worker move((0, 0))",
+      "unit_position": [
+        4,
+        5
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:33.296]
+{
+  "thinking": "The ally worker will harvest the resource at (0, 0) and bring it back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:34.645]
+{
+  "thinking": "The ally worker at (4,4) should harvest resources to make more units. The ally base at (2,1) should train a worker to get resources faster.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:35.685]
+{
+  "thinking": "The ally worker at (4, 4) should harvest resources from the neutral resource node at (0, 0) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:37.135]
+{
+  "thinking": "The worker should harvest resources, and the base should produce workers since they are the most cost-effective unit. There are enemies nearby, but we do not have the appropriate units to engage.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:38.619]
+{
+  "thinking": "The ally base should continue training workers to expand resource gathering. The worker unit should harvest resources from the nearest resource node and bring them back to the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:39.922]
+{
+  "thinking": "The worker will harvest the closest resource node and bring it back to base. The base will produce workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:41.213]
+{
+  "thinking": "The ally base should produce workers. The ally worker should harvest resources from (0,0) and bring them back to the ally base. Need to handle enemy workers to stop them from gathering resources or building.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:42.408]
+{
+  "thinking": "The worker at (4,4) should harvest resources from (0,0) and return them to the ally base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:43.619]
+{
+  "thinking": "The current turn is 780. Since there are no barracks yet, focus on gathering resources to build one, followed by a barracks to start producing combat units. Also, send the worker to harvest resources and bring them back to base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:45.097]
+{
+  "thinking": "The ally worker at (4,4) should attack the enemy worker at (5,2) to weaken the enemy. It should then move to harvest resources at (0,0) and return them to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 4): worker attack((5, 2))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:46.342]
+{
+  "thinking": "The game is coming to an end soon, and I need to win it. Since I have one worker and one base, I will make the worker harvest resources from the neutral resource node at (0,0) and bring them back to my base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:47.891]
+{
+  "thinking": "The ally base should start training workers to replace the worker that may be lost harvesting. The worker should harvest the resource node at (0, 0) and bring it back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:49.385]
+{
+  "thinking": "The enemy worker at (4, 0) is dangerously close to my base. I need to eliminate it immediately. My worker at (4, 3) should attack it. The enemy worker at (3,6) does not pose any immediate threat so I will instruct my base to produce another worker to gather resource.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 3): worker attack((4, 0))",
+      "unit_position": [
+        4,
+        3
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:50.804]
+{
+  "thinking": "The highest priority is to use the worker to harvest resources. It should focus on harvesting from the closest neutral resource node and bringing it back to the base.  Then I should move my worker close to the resource so it can gather resources and bring it back to the base at (2,1). I should attack any workers coming to the base location.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:52.275]
+{
+  "thinking": "The ally base at (2,1) should train workers to maximize resource collection and building capabilities. The worker at (3,2) should harvest resources to support further production and building. I will prioritize the closest resource node.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:53.754]
+{
+  "thinking": "The ally worker should harvest resources from the closest resource node and deliver them to the ally base. The enemy workers should be attacked to disrupt their economy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((2, 0))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:55.032]
+{
+  "thinking": "The ally worker should harvest resources from the nearest resource node and bring them back to the ally base. The ally base should train a worker to help gather resources.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:01:56.196]
+{
+  "thinking": "The ally base needs more resources to produce more units, I will order the worker to harvest resources from the nearest resource node and return them to the base. Also, I will keep the worker harvesting to get more resources for future units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:57.814]
+{
+  "thinking": "The ally base should train workers to increase resource gathering. The worker should harvest resources from the nearest node and bring them back to the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:01:59.118]
+{
+  "thinking": "The base should train a worker to gather resources. The worker should harvest resources from the nearest resource node and bring them back to the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:00.738]
+{
+  "thinking": "The worker will collect resources from the resource node to allow base to create units. the base will start to create workers",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:01.860]
+{
+  "thinking": "The worker should harvest resources from the resource node at (0, 0) and bring them back to the base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:03.348]
+{
+  "thinking": "The priority is to eliminate the enemy worker. I will move the ally worker to attack the enemy worker. Then, I will move the base towards the resource node to hopefully collect resources. ",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 0): worker attack((5, 7))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(2, 1): base move((0, 0))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:04.345]
+{
+  "thinking": "The worker unit should continue to harvest the resource.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:05.717]
+{
+  "thinking": "The worker needs to continue harvesting resources from the resource node at (0, 0) and bring them back to the base at (2, 1) to enable more unit production.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:06.780]
+{
+  "thinking": "The worker should continue harvesting resources from the resource node at (0, 0) and bringing them back to the base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 2): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:08.219]
+{
+  "thinking": "The ally worker unit is currently moving towards the resource node at (0, 0). Continue this action to gather resources. Since the ally base at (2, 1) has low health, focus on harvesting resources to rebuild it later. The enemy worker is too far to attack.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:09.649]
+{
+  "thinking": "The worker should continue to collect resources at (0,0) and bring them back to the base to allow the base to create more units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:10.951]
+{
+  "thinking": "The ally worker should continue harvesting resources from the closest resource node. The ally base should continue training workers to have more units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 5): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        5
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:12.055]
+{
+  "thinking": "The ally worker is currently moving to (0,0). Since the resource node is close, it should start harvesting resources to bring back to the base to produce workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 6): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        6
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:13.641]
+{
+  "thinking": "The ally worker is moving to the resource node at (0,0). The ally base should start training workers to gather resources. If the resource node at (0,0) is depleted, the worker should move to the resource node at (7,7).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 7): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:15.131]
+{
+  "thinking": "The worker should go back to harvesting as it is close to the base. The base should continue producing workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 7): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:16.839]
+{
+  "thinking": "The worker is currently moving to resource (0,0). The base should produce more workers, and the worker at (5, 7) should continue harvesting resources at (0, 0).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(5, 7): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        5,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:18.558]
+{
+  "thinking": "The ally base should continue to produce workers to gather resources and build more buildings. The worker should harvest resources from the closest resource node and bring them back to the base. Since the enemy worker is close to the ally worker, it should attack the enemy worker.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:20.024]
+{
+  "thinking": "The ally worker at (6, 7) will harvest resources from the resource node at (7, 7) and bring them back to the ally base at (2, 1). The ally base at (2, 1) will continue training workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:21.158]
+{
+  "thinking": "The ally worker at (6, 7) will move to harvest resources from the resource node at (7, 7) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:22.652]
+{
+  "thinking": "The ally worker at (6,7) should harvest the resource at (7,7) and bring it back to the base at (2,1). The base at (2,1) should train a worker.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:24.110]
+{
+  "thinking": "The ally worker at (6,7) is close to the resource at (7,7). It should harvest the resource and return it to the base at (2,1). The enemy worker at (5,4) is a threat and should be attacked by the base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 4))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:25.166]
+{
+  "thinking": "The ally worker at (6,7) should harvest resources from the resource node at (7,7) and return them to the ally base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:26.626]
+{
+  "thinking": "The ally base should train a worker. The ally worker should harvest from the resource at (7,7) and bring it back to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:27.875]
+{
+  "thinking": "The opponent worker is near the ally worker. Ally worker should attack the opponent worker. Base should produce workers.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(6, 7): worker attack((4, 5))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:29.136]
+{
+  "thinking": "The enemy worker is near my base, so I should move my worker to attack it. Also, my base should continue training workers to expand my resource gathering capabilities.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(6, 7): worker attack((4, 4))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:30.539]
+{
+  "thinking": "The enemy worker is close to our base and needs to be eliminated. The ally worker should harvest resources to allow the base to produce units.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(6, 7): worker attack((4, 5))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:31.663]
+{
+  "thinking": "The worker at (6,7) should harvest resources from (7,7) and bring them to the ally base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:32.861]
+{
+  "thinking": "The ally worker should harvest the resource and the ally base should continue to train workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:34.370]
+{
+  "thinking": "The ally base should keep producing workers to collect resources. The worker can harvest the resource node at (7,7) and bring it back to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:35.364]
+{
+  "thinking": "The ally worker at (6, 7) should harvest resources from (7, 7) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:36.579]
+{
+  "thinking": "The enemy worker is closer to the ally base than the ally worker, and the ally base has low health. Attack the enemy worker to defend the base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(6, 7): worker attack((4, 7))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:37.808]
+{
+  "thinking": "The ally worker unit at (6, 7) should harvest the resource at (7, 7) and bring it back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:38.736]
+{
+  "thinking": "The ally base at (2, 1) should train a worker to gather resources and expand the production.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:39.624]
+{
+  "thinking": "The enemy worker is near our resource node. Let\u0027s attack it with our base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((6, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:40.782]
+{
+  "thinking": "The enemy worker is close to my base. I should attack it to prevent it from harassing my base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:41.762]
+{
+  "thinking": "The opponent worker is going to the resource node, so I should send the base to attack it.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((6, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:42.927]
+{
+  "thinking": "The only unit I control is the base. Since the base has sufficient health and I have enough resources (currently at 0), I will train a worker to gather resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:44.170]
+{
+  "thinking": "The enemy worker is near the resource node at (7,7). It is likely going to harvest it. Since the enemy worker is weak, I should attack it to prevent it from harvesting the resource and potentially building a base there.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((6, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:45.271]
+{
+  "thinking": "The worker at (2,1) should harvest resources from (0,0) and bring them back to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-16 21:02:46.476]
+{
+  "thinking": "The enemy worker is near a resource. I will move my base to (3,1) to harvest the resource. I am prioritizing economic development as the game is still far from over.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): base harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:47.556]
+{
+  "thinking": "The ally base is damaged and has low HP. Since I can only perform one action, I should move a worker to harvest resources to repair the base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): base harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:48.873]
+{
+  "thinking": "The ally base at (2,1) should train a worker to gather resources. There are two resource locations at (0,0) and (7,7). It is better to train a worker first. The enemy worker is far away and has low health, so it\u0027s not a priority to attack it now.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:50.176]
+{
+  "thinking": "The ally base at (2, 1) is damaged and has no resources. The enemy worker at (5, 6) is idle. Since there is a resource node at (0, 0), and I need to generate more workers. Need to harvest from a resource node.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 1): base harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:51.461]
+{
+  "thinking": "The ally base is being attacked by an enemy worker. The base needs to either move a unit to defend itself, or attack directly. Since the base can\u0027t move, it should attack the enemy worker directly.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:52.657]
+{
+  "thinking": "The base should produce workers to replenish resource income. Since there is a resource node at (0,0) and (7,7), worker should harvest from (0,0) first.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:53.773]
+{
+  "thinking": "The ally base at (2, 1) should train a worker to gather resources from the neutral resource nodes.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:55.011]
+{
+  "thinking": "The base needs to be defended, and since there is an enemy worker in range, the base should attack the worker to prevent it from building a structure or harassing the base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((4, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:56.037]
+{
+  "thinking": "The enemy worker is near my base and I need to attack it.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((4, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:57.129]
+{
+  "thinking": "The enemy worker at (3, 6) is a threat. The ally base at (2, 1) has taken some damage. Since I can only perform 1 action, I will attack the enemy worker with the base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:58.221]
+{
+  "thinking": "The enemy worker is moving towards a resource node. It is vulnerable and should be attacked to prevent resource gathering and slow down enemy production.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:02:59.382]
+{
+  "thinking": "The enemy worker is close to my base, so I should attack it with my base to prevent it from gathering resources or building anything.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 5))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:00.582]
+{
+  "thinking": "The enemy worker is close to our base and poses a threat. I should attack it with my base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((2, 5))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:01.837]
+{
+  "thinking": "The enemy worker is very close to our base. I will move the base to attack the enemy worker to defend our base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((2, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:02.958]
+{
+  "thinking": "The enemy worker is close to our base. I will attack the enemy worker with the base to defend it. I only have one action, so I will prioritize the attack.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((2, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:04.121]
+{
+  "thinking": "The enemy worker is very close to my base and can be a threat if not dealt with. I will attack it with my base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:05.117]
+{
+  "thinking": "The enemy worker is moving to the resource node at (0,0). I should attack it with my base before it harvests any resources.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:06.265]
+{
+  "thinking": "The enemy worker is close to my base so I will attack it.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((4, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:07.500]
+{
+  "thinking": "The ally base is damaged, and there is an enemy worker nearby. Since the ally base has enough resources to build a worker, it should do so to replace the damaged unit and prepare for defense.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:08.478]
+{
+  "thinking": "The enemy worker is close to my base. I should move my base to attack it.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:09.517]
+{
+  "thinking": "The ally base at (2, 1) should produce a worker to start gathering resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:10.787]
+{
+  "thinking": "The enemy worker is close to our base. I should attack it with my base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((3, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:12.113]
+{
+  "thinking": "The enemy worker is moving towards our resource node at (0, 0). Since our base at (2, 1) is low on HP, it\u0027s crucial to eliminate the enemy worker to protect it. Let\u0027s move the base to attack the worker",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((4, 7))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:13.465]
+{
+  "thinking": "The ally base should produce a worker to gather resources. Since the base is at (2,1) and there is a resource node at (0,0) and (7,7). I will have the base train a worker. After the worker is created on the next turn I will command it to harvest the resources at (0,0).",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:14.495]
+{
+  "thinking": "The only unit I have control of is the ally base at (2,1). Since the base has not reached it\u0027s maximum capacity of workers I will make it produce a new worker.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:15.732]
+{
+  "thinking": "The ally base is damaged. Since I can only perform one action, I\u0027ll prioritize producing a worker to start resource collection and then repair the base in the following turns.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:16.942]
+{
+  "thinking": "The enemy worker is near my base, and the ally base has low health. So I need to attack that worker.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((4, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:17.992]
+{
+  "thinking": "The opponent worker is close to my base. It is imperative to kill it. I will attack it with my base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:18.951]
+{
+  "thinking": "The base at (2, 1) should produce a worker to start gathering resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-16 21:03:20.159]
+{
+  "thinking": "The enemy worker is near my base. I should attack it to prevent it from harassing my worker production. I only have one action, so I will prioritize attacking.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}

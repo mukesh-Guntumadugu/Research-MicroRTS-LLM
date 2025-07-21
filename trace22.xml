@@ -1,0 +1,320 @@
+<rts.Trace>
+  <rts.units.UnitTypeTable moveConflictResolutionStrategy="2">
+    <rts.units.UnitType ID="0" name="Resource" cost="1" hp="1" minDamage="1" maxDamage="1" attackRange="1" produceTime="10" moveTime="10" attackTime="10" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="0" isResource="true" isStockpile="false" canHarvest="false" canMove="false" canAttack="false">
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="1" name="Base" cost="10" hp="10" minDamage="1" maxDamage="1" attackRange="1" produceTime="10" moveTime="10" attackTime="10" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="5" isResource="false" isStockpile="true" canHarvest="false" canMove="false" canAttack="false">
+      <produces type="Worker">
+      </produces>
+      <producedBy type="Worker">
+      </producedBy>
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="2" name="Barracks" cost="5" hp="4" minDamage="1" maxDamage="1" attackRange="1" produceTime="100" moveTime="10" attackTime="10" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="3" isResource="false" isStockpile="false" canHarvest="false" canMove="false" canAttack="false">
+      <produces type="Light">
+      </produces>
+      <produces type="Heavy">
+      </produces>
+      <produces type="Ranged">
+      </produces>
+      <producedBy type="Worker">
+      </producedBy>
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="3" name="Worker" cost="1" hp="1" minDamage="0" maxDamage="2" attackRange="1" produceTime="50" moveTime="10" attackTime="5" harvestTime="20" returnTime="10" harvestAmount="1" sightRadius="3" isResource="false" isStockpile="false" canHarvest="true" canMove="true" canAttack="true">
+      <produces type="Base">
+      </produces>
+      <produces type="Barracks">
+      </produces>
+      <producedBy type="Base">
+      </producedBy>
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="4" name="Light" cost="2" hp="4" minDamage="1" maxDamage="3" attackRange="1" produceTime="80" moveTime="8" attackTime="5" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="2" isResource="false" isStockpile="false" canHarvest="false" canMove="true" canAttack="true">
+      <producedBy type="Barracks">
+      </producedBy>
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="5" name="Heavy" cost="3" hp="8" minDamage="0" maxDamage="6" attackRange="1" produceTime="120" moveTime="10" attackTime="5" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="2" isResource="false" isStockpile="false" canHarvest="false" canMove="true" canAttack="true">
+      <producedBy type="Barracks">
+      </producedBy>
+    </rts.units.UnitType>
+    <rts.units.UnitType ID="6" name="Ranged" cost="2" hp="1" minDamage="1" maxDamage="2" attackRange="3" produceTime="100" moveTime="10" attackTime="5" harvestTime="10" returnTime="10" harvestAmount="1" sightRadius="3" isResource="false" isStockpile="false" canHarvest="false" canMove="true" canAttack="true">
+      <producedBy type="Barracks">
+      </producedBy>
+    </rts.units.UnitType>
+  </rts.units.UnitTypeTable>
+  <entries>
+    <rts.TraceEntry time = "0">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="5">
+          </rts.Player>
+          <rts.Player ID="1" resources="5">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "0">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="5">
+          </rts.Player>
+          <rts.Player ID="1" resources="5">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="2">
+          <UnitAction type="4" parameter="0" unitType="Worker">
+          </UnitAction>
+        </action>
+        <action unitID="3">
+          <UnitAction type="4" parameter="1" unitType="Worker">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "50">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="2" y="0" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="6" y="6" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="56">
+          <UnitAction type="1" parameter="3">
+          </UnitAction>
+        </action>
+        <action unitID="2">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+        <action unitID="3">
+          <UnitAction type="4" parameter="3" unitType="Worker">
+          </UnitAction>
+        </action>
+        <action unitID="57">
+          <UnitAction type="1" parameter="0">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "60">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="1" y="0" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="6" y="5" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="56">
+          <UnitAction type="2" parameter="3">
+          </UnitAction>
+        </action>
+        <action unitID="2">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+        <action unitID="57">
+          <UnitAction type="1" parameter="1">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "70">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="1" y="0" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="7" y="5" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="2">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+        <action unitID="57">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "80">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="19" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="1" y="0" resources="1" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="7" y="5" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="56">
+          <UnitAction type="1" parameter="2">
+          </UnitAction>
+        </action>
+        <action unitID="2">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+        <action unitID="57">
+          <UnitAction type="1" parameter="0">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "90">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="19" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="1" y="1" resources="1" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="7" y="4" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+        <action unitID="56">
+          <UnitAction type="3" parameter="1">
+          </UnitAction>
+        </action>
+        <action unitID="2">
+          <UnitAction type="0" parameter="10">
+          </UnitAction>
+        </action>
+        <action unitID="57">
+          <UnitAction type="1" parameter="0">
+          </UnitAction>
+        </action>
+      </actions>
+    </rts.TraceEntry>
+    <rts.TraceEntry time = "91">
+      <rts.PhysicalGameState width="8" height="8">
+        <terrain>0000000000000000000000000000000000000000000000000000000000000000</terrain>
+        <players>
+          <rts.Player ID="0" resources="4">
+          </rts.Player>
+          <rts.Player ID="1" resources="4">
+          </rts.Player>
+        </players>
+        <units>
+          <rts.units.Unit type="Resource" ID="0" player="-1" x="0" y="0" resources="19" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Resource" ID="1" player="-1" x="7" y="7" resources="20" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="2" player="0" x="2" y="1" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Base" ID="3" player="1" x="5" y="6" resources="0" hitpoints="10" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="56" player="0" x="1" y="1" resources="1" hitpoints="1" >
+          </rts.units.Unit>
+          <rts.units.Unit type="Worker" ID="57" player="1" x="7" y="4" resources="0" hitpoints="1" >
+          </rts.units.Unit>
+        </units>
+      </rts.PhysicalGameState>
+      <actions>
+      </actions>
+    </rts.TraceEntry>
+  </entries>
+</rts.Trace>

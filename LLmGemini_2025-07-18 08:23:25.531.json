@@ -1,0 +1,186 @@
+[2025-07-18 08:23:28.003]
+{
+  "thinking": "The first turn is critical for setting up the economy. I need to ensure one worker starts harvesting immediately to get resources flowing. Since there is a resource node at (0, 0) and my base is at (2, 1), I will assign the worker at (2, 0) to harvest from (0, 0) and return to (2, 1). The other worker should attack the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-18 08:23:29.176]
+{
+  "thinking": "The objective is to keep harvesting with one worker, attack with all other units, and train workers from the base. Since there is one enemy worker harvesting, I will prioritize attacking it.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((0, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-18 08:23:30.896]
+{
+  "thinking": "The worker at (2, 2) should harvest. The base at (2, 1) should train a worker. The enemy worker at (0, 1) should be attacked by the worker at (2, 0).",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 0): worker attack((0, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-18 08:23:32.124]
+{
+  "thinking": "Prioritize aggression. Find the closest enemy unit to the worker and attack.  Train worker from base since we have resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-18 08:23:33.726]
+{
+  "thinking": "One worker should harvest, the other should attack. The base should keep training new workers. The worker at (2,0) will harvest and the other units attack.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((5, 6))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-18 08:23:34.960]
+{
+  "thinking": "Worker at (1,0) harvests resources. All other units attack the closest enemy unit.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-18 08:23:36.178]
+{
+  "thinking": "I have one worker and need to make sure it is harvesting. The other units need to attack the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-07-18 08:23:37.808]
+{
+  "thinking": "Prioritize aggression by attacking the closest enemy units with all non-harvesting units. Continue worker production at the base and ensure one worker is always harvesting.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-18 08:23:39.622]
+{
+  "thinking": "Prioritize harvesting with one worker and attacking with the other. Since we have two workers, one should harvest and the other should attack. No barracks yet so train is unavailable. Base has 4 resources. Prioritize training a worker. Worker at (1, 0) attacks, worker at (1, 0) harvests.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-07-18 08:23:41.245]
+{
+  "thinking": "Prioritize aggression after securing 1 harvester. So, I will assign the worker at (1, 0) to harvest, then have all other units attack the closest enemy. And base will produce new worker.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}

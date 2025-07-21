@@ -1,0 +1,1081 @@
+[2025-05-28 08:44:23.689]
+{
+  "thinking": "The first priority is to build a barracks so that I can start producing combat units. I will move the worker to a location near the base and then build a barracks.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 2): worker build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:25.005]
+{
+  "thinking": "My base has enough resources to build a barracks. I will assign the worker to build the barracks near the base.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): worker build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:26.392]
+{
+  "thinking": "The highest priority is to build a barracks so that units other than workers can be produced. I need to build a barracks so I can start producing combat units. I will have my worker build a barracks near the base.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:27.470]
+{
+  "thinking": "The ally base has enough resources to build a barracks. A worker unit should be trained to build the barracks and start producing light units.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:29.186]
+{
+  "thinking": "The current turn is 200. According to the suggested strategy, the game is in the mid game. The highest priority is to build barracks if one doesn\u0027t exist. Train heavies, ranged, and lights using the barracks. Hunt enemy workers to slow their economy and keep barracks safe at all costs. There is an ally base at (2,1) and an available worker at (2, 0). The worker will build a barracks at (3, 1).",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 0): worker build((3, 1), barracks)",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:31.416]
+{
+  "thinking": "The ally base has 4 resources. The ally needs 1 more resource to build a barracks. The worker at (3, 0) should harvest the resource at (0, 0) and bring it back to the ally base at (2, 1). After the worker delivers the resource, the base at (2, 1) will have enough resources to build a barracks. The base at (2, 1) should build a barracks at (3, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 1), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:32.790]
+{
+  "thinking": "I need to build a barracks to start producing combat units. My worker at (1, 1) should build the barracks near the base at (2, 1). Since I have 4 resources I will need to harvest first.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:34.121]
+{
+  "thinking": "Okay, it\u0027s turn 350, and I need to make more units to close out the game. I should continue harvesting and start attacking workers if available.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:35.670]
+{
+  "thinking": "The current turn is 400. I have one base and one worker. I need to build a barracks so that I can train more units. I have 6 resources, and I need 5 to build a barracks. I should build a barracks near my base, and then continue to harvest resources with my worker.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(1, 1): worker build((3, 1), barracks)",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:37.260]
+{
+  "thinking": "My base at (2, 1) has 6 resources. I need to build a barracks. I will command the base to train a worker. After the worker is trained, I will command the worker to build a barracks near the base.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:39.096]
+{
+  "thinking": "Okay, let\u0027s follow the suggested strategy. It\u0027s early game, so I need to focus on economy. I need to harvest resources and then build a barracks. First, instruct the worker to harvest, and then have the base continue to produce workers.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:40.857]
+{
+  "thinking": "Okay, I need to build a barracks and continue harvesting. I have 4 resources and need 1 more to build a barracks. I will have both workers harvest from the nearest resource nodes and once I have enough I will build a barracks.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:43.059]
+{
+  "thinking": "The current turn is 700. I have 2 workers and 1 base. I need to use the workers to harvest resources and the base to train units. I need to keep building my army and attack the enemy base. Since I have 5 resources, I will build a barracks. Then I will harvest more resources.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:44.891]
+{
+  "thinking": "Okay, it\u0027s turn 750. I need to continue my strategy of building an economy and producing units. I have two workers available and an ally base. I will use the first worker to harvest resources, use the second worker to build a barracks and the base to produce a worker.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:46.465]
+{
+  "thinking": "Okay, let\u0027s follow the suggested strategy. I need to build a barracks. I have 9 resources in my base at (2,1). I need 5 to build the barracks. I have two workers available, one at (1,1) and one at (2,0) returning resources to (2,1). I will have the worker at (1,1) build a barracks near the base.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(1, 1): worker build((1, 2), barracks)",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:48.401]
+{
+  "thinking": "The game is in the mid-game. Focus on training units to defend against the enemy and attack their workers. Prioritize building a barracks if we don\u0027t have one yet. Since resources are limited, harvest from the closest node. Attack enemy workers to disrupt their economy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): Base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:44:49.939]
+{
+  "thinking": "Okay, it\u0027s turn 900. I need to focus on economy and military. I have 3 workers and a base. My base has 6 HP. The enemy has a base and 5 workers. I need to get more resources to build a barracks and then train units. I will have my free worker harvest and then build a barracks. I will keep the other two workers doing what they are doing.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 1): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:51.300]
+{
+  "thinking": "The ally base is damaged, and needs to be protected. Need to harvest to maintain resource income. An available worker can build a barracks to start producing offensive units. Other workers can continue to harvest.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 3): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:53.646]
+{
+  "thinking": "Okay, we need to continue to harvest resources and build up our army. Since we have a barracks, we should start producing units. We will focus on training heavy units since they have high HP and attack damage.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(0, 2): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        0,
+        2
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(1, 2): Barracks train(heavy)",
+      "unit_position": [
+        1,
+        2
+      ],
+      "unit_type": "barracks"
+    }
+  ]
+}
+[2025-05-28 08:44:55.358]
+{
+  "thinking": "We need to keep harvesting to accumulate resources and build more units, while trying to eliminate enemy workers to hinder their economy. Focus on attacking the closest workers with our worker. Since there are no barracks, we can\u0027t train more units at the moment.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 0): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 1): worker attack((1, 2))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:56.773]
+{
+  "thinking": "The highest priority is to secure more resources and continue building up our defenses. The Barracks will allow us to start building up offensive units and defend our base from the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(1, 1): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        1,
+        1
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:58.148]
+{
+  "thinking": "The ally base is damaged. I should prioritize repairing it by having the worker harvest resources and return them to the base. Since the worker is already moving to a resource node, I will let it continue. I will instruct the worker to harvest resources from (0, 0) and bring them back to the ally base at (2, 1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 4): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:44:59.479]
+{
+  "thinking": "Okay, I need to build a barracks to start producing units. I have 11 resources at my base, which is more than enough to build a barracks (cost 5). I will use my base to build a barracks at (3, 2).",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:00.925]
+{
+  "thinking": "The current turn is 1250, suggesting the game is in the late stage. I should focus on eliminating enemy units and buildings to win. I have a base with low HP and need to protect it while continuing to harvest and produce units. The enemy has multiple workers that need to be eliminated. I will build a barracks to increase my ability to create units. I will then attack enemy workers.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 1), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:02.448]
+{
+  "thinking": "The Ally Base has 6 HP left, so I need to focus on defense. There are multiple enemy workers nearby that I can try to eliminate using the base to prevent them from harvesting resources. I should also continue to build more units to increase army size.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((0, 4))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:03.674]
+{
+  "thinking": "The ally base has enough resources to build a barracks. A worker should be assigned to build it.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 1): base build((3, 2), barracks)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:05.149]
+{
+  "thinking": "The game state shows that our base is damaged and we need to eliminate the enemy workers to slow down their economy. The base needs to focus on producing workers to repair itself and harvest resources.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base train(worker)",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:06.823]
+{
+  "thinking": "Okay, let\u0027s analyze the game state. I have one base and one worker. The enemy has one base and five workers. There are two resource nodes. I need to build a barracks and then train some units to attack the enemy. Since my base has taken damage and is at 6 HP, I should focus on protecting it. I need to prioritize building a barracks so I can start producing units. I will assign the worker to build a barracks near the base.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(2, 2): worker build((2, 2), barracks)",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:08.081]
+{
+  "thinking": "The game is in the late stage. My base is being attacked and has low HP. I need to defend it. I will attack the closest enemy worker with my worker.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 0): worker attack((2, 3))",
+      "unit_position": [
+        2,
+        0
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:09.511]
+{
+  "thinking": "The ally base is damaged. I need to prioritize defending it and building up my economy to produce more units. I will focus on harvesting resources and training a worker to repair the base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 2): Worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:11.057]
+{
+  "thinking": "The ally worker is currently moving to a resource node. I need to continue harvesting with the worker to gather more resources. I will keep harvesting to get more resources. I will attack the closest enemy worker to the ally base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(4, 3): worker harvest((0, 0), (2, 1))",
+      "unit_position": [
+        4,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:12.456]
+{
+  "thinking": "The ally base is damaged and needs to be repaired. I will prioritize sending the worker to harvest resources and then build a barracks to train combat units. Then, I will use the units to attack the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(2, 2): Worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        2,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:13.608]
+{
+  "thinking": "The ally base is under attack and low on HP. The enemy has multiple workers. Focus on defending the base and attacking the enemy workers.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(2, 1): base attack((6, 1))",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    }
+  ]
+}
+[2025-05-28 08:45:15.246]
+{
+  "thinking": "The ally base is damaged. I need to keep harvesting resources to keep the game going and rebuild the base to full hp. It is also important to build barracks so that I can train new units to defend the base. After the barracks is built, start training heavy units.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 2): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:16.682]
+{
+  "thinking": "The top priority is to eliminate the closest enemy worker at (2,5). Then, continue harvesting resources from the node at (7,7) and bring them back to the base at (2,1).",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 4): worker attack((2, 5))",
+      "unit_position": [
+        3,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:18.447]
+{
+  "thinking": "The game state indicates that I have an ally base at (2, 1) with 6 HP and an ally worker at (0, 4). I should focus on building a barracks to produce combat units. I will use the worker to build a barracks near the base and then start producing units. Since I have enough resources, I will start building a barracks immediately.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(0, 4): worker build((3, 2), barracks)",
+      "unit_position": [
+        0,
+        4
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:19.753]
+{
+  "thinking": "My base at (2, 1) has less than 10 HP. I have a worker at (3, 3) and I should continue to build a barracks. I will have him continue that task for now.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(3, 3): worker build((0, 0), barracks)",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:21.083]
+{
+  "thinking": "The ally base is damaged. I should repair it with the available worker and continue harvesting resources. Since there are no barracks, and enough resources, build one.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 3): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:22.318]
+{
+  "thinking": "My current goal is to eliminate the enemy workers and base while continuing to harvest resources to maintain production. I will prioritize attacking the enemy workers to disrupt their economy and then focus on the enemy base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 3): Worker attack((2, 0))",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:23.479]
+{
+  "thinking": "The highest priority is to build a barracks to train combat units. Since there is an available worker, I will use it to build a barracks near the base.",
+  "moves": [
+    {
+      "action_type": "build",
+      "raw_move": "(3, 3): worker build((3, 2), barracks)",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:25.133]
+{
+  "thinking": "The ally has a barracks and needs to start training units to attack the enemy. Since we have resources, train a heavy unit to increase our attack power.",
+  "moves": [
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    },
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 3): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        3,
+        3
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:27.410]
+{
+  "thinking": "The first worker should continue harvesting resources from (0, 0) and bring them back to the base at (2, 1). The barracks at (3, 2) should continue training heavy units. We do not have a unit available to build a new barracks, so we will simply harvest with the worker at (3, 7)",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(3, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        3,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(2, 1): base idle()",
+      "unit_position": [
+        2,
+        1
+      ],
+      "unit_type": "base"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    }
+  ]
+}
+[2025-05-28 08:45:29.050]
+{
+  "thinking": "Okay, it looks like we\u0027re in the late game. Our barracks is damaged, but still producing units. Our worker is gathering resources. We have an opportunity to secure more resources and continue building our army. I will focus on attacking the enemy base since the enemy workers are too far away.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    }
+  ]
+}
+[2025-05-28 08:45:30.905]
+{
+  "thinking": "Okay, let\u0027s analyze the situation. I have a base, a barracks, a heavy unit, and a worker. The enemy has a base and three workers. My barracks is currently producing a unit. I need to focus on building my army and harassing the enemy. I will have the worker harvest resources and the heavy attack the enemy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): Worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 1): Heavy attack((5, 6))",
+      "unit_position": [
+        3,
+        1
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+[2025-05-28 08:45:33.229]
+{
+  "thinking": "The game is in the late stage. I need to protect the Barracks at all costs and continue to produce units, while also attacking the enemy base. I will prioritize training a Heavy unit and attacking the enemy base with the available Heavy unit. The worker should harvest resources. It\u0027s also important to keep harvesting to prevent resource depletion.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): Worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): Barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(5, 2): Heavy attack((5, 6))",
+      "unit_position": [
+        5,
+        2
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+[2025-05-28 08:45:35.643]
+{
+  "thinking": "Okay, we have a few heavy units and a barracks already. Let\u0027s focus on producing more heavies and attack the enemy worker to disrupt their economy. The worker at (6, 7) will harvest from (7, 7) and bring it back to (2, 1). The heavies should attack the enemy worker at (0, 2). The barracks should train a heavy.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 3): heavy attack((0, 2))",
+      "unit_position": [
+        4,
+        3
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 2): heavy attack((0, 2))",
+      "unit_position": [
+        4,
+        2
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    }
+  ]
+}
+[2025-05-28 08:45:38.396]
+{
+  "thinking": "The game is in the late stage. I need to eliminate the enemy base and workers. I will focus on attacking the enemy units and base. My units are: worker at (6,7), barracks at (3,2), heavy at (1,3) and (3,0). The enemy units are at (0,2), (4,3), and (5,6). I will send the worker to harvest resources, the barracks to train heavies, the heavy at (1,3) and (3,0) to attack the enemy base.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 3): heavy attack((5, 6))",
+      "unit_position": [
+        1,
+        3
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 0): heavy attack((5, 6))",
+      "unit_position": [
+        3,
+        0
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+[2025-05-28 08:45:40.678]
+{
+  "thinking": "The ally needs to focus on attacking the enemy base with all available units. Prioritize attacking the enemy base.",
+  "moves": [
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 6): heavy attack((5, 6))",
+      "unit_position": [
+        1,
+        6
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 1): heavy attack((5, 6))",
+      "unit_position": [
+        4,
+        1
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(6, 7): worker attack((5, 6))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(3, 2): barracks attack((5, 6))",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    }
+  ]
+}
+[2025-05-28 08:45:43.445]
+{
+  "thinking": "Okay, let\u0027s analyze the game state. I need to prioritize eliminating enemy workers to cripple their economy, while also developing my own economy and army. I have two heavy units and a barracks. I should train more units and use my heavies to attack the enemy workers. Also, the worker at (6,7) should harvest from the resource at (7,7). I need to figure out how to move the heavies to attack.",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): Worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): Barracks heavy",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 6): Heavy attack((0, 1))",
+      "unit_position": [
+        4,
+        6
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(5, 5): Heavy attack((6, 1))",
+      "unit_position": [
+        5,
+        5
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+[2025-05-28 08:45:46.230]
+{
+  "thinking": "The current turn is 2700. I have 3 heavy units, 1 barracks, 1 base, and 1 worker. The enemy has 2 workers. I should continue training units and attacking the enemy units. Since the worker is idle, I will have it harvest from (7,7) to (2,1). The Barracks is idle and should train a heavy. The first heavy will attack the worker at (0,4). The second heavy will continue moving to (0,0).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): Worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "train",
+      "raw_move": "(3, 2): Barracks train(heavy)",
+      "unit_position": [
+        3,
+        2
+      ],
+      "unit_type": "barracks"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(1, 5): Heavy attack((0, 4))",
+      "unit_position": [
+        1,
+        5
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "move",
+      "raw_move": "(5, 4): Heavy move((0, 0))",
+      "unit_position": [
+        5,
+        4
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+[2025-05-28 08:45:48.366]
+{
+  "thinking": "Okay, it looks like I have a base, a barracks, two heavy units, and a worker. The enemy has a worker. I should use the worker to harvest resources. I should use the heavies to attack the enemy worker. Let\u0027s get the worker to harvest from (7,7) and bring it back to (2,1). Let\u0027s get the heavies to attack the worker at (4,1).",
+  "moves": [
+    {
+      "action_type": "harvest",
+      "raw_move": "(6, 7): worker harvest((7, 7), (2, 1))",
+      "unit_position": [
+        6,
+        7
+      ],
+      "unit_type": "worker"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(0, 5): heavy attack((4, 1))",
+      "unit_position": [
+        0,
+        5
+      ],
+      "unit_type": "heavy"
+    },
+    {
+      "action_type": "attack",
+      "raw_move": "(4, 4): heavy attack((4, 1))",
+      "unit_position": [
+        4,
+        4
+      ],
+      "unit_type": "heavy"
+    }
+  ]
+}
+T: 2786, P0: 5 (470), P1: 0 (470)

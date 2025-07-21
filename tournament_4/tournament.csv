@@ -1,0 +1,57 @@
+tournaments.RoundRobinTournament
+AIs
+	PuppetSearchMCTS(100, -1, 5000, -1, 100, 100, RandomBiasedAI, BasicConfigurableScript(UNITTYPE,EXPAND,), SimpleSqrtEvaluationFunction3)
+	LLM_DeepseekR1(AStarPathFinding)
+maps
+	/Users/mukesh/Desktop/MicroRTS-LLM/maps/24x24/basesWorkers24x24I.xml
+iterations	10
+maxGameLength	3000
+timeBudget	100
+iterationsBudget	-1
+pregameAnalysisBudget	1000	1000
+preAnalysis	true
+fullObservability	true
+timeoutCheck	true
+runGC	false
+iteration	map	ai1	ai2	time	winner	crashed	timedout
+0	0	0	1	0	0	1	-1
+0	0	1	0	0	1	0	-1
+1	0	0	1	0	0	1	-1
+1	0	1	0	0	1	0	-1
+2	0	0	1	0	0	1	-1
+2	0	1	0	0	1	0	-1
+3	0	0	1	0	0	1	-1
+3	0	1	0	0	1	0	-1
+4	0	0	1	0	0	1	-1
+4	0	1	0	0	1	0	-1
+5	0	0	1	0	0	1	-1
+5	0	1	0	0	1	0	-1
+6	0	0	1	0	0	1	-1
+6	0	1	0	0	1	0	-1
+7	0	0	1	0	0	1	-1
+7	0	1	0	0	1	0	-1
+8	0	0	1	0	0	1	-1
+8	0	1	0	0	1	0	-1
+9	0	0	1	0	0	1	-1
+9	0	1	0	0	1	0	-1
+Wins:
+0	10	
+0	0	
+Ties:
+0	0	
+0	0	
+Average Game Length:
+0.0	0.0	
+0.0	0.0	
+AI crashes:
+0	0	
+10	0	
+opponent AI crashes:
+0	10	
+0	0	
+AI timeout:
+0	0	
+0	0	
+opponent AI timeout:
+0	0	
+0	0	
