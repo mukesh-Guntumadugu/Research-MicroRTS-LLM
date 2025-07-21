@@ -5,4 +5,6 @@ microrts.jar
 /.classpath
 /.project
 /.idea
-/.vscode
+/.vscode.DS_Store
+.DS_Store
+.DS_Store
