@@ -36,8 +36,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
      */
 
     // NOTE: TESTING ONLY gmu3r2g need to remove it are better ways to handile it in github
-    static final String API_KEY = "AIzaSyC5g16BvYlLS79lJJCk7C_H8bn4EIcJzr4";//"AIzaSyC5g16BvYlLS79lJJCk7C_H8bn4EIcJzr4";// "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"; // "AIzaSyC5g16BvYlLS79lJJCk7C_H8bn4EIcJzr4"; // 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
-    // Supported models: AIzaSyC5g16BvYlLS79lJJCk7C_H8bn4EIcJzr4
+    static final String API_KEY =   System.getenv("GEMINI_API_KEY"); /// remove it
+
     // gemini-1.5-flash (15 req/min)
     // gemini-2.0-flash (15 req/min)
     String MODEL = "gemini-2.0-flash";
