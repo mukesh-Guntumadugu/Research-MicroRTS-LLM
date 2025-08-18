@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import gui.frontend.GameController;
+
 /**
  *
  * @author santi
@@ -31,8 +33,9 @@ public class FrontEnd extends JPanel {
         // Toggle pause/resume logic (use your own flag or controller here)
         passButton.addActionListener(e -> {
             GameController.isPaused = !GameController.isPaused;
-            passButton.setText(GameController.isPaused ? "Resume" : "Pass");
+            passButton.setText(GameController.isPaused ? "Resume gmu3r2g" : "Pass gmu3r2g "); // testing gmu3r2g
         });
+
 
         // Add the button at the top
         this.add(passButton, BorderLayout.NORTH);
@@ -67,21 +70,21 @@ public class FrontEnd extends JPanel {
         System.out.println(" check1 "); // need to remove
         FEStatePane panel1 = new FEStatePane(); // gmu3r2g going to other class
         tabbedPane.addTab("States", null, panel1, "Load/save states and play games.");
-         
+
         JComponent panel2 = new FETracePane(panel1);
         tabbedPane.addTab("Traces", null, panel2, "Load/save and view replays.");
-        
+
         JComponent panel3 = new FETournamentPane();
         tabbedPane.addTab("Tournaments", null, panel3, "Run tournaments.");
 
         //Add the tabbed pane to this panel.
         add(tabbedPane);
-         
+
         //The following line enables to use scrolling tabs.
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
     }
  */
-        
+
     protected JComponent makeTextPanel(String text) {
         JPanel panel = new JPanel(false);
         JLabel filler = new JLabel(text);
@@ -89,8 +92,8 @@ public class FrontEnd extends JPanel {
         panel.setLayout(new GridLayout(1, 1));
         panel.add(filler);
         return panel;
-    }    
-    
+    }
+
     public static void main(String args[]) throws Exception {
         System.out.println(" 1st gmu3r2g : main () ");
         JFrame frame = new JFrame("microRTS Front End"); //
@@ -98,5 +101,8 @@ public class FrontEnd extends JPanel {
         frame.add(new FrontEnd(), BorderLayout.CENTER); //
         frame.pack();  //
         frame.setVisible(true);  //
-    }    
+    }
+
+
+
 }

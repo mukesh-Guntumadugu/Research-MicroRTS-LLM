@@ -107,6 +107,7 @@ public class FEStatePane extends JPanel {
     PhysicalGameStatePanel statePanel;
     JTextArea textArea;
     UnitTypeTable currentUtt;
+    public String aiName1="",aiName2="";
 
     JFileChooser fileChooser = new JFileChooser();
 
@@ -557,6 +558,25 @@ public class FEStatePane extends JPanel {
                                 try {
                                     AI ai1 = createAI(aiComboBox[0].getSelectedIndex(), 0, currentUtt);
                                     AI ai2 = createAI(aiComboBox[1].getSelectedIndex(), 1, currentUtt);
+                                    System.out.println("Player 0 AI 560  ->  gmu3r2g: " + ai1.getClass().getSimpleName());
+                                    System.out.println("Player 1 AI 561 -> gmu3r2g : " + ai2.getClass().getSimpleName());
+                                    String aiName = ai2.getClass().getSimpleName();
+                                    aiName1 = ai1.getClass().getSimpleName();
+                                    aiName2 =  ai2.getClass().getSimpleName();
+                                    if (ai2 instanceof PseudoContinuingAI) {
+                                        aiName2 = ((PseudoContinuingAI) ai2).getbaseAI().getClass().getSimpleName();
+                                    }
+                                    if (ai1 instanceof PseudoContinuingAI) {
+                                        aiName1 = ((PseudoContinuingAI) ai1).getbaseAI().getClass().getSimpleName();
+                                    }
+                                    System.out.println("Player 1 AI -> " + aiName1);
+                                    System.out.println("Player 2 AI -> " + aiName2);
+
+                                    LLM_Gemini llmGemini = new LLM_Gemini(currentUtt, aiName1, aiName2);
+
+
+
+
                                     int PERIOD1 = Integer.parseInt(defaultDelayField.getText());
                                     int PERIOD2 = Integer.parseInt(defaultDelayField.getText());
                                     JFormattedTextField t1 = (JFormattedTextField)AIOptionsPanelComponents[0].get("TimeBudget");
@@ -716,6 +736,7 @@ public class FEStatePane extends JPanel {
                 JPanel ptmp = new JPanel();
                 ptmp.setLayout(new BoxLayout(ptmp, BoxLayout.X_AXIS));
                 JLabel l1 = new JLabel("Player "+player+":");
+                System.out.println(" 719 gmu3r2g kkk : player "+player);
                 l1.setAlignmentX(Component.CENTER_ALIGNMENT);
                 l1.setAlignmentY(Component.TOP_ALIGNMENT);
                 ptmp.add(l1);
@@ -795,9 +816,9 @@ public class FEStatePane extends JPanel {
         statePanel.repaint();
         mapWidthField.setText(gs.getPhysicalGameState().getWidth()+"");
         mapHeightField.setText(gs.getPhysicalGameState().getHeight()+"");
-    }    
-    
-    
+    }
+
+
     private static String nextTraceName() {
         int idx = 1;
         do {
@@ -978,6 +999,7 @@ public class FEStatePane extends JPanel {
                 AI AINames[] = null;
                 if (p.possibleValues==null) {                
                     AINames= new AI[PlayoutAIs.length];
+                    System.out.println("981 : -> FESTATEpane  "+AINames.length+"   :  AINames "+AINames[0]+"  1  "+AINames[1]);
                     for(int i = 0;i<PlayoutAIs.length;i++) {
                         AINames[i] = (AI)PlayoutAIs[i].getConstructor(UnitTypeTable.class).newInstance(currentUtt);
                         if (PlayoutAIs[i] == p.defaultValue.getClass()) defaultValue = i;
@@ -1046,7 +1068,6 @@ public class FEStatePane extends JPanel {
                 throw new Exception("Cannot create GUI component for class" + p.type.getName());
             }
         }
-        
         jPanel.revalidate();
     }
 }

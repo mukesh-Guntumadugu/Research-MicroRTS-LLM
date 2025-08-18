@@ -46,8 +46,14 @@ public class Game {
         Constructor cons2 = Class.forName(ai2)
                 .getConstructor(UnitTypeTable.class);
 
+
+
         this.ai1 = (AI) cons1.newInstance(utt);
         this.ai2 = (AI) cons2.newInstance(utt);
+        System.out.println(" -->in Game rts gmu3r2g 43    "+(AI) cons1.newInstance(utt));
+        System.out.println(" -->in Game rts gmu3r2g 54    "+(AI) cons2.newInstance(utt));
+        System.out.println(" ai1 --> "+this.ai1);
+        System.out.println(" ai1 --> "+this.ai2);
     }
 
     public Game(UnitTypeTable utt, String mapLocation, boolean headless, boolean partiallyObservable, int maxCycles,
@@ -56,6 +62,8 @@ public class Game {
 
         this.ai1 = ai1;
         this.ai2 = ai2;
+        System.out.println(" ai1 --> "+this.ai1);
+        System.out.println(" ai1 --> "+this.ai2);
     }
 
     private Game(UnitTypeTable utt, String mapLocation, boolean headless, boolean partiallyObservable, int maxCycles,
@@ -68,6 +76,15 @@ public class Game {
         this.headless = headless;
         this.maxCycles = maxCycles;
         this.updateInterval = updateInterval;
+
+        System.out.println(" maxCycles --> "+maxCycles);
+        System.out.println(" headless --> "+headless);
+        System.out.println(" updateInterval --> "+updateInterval);
+        System.out.println(" partiallyObservable --> "+partiallyObservable);
+        System.out.println(" updateInterval --> "+updateInterval);
+
+
+
     }
 
     /**
@@ -93,6 +110,16 @@ public class Game {
 
         ai1 = player_one;
         ai2 = player_two;
+
+        System.out.println(" ai1 --> "+ai1);
+        System.out.println(" ai2 --> "+ai2);
+        System.out.println(" player_one --> "+player_one);
+        System.out.println(" player_two --> "+player_two);
+        System.out.println("  partiallyObservable --> "+partiallyObservable);
+        System.out.println(" headless --> "+headless);
+        System.out.println(" maxCycles --> "+maxCycles);
+        System.out.println(" maxCycles --> "+maxCycles);
+
     }
 
     /**

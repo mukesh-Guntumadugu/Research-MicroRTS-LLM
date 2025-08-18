@@ -17,42 +17,60 @@ import util.Sampler;
 /**
  *
  * @author santi
- * 
+ *
  * This AI is similar to the RandomBiasedAI, but instead of discarding "move" actions when there is an
  * attack available, it simply lowers the probability of a move.
- * 
+ *
  */
 public class RandomBiasedAI extends AI {
     static final double REGULAR_ACTION_WEIGHT = 1;
     static final double BIASED_ACTION_WEIGHT = 5;
     Random r = new Random();
 
-    
+
     public RandomBiasedAI(UnitTypeTable utt) {
     }
-    
+
 
     public RandomBiasedAI() {
     }
-    
-    
+
+
     @Override
-    public void reset() {   
-    }    
-    
-    
+    public void reset() {
+    }
+
+
     @Override
     public AI clone() {
         return new RandomBiasedAI();
     }
-    
-    
+
+
     @Override
     public PlayerAction getAction(int player, GameState gs) {
         // attack, harvest and return have 5 times the probability of other actions
+
+        /**
+         *
+         * Testing gmu3r2g pass
+         */
+/**
+        while (gui.frontend.GameController.isPaused()) {
+            try {
+                Thread.sleep(10); // avoid CPU spin
+                System.out.println(" 62 gmu3r2g RBAI");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        }
+*/
+        // end Testing gmu3r2g pass
+
         PhysicalGameState pgs = gs.getPhysicalGameState();
         PlayerAction pa = new PlayerAction();
-        
+
         if (!gs.canExecuteAnyAction(player)) return pa;
 
         // Generate the reserved resources:
@@ -63,7 +81,7 @@ public class RandomBiasedAI extends AI {
                 pa.getResourceUsage().merge(ru);
             }
         }
-        
+
         for(Unit u:pgs.getUnits()) {
             if (u.getPlayer()==player) {
                 if (gs.getActionAssignment(u)==null) {
@@ -85,12 +103,12 @@ public class RandomBiasedAI extends AI {
                         }
                         i++;
                     }
-                        
+
                     try {
                         UnitAction ua = l.get(Sampler.weighted(distribution));
                         if (ua.resourceUsage(u, pgs).consistentWith(pa.getResourceUsage(), gs)) {
                             ResourceUsage ru = ua.resourceUsage(u, pgs);
-                            pa.getResourceUsage().merge(ru);                        
+                            pa.getResourceUsage().merge(ru);
                             pa.addUnitAction(u, ua);
                         } else {
                             pa.addUnitAction(u, none);
@@ -102,15 +120,15 @@ public class RandomBiasedAI extends AI {
                 }
             }
         }
-        
+
         return pa;
     }
-    
-    
+
+
     @Override
     public List<ParameterSpecification> getParameters()
     {
         return new ArrayList<>();
-    }    
-    
+    }
+
 }

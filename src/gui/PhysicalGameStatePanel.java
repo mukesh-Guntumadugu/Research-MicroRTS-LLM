@@ -32,6 +32,7 @@ import java.awt.BorderLayout;
 public class PhysicalGameStatePanel extends JPanel {
     public static int COLORSCHEME_BLACK = 1;
     public static int COLORSCHEME_WHITE = 2;
+    public static String info1= "";
 
     boolean fullObservability = true;
     int drawFromPerspectiveOfPlayer = -1;   // if fullObservability is false, and this is 0 or 1, it only draws what the specified player can see
@@ -138,7 +139,7 @@ public class PhysicalGameStatePanel extends JPanel {
         ad.fullObservability = !a_showVisibility;
 
         PhysicalGameStateJFrame frame = null;
-        frame = new PhysicalGameStateJFrame("Game State Visualizer", dx, dy, ad);
+        frame = new PhysicalGameStateJFrame("Game State Visualizer", dx, dy, ad); // avery other ai modeals it comes from hear
         return frame;
     }
 
@@ -353,6 +354,10 @@ public class PhysicalGameStatePanel extends JPanel {
         float eval1 = (evalFunction!=null ? evalFunction.evaluate(1, 0, gs):0);
 
         String info = "T: " + gs.getTime() + ", P0: " + unitCount0 + " (" + eval0 + "), P1: " + unitCount1 + " (" + eval1 + ")";
+        System.out.println("356 -> gmu3r2g info : "+info);
+        info1 = info;
+
+        // load this info into they LLM Gemini
         g2d.drawString(info, 10, dy-15);
 
 //        g.drawString(gs.getTime() + "", 10, getHeight()-15);

@@ -3,16 +3,16 @@ import ai.abstraction.pathfinding.AStarPathFinding;
 import ai.core.AI;
 import ai.abstraction.pathfinding.PathFinding;
 import ai.core.ParameterSpecification;
-import java.util.ArrayList;
-import java.util.LinkedList; // why are we not using
-import java.util.List;
-import java.util.Random;
+
+import java.time.Instant;
+import java.util.*;
 import java.util.regex.*;
 import java.io.*;
 import java.net.*;
 import com.google.gson.*;
 import rts.GameState;
 import rts.PhysicalGameState;
+import gui.PhysicalGameStatePanel;
 import rts.UnitAction;
 import rts.Player;
 import rts.PlayerAction;
@@ -20,8 +20,11 @@ import rts.units.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.stream.Collectors;
+import gui.frontend.FEStatePane;
+import rts.Game;
 
 
 /**
@@ -36,19 +39,23 @@ public class LLM_Gemini extends AbstractionLayerAI {
      */
 
     // NOTE: TESTING ONLY gmu3r2g need to remove it are better ways to handile it in github
-    static final String API_KEY =   System.getenv("GEMINI_API_KEY"); /// remove it
+    static final String API_KEY =   ""; /// remove it
+
 
     // gemini-1.5-flash (15 req/min)
     // gemini-2.0-flash (15 req/min)
-    String MODEL = "gemini-2.0-flash";
+    // gemini-2.5-flash
+    String MODEL = "gemini-2.5-flash";
+    String fileName = "Response_format.csv";
     static final String ENDPOINT_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
     // How often the LLM should act on the game state
     // More frequent LLM intervention is not necessarily better
     // Low = more frequent, higher = less freqeunt
-    static final Integer LLM_INTERVAL = 2;  // ? why can't i have less than that
+    static final Integer LLM_INTERVAL = 1;  // ? why can't i have less than that
     LocalDateTime now = LocalDateTime.now();
-    String timestamp = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
+    String timestamp = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
+
     JsonObject wrapper = new JsonObject();
     String FilenameXXXten ="";
     Random r = new Random();
@@ -64,6 +71,22 @@ public class LLM_Gemini extends AbstractionLayerAI {
     int totalMovesAccepted = 0;
     int totalMovesRejected = 0;
     int promptstart =0;
+    FileWriter writer;
+    int jj =0;
+    Instant promptTime;
+    Instant responseTime;
+    int TotalTokens = 0;
+    int requestTokens =0;
+    int responseTokens=0;
+    long Latency =0;
+    int totalTokens =0;
+    String num_shot ="One-Shot";
+    String aiName1= "";
+    String aiName2="";
+    String fileName01 ="";
+    String value_TimestampandScore = "";
+    private boolean logsInitialized = false;
+    private boolean logsInitializedone = false;
 
     // is there any other way to give prompt in a better way to give Free to it ?
 
@@ -121,7 +144,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      */
     String PROMPT = """
-          Players can only assign actions to their units. can assign multiple actions at they same time
+                         Players can only assign actions to their units. can assign multiple actions at they same time
                          There are 6 available actions:
                          - move((Target_x, Target_y)): Unit will move to target location. and workers can go to they resourses position so that base can produse more workers are light, heavy resorses
                          - train(Unit_Type): Unit will train the provided unit type (only bases and barracks can use this action).
@@ -134,7 +157,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                                  - Once adjacent, it will perform the **harvest** action.
                                  - Then it must **return to the base**, possibly by moving again, and once adjacent to the base, it performs the **return** action.
                                  - The model should only issue a `harvest((resource_x, resource_y), (base_x, base_y))` action for a worker. The game will automatically handle whether the unit needs to move, harvest, or return.
-                         - attack((Enemy_x, Enemy_y)): Unit will navigate to, and attack the target enemy.
+                         - attack((Enemy_x, Enemy_y)): Unit will navigate to, and attack the target enemy. just provide they x and y cordinates of the enemy and if you think they enemy is coming closer to you are killing your base kill him as soon as possible it is youe existense in the stack.
                           the enemy is near to you attack they enemy do your previous job after words
                          attack as soon as possible don't wast time once you are getting more workers send all of them to attack they base (5, 6) Enemy Base Unit
                          The game is over once all units and buildings from either team are killed or destroyed, the remaining team is the winner.
@@ -164,7 +187,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                           after getting one worker start harvesting
             
             
-                         "You are controlling a strategy game where players manage units and buildings. Your job is to issue the correct action for each of your units on every turn.\\\\n\\\\n### 🎯 Important Instructions for HARVEST Action\\\\n- Use the `harvest((resource_x, resource_y), (base_x, base_y))` action for workers.\\\\n- This is a **multi-phase action**:\\\\n  1. The worker will automatically **move** to the resource.\\\\n  2. Once adjacent, it will **harvest** it.\\\\n  3. Then the worker will **move** back to the base.\\\\n  4. Once adjacent to the base, it will **return** the resource.\\\\n- You must only issue the `harvest(...)` action ONCE per unit. The game will handle all internal sub-steps.\\\\n- Do not manually issue `move`, `harvest`, or `return` separately.\\\\n\\\\n### ✅ Correct Format\\\\nReturn a list of actions for each available unit in this format:\\\\n```plaintext\\\\n(<x>, <y>): <unit_type> <action>(<args>)\\\\n```\\\\nExample:\\\\n```plaintext\\\\n(2, 0): worker harvest((0, 0), (2, 1))\\\\n(2, 1): base train(worker)\\\\n```\\\\n\\\\n### 💡 Available Actions\\\\n- move((x, y))\\\\n- attack((enemy_x, enemy_y))\\\\n- build((x, y), building_type)\\\\n- train(unit_type)\\\\n- harvest((resource_x, resource_y), (base_x, base_y))\\\\n\\\\n### 🗺️ Map Information\\\\nYou will be told where units, resources, and bases are located.\\\\nUse this information to plan your moves logically.\\\\n\\\\nNow output JSON in this format:\\\\n```json\\\\n{\\\\n  \\\\"thinking\\\\": \\\\"<Your strategy>\\\\",\\\\n  \\\\"moves\\\\": [\\\\n    {\\\\n      \\\\"raw_move\\\\": \\\\"(x, y): unit_type action(...)\\\\",\\\\n      \\\\"unit_position\\\\": [x, y],\\\\n      \\\\"unit_type\\\\": \\\\"worker\\\\",\\\\n      \\\\"action_type\\\\": \\\\"harvest\\\\"\\\\n    },\\\\n    ...\\\\n  ]\\\\n}\\\\n```"
+                         "You are controlling a strategy game where players manage units and buildings. Your job is to issue the correct action for each of your units on every turn.\\n\\n### 🎯 Important Instructions for HARVEST Action\\n- Use the `harvest((resource_x, resource_y), (base_x, base_y))` action for workers.\\n- This is a **multi-phase action**:\\n  1. The worker will automatically **move** to the resource.\\n  2. Once adjacent, it will **harvest** it.\\n  3. Then the worker will **move** back to the base.\\n  4. Once adjacent to the base, it will **return** the resource.\\n- You must only issue the `harvest(...)` action ONCE per unit. The game will handle all internal sub-steps.\\n- Do not manually issue `move`, `harvest`, or `return` separately.\\n\\n### ✅ Correct Format\\nReturn a list of actions for each available unit in this format:\\n```plaintext\\n(<x>, <y>): <unit_type> <action>(<args>)\\n```\\nExample:\\n```plaintext\\n(2, 0): worker harvest((0, 0), (2, 1))\\n(2, 1): base train(worker)\\n```\\n\\n### 💡 Available Actions\\n- move((x, y))\\n- attack((enemy_x, enemy_y))\\n- build((x, y), building_type)\\n- train(unit_type)\\n- harvest((resource_x, resource_y), (base_x, base_y))\\n\\n### 🗺️ Map Information\\nYou will be told where units, resources, and bases are located.\\nUse this information to plan your moves logically.\\n\\nNow output JSON in this format:\\n```json\\n{\\n  \\"thinking\\": \\"<Your strategy>\\",\\n  \\"moves\\": [\\n    {\\n      \\"raw_move\\": \\"(x, y): unit_type action(...)\\",\\n      \\"unit_position\\": [x, y],\\n      \\"unit_type\\": \\"worker\\",\\n      \\"action_type\\": \\"harvest\\"\\n    },\\n    ...\\n  ]\\n}\\n```"
                          play to win chatgpt & Evil 
                          
             
@@ -175,8 +198,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                          (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
                          (<X>, <Y>): <Unit Type> <Action>(<Action Arguments>)
                          etc ...""
-            
-            
+        
     """;
     /*
     * 1. Early Game - Economy Focus
@@ -205,6 +227,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * */
     static { // first priority when calling a class before main() & constructor
         MOVE_RESPONSE_SCHEMA = new JsonObject();
+
 
         String schemaJson = """
                 {
@@ -293,12 +316,47 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      */
     public LLM_Gemini(UnitTypeTable a_utt) {
-        this(a_utt, new AStarPathFinding()); //
+        this(a_utt, new AStarPathFinding());
+
+        //
         System.out.println(" in this 1 st nd mg546924 288   ----- >  Y / N ");
         String timestamp1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
         FilenameXXXten = "LLmGemini_"+timestamp1+".json";
         // this is also good i gess
+        // String fileName01 = "Response_format_02"+".csv";
 
+        //best place file name
+
+
+        /**
+         * try {
+         *             fileName01 = createFileName();
+         *         } catch (Exception e) {
+         *             throw new RuntimeException(e);
+         *         }
+         *
+         *         System.out.println("--->   341   "+fileName01);
+         *
+         *         try (FileWriter writer = new FileWriter(fileName01)) {
+         *             // Header row
+         *             writer.append("Thinking,Moves,Feature locations,Request Time, Request / Prompt Tokens, response Time, Response Tokens, Latency(milliseconds),Total Tokens,Score_in_every_run\n");
+         *
+         *
+         *         } catch (IOException e) {
+         *             System.err.println(" Error writing CSV: " + e.getMessage());
+         *         }
+         */
+    }
+
+    public LLM_Gemini(UnitTypeTable a_utt,String aiName1, String aiName2){
+        this(a_utt, new AStarPathFinding());
+        if((aiName1 != null && aiName2 != null) && (!(aiName1.isEmpty())  || !(aiName2.isEmpty())) && logsInitializedone != true) {
+            this.aiName1 = aiName1;
+            this.aiName2 = aiName2;
+            System.out.println("aiName1 - 23 " + aiName1);
+            System.out.println("aiName2 - 23" + aiName2);
+            logsInitializedone = true;
+        }
     }
 
     /**
@@ -312,6 +370,14 @@ public class LLM_Gemini extends AbstractionLayerAI {
         reset(a_utt); // method call
     }
 
+
+    /**
+     *
+     */
+    public String createFileName() throws Exception {
+        System.out.println("aiName1 "+this.aiName1+" "+this.aiName2+" "+aiName2+" "+aiName1);
+        return "Response"+timestamp+"_"+this.aiName1+"_"+num_shot+"_"+this.aiName2+"_"+MODEL+".csv";
+    }
 
     /**
      * Methods
@@ -354,6 +420,36 @@ public class LLM_Gemini extends AbstractionLayerAI {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+    private void initLogsIfNeeded() {
+        System.out.println(" initLogsIfNeeded  ~~~~  ~~ ~ ~");
+        if (logsInitialized) return;
+
+        // Fallback labels if names weren’t injected
+        String a = (aiName1 == null || aiName1.isEmpty()) ? "LLM_Gemini" : aiName1;
+        String b = (aiName2 == null || aiName2.isEmpty()) ? "RandomBiasedAI" : aiName2;
+
+
+        // Build names once
+        String ts = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new java.util.Date());
+        fileName01 = "Response" + ts + "_" + a + "_" + num_shot + "_" + b + "_" + MODEL + ".csv";
+        FilenameXXXten = "LLM_Gemini_" + ts + ".json";
+
+        try (FileWriter writer = new FileWriter(fileName01)) {
+            writer.append("Thinking,Moves,Feature locations,Request Time, Request / Prompt Tokens, response Time, Response Tokens, Latency(milliseconds),Total Tokens,Score_in_every_run\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logsInitialized = true;
+    }
+
+
+
 
 
     /**
@@ -409,7 +505,15 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @return
      */
     @Override
-    public PlayerAction getAction(int player, GameState gs) {
+    public PlayerAction getAction(int player, GameState gs) throws Exception {
+        initLogsIfNeeded();
+
+      //   i will give file name over hear ;
+
+
+
+
+
 
         String finalPrompt;
         System.out.println(" in line number 222 gmu3r2g ");
@@ -488,6 +592,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
         // Inclusion of turn number provides LLM with temporal context (depends if chats are reused)
         String turnPrompt = "Turn: " + gs.getTime() + "/" + 5000;
+        value_TimestampandScore = PhysicalGameStatePanel.info1;
 
         // Helps prevent LLM from issuing more commands than units available
         String maxActionsPrompt = "Max actions: " + maxActions;
@@ -498,6 +603,13 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
         System.out.println(" 469  ----------------------------------- \n featuresPrompt :  ");
         System.out.println(featuresPrompt);
+        String[] lines = featuresPrompt.split("\n");
+
+        String arrayFormat = Arrays.stream(lines)
+                .map(s -> "\"" + s.replace("\"", "\\\"") + "\"") // Escape internal quotes
+                .collect(Collectors.joining(", ", "[", "]"));
+
+        System.out.println(arrayFormat);
         System.out.println(" ----------------------------------- ");
 
 
@@ -516,13 +628,33 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
         finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
 
+        System.out.println(" gmu3r2g 344 3  -----------------------------------  \n ");
+         System.out.println(finalPrompt);
+        System.out.println("  : gmu3r2g 3421  ----------------------------------- ");
+        System.out.println("mapPrompt"+mapPrompt);
+        System.out.println("value_TimestampandScore"+value_TimestampandScore);
+        System.out.println("  -> gmu3r2g 3421  ----------------------------------- ");
+        System.out.println("turnPrompt"+turnPrompt);
+        System.out.println("  --> gmu3r2g 3421  ----------------------------------- ");
+        System.out.println("maxActionsPrompt"+maxActionsPrompt);
+        System.out.println("featuresPrompt"+featuresPrompt);
+        System.out.println("   -+  > gmu3r2g 3421  ----------------------------------- ");
 
-        // System.out.println(finalPrompt);
         // Prompt gemini
         String response = prompt(finalPrompt);
         System.out.println(" 476  ----------------------------------- ");
 
         System.out.println(response);
+        if(response instanceof String)
+            System.out.println(" it is a string 530 llm gemini  ");
+
+
+            // Data rowsint
+
+
+
+            System.out.println("✅ CSV written successfully: " + fileName);
+
         System.out.println(" 479   ----------------------------------- ");
         JsonParser parser = new JsonParser();
         JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
@@ -808,6 +940,33 @@ public class LLM_Gemini extends AbstractionLayerAI {
         Player p0 = gs.getPlayer(0);
         Player p1 = gs.getPlayer(1);
 
+        System.out.println(" current time "+currentTime+" p0 "+p0+" p1 "+p1);
+        String combinestring = "T : "+currentTime+","+p0+","+p1;
+        try (FileWriter writer = new FileWriter(fileName01,true)) {
+            if (response.indexOf("\"thinking\"") != -1 && response.indexOf("\"moves\"") != -1) {
+                String beforeMoves = response.substring(response.indexOf("\"thinking\"")+11, response.indexOf("\"moves\"")); // includes "thinking"
+                String fromMoves = response.substring(response.indexOf("\"moves\""));                 // includes "moves"
+
+                String plainasline = fromMoves.toString();
+                String csvSafe = escapeForCSV(beforeMoves);
+                String csvSafe2 = escapeForCSV(plainasline);
+                String arrayFormat2 = escapeForCSV(arrayFormat);
+                String combinestring2 = escapeForCSV(combinestring);
+                String value_TimestampandScore1 = escapeForCSV(value_TimestampandScore);
+                System.out.println(" Part 1: From 'thinking' to before 'moves'\n" + csvSafe);
+                System.out.println("part 2 : csvSafe2 "+csvSafe2);
+                System.out.println("part 2 : arrayFormat :  "+arrayFormat2);
+                System.out.println("part 223236969696 : combinestring :  "+combinestring);
+                writer.append(csvSafe).append(",").append(csvSafe2).append(",").append(arrayFormat2).append(",").append(promptTime.toString()).append(",").append(String.valueOf(requestTokens)).append(",").append(responseTime.toString()).append(",").append(String.valueOf(responseTokens)).append(",").append(String.valueOf(Latency)).append(",").append(String.valueOf(totalTokens)).append(",").append(value_TimestampandScore1).append("\n");
+            } else {
+                System.out.println(" Keywords not found.");
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+            System.err.println("error in writing they data  "+e.getMessage());
+        }
+
 // Score can be estimated using evaluation (if used), but usually this prints resource values or utility
         System.out.printf("T: %d, P0: %d (%s), P1: %d (%s)%n",
                 currentTime,
@@ -826,6 +985,24 @@ public class LLM_Gemini extends AbstractionLayerAI {
         //return translateActions(player, gs);
     }
 
+    /**
+     *
+     * @param value = "String format that contain a lot of , . \n "
+     *
+     * @return = " plain string which is not goint to split in any 2 are 3 individual bxes in excel are google sheets "
+     */
+    public static String escapeForCSV(String value) {
+        if (value == null) return "\"\"";
+        // Step 1: Escape internal quotes
+        String escaped = value.replace("\"", "\"\"");
+        // Step 2: Escape newlines (convert to literal \n so Excel doesn’t break cell)
+        escaped = escaped.replace("\n", "\\n").replace("\r", "\\r");
+        // Step 3: Wrap in quotes
+        return "\"" + escaped + "\"";
+    }
+
+
+
 
 
     // Abstraction functions:
@@ -838,6 +1015,10 @@ public class LLM_Gemini extends AbstractionLayerAI {
     // - buildIfNotAlreadyBuilding(Unit ally, UnitType building, Int x, Int y, Player p, PhysicalGameState pgs) (This function has been omitted from the LLM)
 
     public String prompt(String prompt) {
+
+        requestTokens = calculateTokens(MODEL, prompt); // 'prompt' is your user/game state text
+        System.out.println(" rr ZZZZZZ ZZZZ  ZZZ. .. Request Tokens: " + requestTokens);
+
         try {
             // Create the body of the request
             JsonObject requestBody = new JsonObject();
@@ -865,11 +1046,17 @@ public class LLM_Gemini extends AbstractionLayerAI {
             requestBody.add("generationConfig", generationConfig);  // Add generationConfig with schema
 
             // Send the request
+
             URL url = new URL(ENDPOINT_URL + MODEL + ":generateContent?key=" + API_KEY);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
+            // Reqest time : the moment the connection is established
+            promptTime = Instant.now();  //
+            System.out.println("promptTime : "+promptTime);
+
+
             System.out.println("🔼 gmu3r2g 651 :  Sending requestBody to Gemini API:");
             System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(requestBody));
 
@@ -888,10 +1075,30 @@ public class LLM_Gemini extends AbstractionLayerAI {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
+                responseTime = Instant.now(); // taking a snapshot of response.
+                System.out.println("responseTime : "+responseTime);
 
-                // ⬇️ Print the raw JSON response string (BEFORE parsing)
+                Latency = responseTime.toEpochMilli() - promptTime.toEpochMilli();
+
+                System.out.println(" 987 -->>: Latency : "+Latency);
+
+
+
+                        // ⬇️ Print the raw JSON response string (BEFORE parsing)
                // System.out.println("✅ Raw Response JSON from Gemini: gmu3r2g ");
                 System.out.println(response.toString());
+
+                // response count : ->
+                responseTokens = calculateTokens(MODEL, response.toString()); // 'prompt' is your user/game state text
+                System.out.println("  Res ZZZZZZ ZZZZ  ZZZ. .. responseTokens " + responseTokens);
+
+                totalTokens = requestTokens+responseTokens;
+                System.out.println(" totalTokens  -> > > " + totalTokens);
+               // System.out.println(" totalTokens  -> > > " + Integer.toString(totalTokens));
+
+
+
+
                 JsonParser parser1 = new JsonParser();
                 JsonObject jsonResponse1 = parser1.parse(response.toString()).getAsJsonObject();
 
@@ -1002,4 +1209,66 @@ public class LLM_Gemini extends AbstractionLayerAI {
         }
         return description;
     }
+
+
+    /**
+     * Calculates the number of tokens for a given text using Gemini's countTokens API.
+     *
+     * @param modelName The model i am using to know exactly how many tokens C/s
+     * @param text      The text (prompt or response) to calculate tokens for
+     * @return          The total token count for the given text
+     */
+    public int calculateTokens(String modelName, String text) {
+        try {
+            URL url = new URL(ENDPOINT_URL + modelName + ":countTokens?key=" + API_KEY);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // Build JSON request
+            JsonObject body = new JsonObject();
+            JsonArray contents = new JsonArray();
+
+            JsonObject part = new JsonObject();
+            part.addProperty("text", text);
+
+            JsonArray parts = new JsonArray();
+            parts.add(part);
+
+            JsonObject content = new JsonObject();
+            content.add("parts", parts);
+
+            contents.add(content);
+            body.add("contents", contents);
+
+            // Send request
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = body.toString().getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
+            // Read response
+            int code = conn.getResponseCode();
+            InputStream is = (code == HttpURLConnection.HTTP_OK) ? conn.getInputStream() : conn.getErrorStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) sb.append(line.trim());
+
+            if (code != HttpURLConnection.HTTP_OK) {
+                System.err.println("❌ Token count error: " + sb);
+                return 0;
+            }
+            JsonObject json = new JsonParser().parse(sb.toString()).getAsJsonObject();
+            return json.get("totalTokens").getAsInt();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+
 }
