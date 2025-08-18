@@ -34,14 +34,18 @@
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-project" name="build"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-        	<src path="test"/>
-            <classpath refid="microrts.classpath"/>
-        </javac>
-    </target>
+    <target name="build-project" depends="init">
+    <echo message="${ant.project.name}: ${ant.file}"/>
+    <javac debug="true" debuglevel="${debuglevel}"
+           destdir="bin"
+           includeantruntime="false"
+           encoding="UTF-8"
+           release="17">
+        <src path="src"/>
+        <src path="test"/>
+        <classpath refid="microrts.classpath"/>
+    </javac>
+</target>
 	<target name="test" depends="build">
 		<mkdir dir="${junit.output.dir}"/>
 		<junit fork="yes" haltonfailure="yes" filtertrace="off" maxmemory="4096m">
