@@ -95,4 +95,4 @@ java -cp microrts.jar rts.MicroRTS -f my_file.properties
 ## Instructions
 
 ![instructions image](https://raw.githubusercontent.com/santiontanon/microrts/master/help.png)
-# MIcroRts-LLM-G
+# MicroRTS-LLM-G
