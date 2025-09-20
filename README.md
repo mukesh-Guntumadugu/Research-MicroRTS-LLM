@@ -97,13 +97,22 @@ java -cp microrts.jar rts.MicroRTS -f my_file.properties
 ![instructions image](https://raw.githubusercontent.com/santiontanon/microrts/master/help.png)
 # MicroRTS-LLM-G
 
-To run LLM_Gemini 
+Running LLM_Gemini
 
-provide your API_KEY  & detailes that are needed for establishing they api connection like model name like ="gemini-2.5-flash" or "gemini-2.0-flash" etc,
+Provide your API_KEY and the details required to establish the API connection, such as the model name (e.g., "gemini-2.5-flash" or "gemini-2.0-flash") in src/ai/abstraction/LLM_Gemini.java.
 
-after that you can run by going to they src/ai/gui/frontend.java
+Once configured, run the project from:
+
+src/ai/gui/frontend.java
+<img width="937" height="774" alt="Screenshot 2025-09-20 at 4 05 16 PM" src="https://github.com/user-attachments/assets/294ba469-05fb-4d03-96b1-e3fbb5b962bd" />
+
+Running Other AI Models
 
 
-To run other ai models either you can modify they content in they same LLM_Gemini java file are create a duplicate file and start modifing 
+You can either:
 
-provide your API_KEY  & detailes that are needed for establishing they api connection like model name like ="gemini-2.5-flash" or "gemini-2.0-flash" etc,
+Modify directly: Edit the contents of the existing LLM_Gemini.java file.
+
+Duplicate and modify: Create a copy of LLM_Gemini.java and adapt it for the new model.
+
+In both cases, make sure to provide your API_KEY and specify the model name (e.g., "gemini-2.5-flash", "gemini-2.0-flash", etc.).
