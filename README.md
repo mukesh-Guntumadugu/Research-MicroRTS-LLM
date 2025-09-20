@@ -104,7 +104,6 @@ Provide your API_KEY and the details required to establish the API connection, s
 Once configured, run the project from:
 
 src/ai/gui/frontend.java
-<img width="937" height="774" alt="Screenshot 2025-09-20 at 4 05 16 PM" src="https://github.com/user-attachments/assets/294ba469-05fb-4d03-96b1-e3fbb5b962bd" />
 
 Running Other AI Models
 
