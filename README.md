@@ -99,7 +99,7 @@ java -cp microrts.jar rts.MicroRTS -f my_file.properties
 
 ### Running LLM_Gemini
 
-Provide your Gemini API_KEY and the details required to establish the API connection, such as the model name (e.g., "gemini-2.5-flash" or "gemini-2.0-flash") in [`src/ai/abstraction/LLM_Gemini.java`](src/abstraction/LLM_Gemini.java)
+Provide your Gemini API_KEY and the details required to establish the API connection, such as the model name (e.g., "gemini-2.5-flash" or "gemini-2.0-flash") in [`src/ai/abstraction/LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java)
 
 Once configured, run the project from:
 
