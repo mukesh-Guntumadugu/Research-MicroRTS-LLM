@@ -110,8 +110,8 @@ Running Other AI Models
 
 You can either:
 
-Modify directly: Edit the contents of the existing LLM_Gemini.java file.
+Modify directly: Edit the contents of the existing [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java) file.
 
-Duplicate and modify: Create a copy of LLM_Gemini.java and adapt it for the new model.
+Duplicate and modify: Create a copy of [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java) and adapt it for the new model.
 
 In both cases, make sure to provide your API_KEY and specify the model name (e.g., "gemini-2.5-flash", "gemini-2.0-flash", etc.).
