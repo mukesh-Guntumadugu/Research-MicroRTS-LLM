@@ -103,7 +103,7 @@ Provide your Gemini API_KEY and the details required to establish the API connec
 
 Once configured, run the project from:
 
-[`src/gui/frontend.java`](src/gui/frontend.java)
+[`src/gui/frontend/FrontEnd.java`](src/gui/frontend/FrontEnd.java)
 
 Running Other AI Models
 
