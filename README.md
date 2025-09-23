@@ -97,13 +97,13 @@ java -cp microrts.jar rts.MicroRTS -f my_file.properties
 ![instructions image](https://raw.githubusercontent.com/santiontanon/microrts/master/help.png)
 # MicroRTS-LLM-G
 
-Running LLM_Gemini
+### Running LLM_Gemini
 
-Provide your API_KEY and the details required to establish the API connection, such as the model name (e.g., "gemini-2.5-flash" or "gemini-2.0-flash") in src/ai/abstraction/LLM_Gemini.java.
+Provide your Gemini API_KEY and the details required to establish the API connection, such as the model name (e.g., "gemini-2.5-flash" or "gemini-2.0-flash") in src/ai/abstraction/LLM_Gemini.java.
 
 Once configured, run the project from:
 
-src/ai/gui/frontend.java
+[`src/ai/gui/frontend.java`](src/ai/gui/frontend.java)
 
 Running Other AI Models
 
