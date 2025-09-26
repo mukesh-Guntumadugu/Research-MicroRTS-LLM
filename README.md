@@ -119,4 +119,28 @@ In both cases, make sure to provide your API_KEY and specify the model name (e.g
 
 ### Running batch files 
 
-run_loop.slurm [`run_loop.slurm`](run_loop.slurm)
+
+run this file run_loop.slurm [`run_loop.slurm`](run_loop.slurm)
+Comand is sbatch filename  which is  sbatch run_loop.slurm
+
+once you run this you will get Submitted batch job jobnumber
+
+after that you use this command to see how many file are being generated ls -lrt *2025-MM-dd_* dd is the date ex: 30 are 01 MM is month
+
+this is to check the log file in the folder
+ -> ls -ltr slurm-*.out   you will get some thing like this slurm-16775.out 
+
+vi slurm_18437.out  open the resent slurm file to see if you get any error like this "You exceeded your current quota, please check your plan and billing details. For more information on this error" then the log will be stoping the process mainly you will not get any response from the Gemini API mainly because of the response has been over the limit. you need to wait for 5 to 6 houres are a day mainly depends on the plane.
+
+if you do not get any issue then you can use this command to see how many csv files are generated ls -lrt *2025-MM-dd_* dd is the date ex: 30 are 01 MM is month
+
+
+from scancel -u $USER
+if you are done with your batch running  you can use this "command scancel 18437 " in the user section you can check your name for ex "mg546924" on that side you can see job id 18437 so if i want to cancill my job i need to enter  scancel 18437 
+
+
+ 
+
+
+
+
