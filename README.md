@@ -198,9 +198,7 @@ Example: if your username is `mg546924` and the job ID is `18437`, then:
 
 ```bash
 scancel 18437
-```
-
-#### Note: if you get any error like this  " You exceeded your current quota, please check your plan and billing details " it is recamended to stop the job for 3 to 4 houres are 1 day are need to change the plane 
+``` 
 
 > **Note:**  
 > If you encounter an error like:  
