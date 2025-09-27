@@ -124,9 +124,9 @@ run this file run_loop.slurm [`run_loop.slurm`](run_loop.slurm)
 Comand is sbatch filename  which is  sbatch run_loop.slurm
 
 Running Experiments with run_loop.slurm
-1. Submit the Batch Job
-    To run the job, use:
-    sbatch run_loop.slurm
+1. Submit the Batch Job␣␣
+    To run the job, use:␣␣
+    sbatch run_loop.slurm␣␣
     This will return a confirmation message like:
     Submitted batch job <job_number>
 
@@ -136,7 +136,7 @@ Running Experiments with run_loop.slurm
     Replace MM with the month (e.g., 09)
     Replace dd with the day (e.g., 26)
 
-3. Check Log Files
+4. Check Log Files
    List the SLURM logs:
    ls -lrt slurm-*.out
    You will see files such as:
@@ -144,7 +144,7 @@ Running Experiments with run_loop.slurm
    Open the most recent log to inspect progress or errors:
    vi slurm-16775.out
 
-4. Verify CSV Outputs
+5. Verify CSV Outputs
    If no errors are found, check how many CSV files were generated:
    ls -lrt 2025-MM-dd_*
 
