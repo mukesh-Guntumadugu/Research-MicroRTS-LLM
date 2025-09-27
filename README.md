@@ -125,14 +125,10 @@ Comand is sbatch filename  which is  sbatch run_loop.slurm
 
 Running Experiments with run_loop.slurm
 1. Submit the Batch Job
-   
-    To run the job, use:
-   
-    sbatch run_loop.slurm
-   
-    This will return a confirmation message like:
-
-    Submitted batch job <job_number>
+To run the job, use:
+sbatch run_loop.slurm
+This will return a confirmation message like:
+Submitted batch job <job_number>
     
 
 3. Monitor Output Files
