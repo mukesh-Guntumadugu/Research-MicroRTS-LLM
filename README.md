@@ -209,7 +209,7 @@ scancel 18437
 > Alternatively, you may need to **upgrade your plan** to avoid this issue.
 
 ## prompt
-To modify their LLM prompt for Gemini, Ollama, etc, we can go to their main script of them [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java). We can see a string named ' prompt and modify it based on your idea to win 
+To modify the LLM prompt for Gemini, Ollama, etc, we can go to their main script [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java). We can see a string named ' prompt and modify it based on your idea to win. 
 ##
 
 
