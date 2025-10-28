@@ -216,6 +216,8 @@ scancel 18437
 
 <img width="935" height="798" alt="Screenshot 2025-10-28 at 9 10 19 AM" src="https://github.com/user-attachments/assets/4ef13d14-9d92-4f6d-8260-39182e40432c" />
 
+0. Switch to the "Tournaments" tab on the top of the window.
+
 1. **Opponent Mode**
    - Set the Opponent dropdown to **Fixed Opponents**.
 
