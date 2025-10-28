@@ -216,10 +216,36 @@ scancel 18437
 
 <img width="935" height="798" alt="Screenshot 2025-10-28 at 9 10 19 AM" src="https://github.com/user-attachments/assets/4ef13d14-9d92-4f6d-8260-39182e40432c" />
 
-Make the drop box as Fixed Opponents in the Tournaments.
+1. **Opponent Mode**
+   - Set the Opponent dropdown to **Fixed Opponents**.
 
-Select an AI model from the Available AI's in Selected AIs as well as Opponent AIs
-Once it is done, go to Maps, click on the "+" symbol, and go to the project folder. We can see maps in the project. Select a map size of 8x8 or 24x24, whichever you prefer. And for Iterations, how many games are you playing? If it's 2, then two games; if it's 3, then three games. Make their Max Game Length 3000. Time Budget AS 1000 & you can leave the other two things as it is. & for the Unit Type Table: "Original-Both," make sure to include self-play matches & game over if AI times out, and that the others are checked. Once the game is done 
+2. **Select AIs**
+   - From **Available AIs**:
+     - Add your AI to **Selected AIs**.
+     - Add the baselines/opponents to **Opponent AIs**.
+
+3. **Maps**
+   - Go to **Maps** → click **+** → browse to the project’s `maps` folder.
+   - Add a map (e.g. `8x8` or `24x24`).
+
+4. **Iterations**
+   - Set **Iterations** = number of games per matchup  
+     (e.g. `2` → 2 games, `3` → 3 games).
+
+5. **Match Config**
+   - **Max Game Length** = `3000`
+   - **Time Budget** = `1000`
+   - Leave the other timing fields as default.
+
+6. **Unit Type Table / Rules**
+   - Set **Unit Type Table** = `Original - Both`
+   - Check:
+     - `Self-play matches`
+     - `Game over if AI times out`
+     - (Keep the other default checkboxes enabled.)
+
+7. **Run Tournament**
+
 <img width="814" height="480" alt="Screenshot 2025-10-28 at 9 17 04 AM" src="https://github.com/user-attachments/assets/ac1a69f1-eff9-4a01-a9da-7374895badde" />
 
 we can see their response in here, as well as they "tournament_nn" folder created in they project folder 
