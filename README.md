@@ -203,7 +203,23 @@ scancel 18437
 > **Note:**  
 > If you encounter an error like:  
 > ```
-> You exceeded your current quota, please check your plan and billing details
+> You exceeded your current quota. Please check your plan and billing details
 > ```  
 > it is recommended to stop the job and wait **3–4 hours** (up to **1 day**, depending on your plan).  
 > Alternatively, you may need to **upgrade your plan** to avoid this issue.
+
+
+
+#
+
+## Running Multiple Games at the Same Time:
+
+<img width="935" height="798" alt="Screenshot 2025-10-28 at 9 10 19 AM" src="https://github.com/user-attachments/assets/4ef13d14-9d92-4f6d-8260-39182e40432c" />
+
+Make the drop box as Fixed Opponents in the Tournaments.
+
+Select an AI model from the Available AI's in Selected AIs as well as Opponent AIs
+Once it is done, go to Maps, click on the "+" symbol, and go to the project folder. We can see maps in the project. Select a map size of 8x8 or 24x24, whichever you prefer. And for Iterations, how many games are you playing? If it's 2, then two games; if it's 3, then three games. Make their Max Game Length 3000. Time Budget AS 1000 & you can leave the other two things as it is. & for the Unit Type Table: "Original-Both," make sure to include self-play matches & game over if AI times out, and that the others are checked. Once the game is done 
+<img width="814" height="480" alt="Screenshot 2025-10-28 at 9 17 04 AM" src="https://github.com/user-attachments/assets/ac1a69f1-eff9-4a01-a9da-7374895badde" />
+
+we can see their response in here, as well as they "tournament_nn" folder created in they project folder 
