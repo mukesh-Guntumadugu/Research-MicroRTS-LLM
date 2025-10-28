@@ -219,7 +219,7 @@ scancel 18437
 0. Switch to the "Tournaments" tab on the top of the window.
 
 1. **Opponent Mode**
-   - Set the Opponent dropdown to **Fixed Opponents**.
+   - Set the Opponent dropdown **Round Robin** to **Fixed Opponents**.
 
 2. **Select AIs**
    - From **Available AIs**:
