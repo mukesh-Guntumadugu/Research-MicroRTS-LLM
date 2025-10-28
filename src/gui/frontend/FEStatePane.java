@@ -156,7 +156,9 @@ public class FEStatePane extends JPanel {
                    PuppetSearchMCTS.class,
                    SCV.class,
                    LLM_DeepseekR1.class, // LLM_DeepseekR1 for response
-                   LLM_Gemini.class // LLM_Gemini for response
+                   LLM_Gemini.class, // LLM_Gemini for response
+                   ollama.class, // for ollama one
+                   mistral.class //for Mistral
                   };
 
     
@@ -561,8 +563,8 @@ public class FEStatePane extends JPanel {
                                     System.out.println("Player 0 AI 560  ->  gmu3r2g: " + ai1.getClass().getSimpleName());
                                     System.out.println("Player 1 AI 561 -> gmu3r2g : " + ai2.getClass().getSimpleName());
                                     String aiName = ai2.getClass().getSimpleName();
-                                    aiName1 = ai1.getClass().getSimpleName();
-                                    aiName2 =  ai2.getClass().getSimpleName();
+                                    aiName1 = ai1.getClass().getSimpleName(); // "ollama"; RandomBiasedAI
+                                    aiName2 =  ai2.getClass().getSimpleName(); // "ollama";//
                                     if (ai2 instanceof PseudoContinuingAI) {
                                         aiName2 = ((PseudoContinuingAI) ai2).getbaseAI().getClass().getSimpleName();
                                     }
@@ -573,6 +575,11 @@ public class FEStatePane extends JPanel {
                                     System.out.println("Player 2 AI -> " + aiName2);
 
                                     LLM_Gemini llmGemini = new LLM_Gemini(currentUtt, aiName1, aiName2);
+                                    // ollama
+                                    ollama ollama = new ollama(currentUtt, aiName1, aiName2);
+
+                                    //mistral
+                                    mistral mistral = new mistral(currentUtt, aiName1, aiName2);
 
 
 

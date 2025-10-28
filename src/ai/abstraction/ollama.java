@@ -1,4 +1,5 @@
 package ai.abstraction;
+
 import ai.abstraction.pathfinding.AStarPathFinding;
 import ai.core.AI;
 import ai.abstraction.pathfinding.PathFinding;
@@ -29,9 +30,9 @@ import rts.Game;
 
 /**
  *
- * @author Brendan Smyers
+ * @author Mukesh
  */
-public class LLM_Gemini extends AbstractionLayerAI {
+public class ollama extends AbstractionLayerAI {
 
     /**
      * Static & non-static variables
@@ -39,13 +40,13 @@ public class LLM_Gemini extends AbstractionLayerAI {
      */
 
     // NOTE: TESTING ONLY gmu3r2g need to remove it are better ways to handile it in github
-    static final String API_KEY =  "";// "AIzaSyAO-cFtXYe1QZiNk7z1VOlB5Kj2TURXV4o"; /// remove it
+    static final String API_KEY =   "AIzaSyAO-cFtXYe1QZiNk7z1VOlB5Kj2TURXV4o"; /// remove it
 
 
     // gemini-1.5-flash (15 req/min)
     // gemini-2.0-flash (15 req/min)
     // gemini-2.5-flash
-    String MODEL = "gemini-2.5-flash";
+    //String MODEL = "gemini-2.5-flash";
     String fileName = "Response_format.csv";
     static final String ENDPOINT_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
@@ -88,6 +89,18 @@ public class LLM_Gemini extends AbstractionLayerAI {
     private boolean logsInitialized = false;
     private boolean logsInitializedone = false;
 
+    // ==== OLLAMA CONFIG ====
+    static final String OLLAMA_HOST =
+            System.getenv().getOrDefault("OLLAMA_HOST", "http://localhost:11434");
+    static String MODEL = "llama3.1:8b";
+    static final boolean OLLAMA_STREAM = false;
+    static final String OLLAMA_FORMAT = "json";
+
+    // Keep your file names/logs using MODEL:
+    // String fileName = "Response_format.csv";
+
+
+
     // is there any other way to give prompt in a better way to give Free to it ?
 
     /**
@@ -122,16 +135,16 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      Suggested strategy:
      1. Early Game - Economy Focus
-         - Harvest nonstop with workers.
-         - Build barracks once you have 5 resources.
+     - Harvest nonstop with workers.
+     - Build barracks once you have 5 resources.
      2. Mid Game - Army Development
-         - Train heavies, ranged, and lights using the barracks.
-         - Hunt enemy workers to slow their economy.
-         - Keep barracks safe at all costs.
+     - Train heavies, ranged, and lights using the barracks.
+     - Hunt enemy workers to slow their economy.
+     - Keep barracks safe at all costs.
      3. Late Game - Closing Out
-         - Group units and attack key targets together.
-         - Destroy enemy production buildings first.
-         - Maintain resource control to prevent comebacks.
+     - Group units and attack key targets together.
+     - Destroy enemy production buildings first.
+     - Maintain resource control to prevent comebacks.
      *
      Game state format:
      The game state consists the map size and a list of feature locations (zero-indexed) within the the map bounds. Units and buildings have different properties associated with their current state. All units and buildings (except resources) have an 'available' property. If a unit or building is available an action issued to it will be accepted.
@@ -303,7 +316,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
     }
 
-  // is there any other way to give prompt in a better way to give Free to it ?
+    // is there any other way to give prompt in a better way to give Free to it ?
 
 
     /**
@@ -315,7 +328,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param a_utt
      *
      */
-    public LLM_Gemini(UnitTypeTable a_utt) {
+    public ollama(UnitTypeTable a_utt) {
         this(a_utt, new AStarPathFinding());
 
         //
@@ -348,7 +361,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
          */
     }
 
-    public LLM_Gemini(UnitTypeTable a_utt,String aiName1, String aiName2){
+    public ollama(UnitTypeTable a_utt,String aiName1, String aiName2){
         this(a_utt, new AStarPathFinding());
         if((aiName1 != null && aiName2 != null) && (!(aiName1.isEmpty())  || !(aiName2.isEmpty())) && logsInitializedone != true) {
             this.aiName1 = aiName1;
@@ -364,7 +377,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param a_utt = ?
      * @param a_pf = ?
      */
-    public LLM_Gemini(UnitTypeTable a_utt, PathFinding a_pf) {
+    public ollama(UnitTypeTable a_utt, PathFinding a_pf) {
         super(a_pf); //
         System.out.println(" in this 2 nd mg546924 180 "+ a_utt);
         reset(a_utt); // method call
@@ -407,7 +420,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
         wrapper.add("player_final_stats", metrics);
         wrapper.add("game_metrics", totals);
 
-        // ✅ Add end timestamp
+
         String timestamp = java.time.LocalDateTime.now()
                 .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS"));
         wrapper.addProperty("end_time", timestamp);
@@ -463,7 +476,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * ITERATIONS_BUDGET  in  aiwithComputationbudget
      */
     public void reset() {
-    	super.reset();
+        super.reset();
         TIME_BUDGET = -1;
         ITERATIONS_BUDGET = -1;
     }
@@ -472,7 +485,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      * @param a_utt
      */
-    public void reset(UnitTypeTable a_utt)  
+    public void reset(UnitTypeTable a_utt)
     {
         utt = a_utt;
         resourceType = utt.getUnitType("Resource");
@@ -494,7 +507,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
     @Override
     public AI clone() {
-        return new LLM_Gemini(utt, pf);
+        return new ollama(utt, pf);
     }
 
 
@@ -504,11 +517,483 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param gs the game state where the action should be performed
      * @return
      */
+
+
+
+    @Override
+    public PlayerAction getAction(int player, GameState gs) throws Exception {
+        // make sure filenames/log headers exist
+        initLogsIfNeeded();
+
+        String finalPrompt;
+
+        System.out.println(" [ollama.getAction] start ");
+
+        // If we're NOT on an LLM turn, just keep executing the abstract actions already assigned
+        if (gs.getTime() % LLM_INTERVAL != 0) {
+            if (gs.gameover()) {
+                logEndGameMetrics();
+            }
+
+            PlayerAction pa = translateActions(player, gs);
+            System.out.println("🎯 (LLM_INTERVAL skip) translateActions() generated PlayerAction:");
+            System.out.println(pa);
+            return pa;
+        }
+
+        // ===== Gather game context =====
+        PhysicalGameState pgs = gs.getPhysicalGameState();
+        int width = pgs.getWidth();
+        int height = pgs.getHeight();
+        Player p = gs.getPlayer(player);
+
+        ArrayList<String> features = new ArrayList<>();
+        int maxActions = 0;
+
+        // Build feature list for the prompt and help us count how many units we can legally command
+        for (Unit u : pgs.getUnits()) {
+            if (u.getPlayer() == player) {
+                maxActions++;
+            }
+
+            String unitStats;
+            UnitAction unitAction = gs.getUnitAction(u);
+            String unitActionString = unitActionToString(unitAction);
+
+            String unitType;
+            if (u.getType() == resourceType) {
+                unitType = "Resource Node";
+                unitStats = "{resources=" + u.getResources() + "}";
+            } else if (u.getType() == baseType) {
+                unitType = "Base Unit";
+                unitStats = "{resources=" + p.getResources() +
+                        ", current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else if (u.getType() == barracksType) {
+                unitType = "Barracks Unit";
+                unitStats = "{current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else if (u.getType() == workerType) {
+                unitType = "Worker Unit";
+                unitStats = "{current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else if (u.getType() == lightType) {
+                unitType = "Light Unit";
+                unitStats = "{current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else if (u.getType() == heavyType) {
+                unitType = "Heavy Unit";
+                unitStats = "{current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else if (u.getType() == rangedType) {
+                unitType = "Ranged Unit";
+                unitStats = "{current_action=\"" + unitActionString +
+                        "\", HP=" + u.getHitPoints() + "}";
+            } else {
+                unitType = "Unknown";
+                unitStats = "{}";
+            }
+
+            String unitPos = "(" + u.getX() + ", " + u.getY() + ")";
+            String team = (u.getPlayer() == player) ? "Ally" :
+                    (u.getType() == resourceType ? "Neutral" : "Enemy");
+
+            features.add(unitPos + " " + team + " " + unitType + " " + unitStats);
+        }
+
+        // Map summary for the LLM
+        String mapPrompt         = "Map size: " + width + "x" + height;
+        String turnPrompt        = "Turn: " + gs.getTime() + "/" + 5000;
+        String maxActionsPrompt  = "Max actions: " + maxActions;
+        value_TimestampandScore  = PhysicalGameStatePanel.info1;
+
+        String featuresPrompt = "Feature locations:\n" + String.join("\n", features);
+
+        // Also build a JSON-ish array string version of features for CSV logging later
+        String[] lines = featuresPrompt.split("\n");
+        String arrayFormat = Arrays.stream(lines)
+                .map(s -> "\"" + s.replace("\"", "\\\"") + "\"")
+                .collect(Collectors.joining(", ", "[", "]"));
+
+        // Final LLM prompt
+        finalPrompt = PROMPT + "\n\n" +
+                mapPrompt + "\n" +
+                turnPrompt + "\n" +
+                maxActionsPrompt + "\n\n" +
+                featuresPrompt + "\n";
+
+       // System.out.println("=== Prompt to LLM ===");
+       // System.out.println(finalPrompt);
+       // System.out.println("=====================");LLM returned String as expected
+
+        // ===== Call the model (Ollama in your current version) =====
+        String response = prompt(finalPrompt);
+        System.out.println("=== Raw LLM Response ===");
+        System.out.println(response);
+        System.out.println("========================");
+
+        if (response instanceof String) {
+            System.out.println("LLM returned String as expected.");
+        }
+
+        // ===== Parse model JSON safely & log pretty copy =====
+        JsonObject jsonResponse = parseJsonStrictThenLenient(response);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String prettyJson = gson.toJson(jsonResponse);
+
+        try (FileWriter file = new FileWriter(FilenameXXXten, true)) {
+            String tsNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+            file.write("[" + tsNow + "]\n");
+            file.write(prettyJson);
+            file.write(System.lineSeparator());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // ===== Extract "moves" array from model output =====
+        JsonArray moveElements = jsonResponse.getAsJsonArray("moves");
+
+        if (moveElements == null || moveElements.size() == 0) {
+            System.out.println("[LLM] No moves[] in response. Falling back to translateActions.");
+            if (gs.gameover()) {
+                logEndGameMetrics();
+            }
+            PlayerAction fallbackPA = translateActions(player, gs);
+            System.out.println("🎯 translateActions() (no LLM moves) =>");
+            System.out.println(fallbackPA);
+            return fallbackPA;
+        }
+
+        // ===== Try to apply each move from the LLM safely =====
+        for (JsonElement moveElement : moveElements) {
+            try {
+                if (!moveElement.isJsonObject()) {
+                    System.out.println("[LLM] skipping non-object move element: " + moveElement);
+                    continue;
+                }
+
+                JsonObject move = moveElement.getAsJsonObject();
+
+                // --- Validate unit_position ---
+                if (!move.has("unit_position") || !move.get("unit_position").isJsonArray()) {
+                    System.out.println("[LLM] skipping move, missing unit_position: " + move);
+                    continue;
+                }
+
+                JsonArray unitPosition = move.getAsJsonArray("unit_position");
+                if (unitPosition == null ||
+                        unitPosition.size() < 2 ||
+                        unitPosition.get(0).isJsonNull() ||
+                        unitPosition.get(1).isJsonNull()) {
+
+                    System.out.println("[LLM] skipping move, bad unit_position: " + unitPosition);
+                    continue;
+                }
+
+                int unitX = unitPosition.get(0).getAsInt();
+                int unitY = unitPosition.get(1).getAsInt();
+
+                // --- Look up the unit in the game ---
+                Unit unit = pgs.getUnitAt(unitX, unitY);
+                if (unit == null) {
+                    System.out.println("❌ No unit at (" + unitX + ", " + unitY + ") - skipping move.");
+                    continue;
+                }
+
+                // cannot command enemy / neutral units
+                if (unit.getPlayer() != player) {
+                    System.out.println("  ----->   Can't command non-owned unit at (" + unitX + ", " + unitY + ") - skipping.");
+                    continue;
+                }
+
+                // --- Required action fields ---
+                if (!move.has("action_type") || !move.has("raw_move")) {
+                    System.out.println("[LLM] skipping move, missing action_type/raw_move: " + move);
+                    continue;
+                }
+
+                String actionType = move.get("action_type").getAsString();
+                String rawMove    = move.get("raw_move").getAsString();
+                String unitType   = move.has("unit_type")
+                        ? move.get("unit_type").getAsString()
+                        : "unknown";
+
+                System.out.println(
+                        " Applying LLM move: " + rawMove +
+                                " | action_type=" + actionType +
+                                " | unit=(" + unitX + "," + unitY + ") type=" + unitType
+                );
+
+                // We'll parse text like "(2,1): worker move((3,1))"
+                // using regex per action type, then call the abstraction-layer helpers
+                switch (actionType) {
+                    case "move": {
+                        // structures can't move
+                        if (unit.getType() == baseType || unit.getType() == barracksType) {
+                            System.out.println("'move' failed: structure at ("+unitX+", "+unitY+")");
+                            break;
+                        }
+
+                        Pattern pattern = Pattern.compile(
+                                "\\(\\s*\\d+,\\s*\\d+\\):.*?move\\(\\(\\s*(\\d+),\\s*(\\d+)\\s*\\)\\)"
+                        );
+                        Matcher matcher = pattern.matcher(rawMove);
+
+                        if (matcher.find()) {
+                            int targetX = Integer.parseInt(matcher.group(1));
+                            int targetY = Integer.parseInt(matcher.group(2));
+                            move(unit, targetX, targetY);
+                        } else {
+                            System.out.println("'move' regex no match for: " + rawMove);
+                        }
+
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    case "harvest": {
+                        // workers only
+                        if (unit.getType() != workerType) {
+                            System.out.println("'harvest' failed: non-worker at ("+unitX+", "+unitY+")");
+                            break;
+                        }
+
+                        Pattern pattern = Pattern.compile(
+                                "\\(\\s*\\d+,\\s*\\d+\\):.*?harvest\\(\\((\\d+),\\s*(\\d+)\\),\\s*\\((\\d+),\\s*(\\d+)\\)\\)"
+                        );
+                        Matcher matcher = pattern.matcher(rawMove);
+
+                        if (matcher.find()) {
+                            int resourceX = Integer.parseInt(matcher.group(1));
+                            int resourceY = Integer.parseInt(matcher.group(2));
+                            int baseX     = Integer.parseInt(matcher.group(3));
+                            int baseY     = Integer.parseInt(matcher.group(4));
+
+                            Unit resourceUnit = pgs.getUnitAt(resourceX, resourceY);
+                            Unit baseUnit     = pgs.getUnitAt(baseX, baseY);
+
+                            if (resourceUnit != null && baseUnit != null) {
+                                harvest(unit, resourceUnit, baseUnit);
+                            } else {
+                                System.out.println("'harvest' failed: couldn't resolve resource/base units");
+                            }
+                        } else {
+                            System.out.println("'harvest' regex no match for: " + rawMove);
+                        }
+
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    case "train": {
+                        // only base or barracks can train
+                        if ((unit.getType() != baseType) && (unit.getType() != barracksType)) {
+                            System.out.println("'train' failed: not base/barracks at ("+unitX+", "+unitY+")");
+                            break;
+                        }
+
+                        Pattern pattern = Pattern.compile(
+                                "\\(\\s*\\d+,\\s*\\d+\\):.*?train\\(\\s*['\"]?(\\w+)['\"]?\\s*\\)"
+                        );
+                        Matcher matcher = pattern.matcher(rawMove);
+
+                        if (matcher.find()) {
+                            String stringTrainUnitType = matcher.group(1);
+                            UnitType trainUnitType = stringToUnitType(stringTrainUnitType);
+                            train(unit, trainUnitType);
+                        } else {
+                            System.out.println("'train' regex no match for: " + rawMove);
+                        }
+
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    case "build": {
+                        // only workers can build
+                        if (unit.getType() != workerType) {
+                            System.out.println("'build' failed: non-worker at ("+unitX+", "+unitY+")");
+                            break;
+                        }
+
+                        Pattern pattern = Pattern.compile(
+                                "\\(\\s*\\d+,\\s*\\d+\\):.*?build\\(\\s*\\(\\s*(\\d+),\\s*(\\d+)\\s*\\),\\s*['\"]?(\\w+)['\"]?\\s*\\)"
+                        );
+                        Matcher matcher = pattern.matcher(rawMove);
+
+                        if (matcher.find()) {
+                            int buildX = Integer.parseInt(matcher.group(1));
+                            int buildY = Integer.parseInt(matcher.group(2));
+                            String stringBuildUnitType = matcher.group(3);
+                            UnitType unitBuildType = stringToUnitType(stringBuildUnitType);
+                            build(unit, unitBuildType, buildX, buildY);
+                        } else {
+                            System.out.println("'build' regex no match for: " + rawMove);
+                        }
+
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    case "attack": {
+                        Pattern pattern = Pattern.compile(
+                                "\\(\\s*\\d+,\\s*\\d+\\):.*?attack\\(\\s*\\(\\s*(\\d+),\\s*(\\d+)\\s*\\)\\s*\\)"
+                        );
+                        Matcher matcher = pattern.matcher(rawMove);
+
+                        if (matcher.find()) {
+                            int enemyX = Integer.parseInt(matcher.group(1));
+                            int enemyY = Integer.parseInt(matcher.group(2));
+                            Unit enemyUnit = pgs.getUnitAt(enemyX, enemyY);
+
+                            if (enemyUnit != null) {
+                                attack(unit, enemyUnit);
+                            } else {
+                                System.out.println("'attack' failed: no enemy at ("+enemyX+","+enemyY+")");
+                            }
+                        } else {
+                            System.out.println("'attack' regex no match for: " + rawMove);
+                        }
+
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    case "idle": {
+                        idle(unit);
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+
+                    default: {
+                        System.out.println("Unknown action_type '" + actionType + "', skipping.");
+                        if (gs.gameover()) logEndGameMetrics();
+                        break;
+                    }
+                }
+
+            } catch (Exception ex) {
+                // CRITICAL: swallow bad move so AI doesn't crash the whole game
+                System.out.println("[LLM] Exception applying a move: " + ex.getMessage());
+                ex.printStackTrace();
+                // continue to next move
+            }
+        }
+
+        // ===== Auto-defense override (only if unit has no current abstract action) =====
+        // If an allied combat unit is standing next to an enemy, let it attack,
+        // but DON'T override if LLM already gave that unit an action.
+        for (Unit u1 : pgs.getUnits()) {
+            // only consider our units that can attack
+            if (u1.getPlayer() != player || !u1.getType().canAttack) {
+                continue;
+            }
+
+            Unit closestEnemy = null;
+            int closestDistance = 0;
+
+            for (Unit u2 : pgs.getUnits()) {
+                if (u2.getPlayer() == player) continue; // skip allies
+
+                int d = Math.abs(u2.getX() - u1.getX()) + Math.abs(u2.getY() - u1.getY());
+                if (closestEnemy == null || d < closestDistance) {
+                    closestEnemy = u2;
+                    closestDistance = d;
+                }
+            }
+
+            if (closestEnemy != null && closestDistance == 1) {
+                if (getAbstractAction(u1) == null) {
+                    System.out.println("Auto-attack: " + u1 + " -> " + closestEnemy);
+                    attack(u1, closestEnemy);
+                } else {
+                    System.out.println("⚠️ Skipping auto-override for " + u1 +
+                            " (already has LLM action)");
+                }
+            }
+        }
+
+        // ===== Logging & CSV append =====
+        totalMovesGenerated++;
+        totalMovesAccepted++;
+
+        System.out.println("gs.gameover() = " + gs.gameover());
+        Player p0 = gs.getPlayer(0);
+        Player p1 = gs.getPlayer(1);
+        int currentTime = gs.getTime();
+
+        System.out.println("Running getAction for Player: " + player);
+        System.out.println(" current time " + currentTime + " p0 " + p0 + " p1 " + p1);
+
+        String combinestring = "T : " + currentTime + "," + p0 + "," + p1;
+
+        try (FileWriter writer = new FileWriter(fileName01, true)) {
+            if (response.indexOf("\"thinking\"") != -1 &&
+                    response.indexOf("\"moves\"")    != -1) {
+
+                String beforeMoves = response.substring(
+                        response.indexOf("\"thinking\"") + 11,
+                        response.indexOf("\"moves\"")
+                );
+                String fromMoves   = response.substring(
+                        response.indexOf("\"moves\"")
+                );
+
+                String csvSafeThinking   = escapeForCSV(beforeMoves);
+                String csvSafeMoves      = escapeForCSV(fromMoves);
+                String csvSafeFeatures   = escapeForCSV(arrayFormat);
+                String csvSafeTimestamp  = escapeForCSV(combinestring);
+                String csvSafeScoreBlock = escapeForCSV(value_TimestampandScore);
+
+                writer.append(csvSafeThinking).append(",")
+                        .append(csvSafeMoves).append(",")
+                        .append(csvSafeFeatures).append(",")
+                        .append(promptTime != null ? promptTime.toString() : "")
+                        .append(",")
+                        .append(String.valueOf(requestTokens)).append(",")
+                        .append(responseTime != null ? responseTime.toString() : "")
+                        .append(",")
+                        .append(String.valueOf(responseTokens)).append(",")
+                        .append(String.valueOf(Latency)).append(",")
+                        .append(String.valueOf(totalTokens)).append(",")
+                        .append(csvSafeScoreBlock)
+                        .append("\n");
+            } else {
+                System.out.println("CSV logging: keywords not found in response.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("error writing CSV row: " + e.getMessage());
+        }
+
+        System.out.printf(
+                "T: %d, P0: %d (%s), P1: %d (%s)%n",
+                currentTime,
+                p0.getID(), p0.getResources(),
+                p1.getID(), p1.getResources()
+        );
+
+        if (gs.gameover()) {
+            logEndGameMetrics();
+        }
+
+        // ===== Return the final PlayerAction for this frame =====
+        PlayerAction pa = translateActions(player, gs);
+        System.out.println("🎯 Final translateActions() PlayerAction:");
+        System.out.println(pa);
+        return pa;
+    }
+
+
+
+    /*
+
     @Override
     public PlayerAction getAction(int player, GameState gs) throws Exception {
         initLogsIfNeeded();
 
-      //   i will give file name over hear ;
+        //   i will give file name over hear ;
 
 
 
@@ -528,7 +1013,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             System.out.println(pa);
             return pa;
             // till heare
-           // return translateActions(player, gs); need to add
+            // return translateActions(player, gs); need to add
         }
 
         PhysicalGameState pgs = gs.getPhysicalGameState();
@@ -583,7 +1068,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             String unitPos = "(" + u.getX() + ", " + u.getY() + ")";
             String team = u.getPlayer() == player ? "Ally" : "Enemy";
             if (u.getType() == resourceType) { team = "Neutral"; }
-            
+
             features.add(unitPos + " " + team + " " + unitType + " " + unitStats);
         }
 
@@ -616,11 +1101,11 @@ public class LLM_Gemini extends AbstractionLayerAI {
         // need to do in other way as off now llm
         // prompt will be passed only once so that we can save tokens
         if(promptstart == 0) {
-             finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
+            finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
             promptstart = promptstart+1;
         }
         else{
-             finalPrompt =  mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
+            finalPrompt =  mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
         }
 
         //  need to implement they  Context caching process
@@ -629,7 +1114,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
         finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
 
         System.out.println(" gmu3r2g 344 3  -----------------------------------  \n ");
-         System.out.println(finalPrompt);
+        System.out.println(finalPrompt);
         System.out.println("  : gmu3r2g 3421  ----------------------------------- ");
         System.out.println("mapPrompt"+mapPrompt);
         System.out.println("value_TimestampandScore"+value_TimestampandScore);
@@ -649,15 +1134,15 @@ public class LLM_Gemini extends AbstractionLayerAI {
             System.out.println(" it is a string 530 llm gemini  ");
 
 
-            // Data rowsint
+        // Data rowsint
 
 
 
-            System.out.println("✅ CSV written successfully: " + fileName);
+        System.out.println("✅ CSV written successfully: " + fileName);
 
         System.out.println(" 479   ----------------------------------- ");
-        JsonParser parser = new JsonParser();
-        JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
+        // JsonParser parser = new JsonParser();
+        JsonObject jsonResponse = parseJsonStrictThenLenient(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String prettyJson = gson.toJson(jsonResponse);
 
@@ -893,9 +1378,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
         // will make the the LLM.
         // This overrides the existing action if the unit was issued one
 
-        /** v2 it never strugule to attack it was overriding  in the middle some where in the process
-         *
-         */
+
 
         for (Unit u1 : pgs.getUnits()) {
             Unit closestEnemy = null;
@@ -914,11 +1397,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                     closestDistance = d;
                 }
             }
-            /** this is in previous that's over riding all the harvest / attack , move
-             if (closestEnemy != null && closestDistance == 1) {
-             System.out.println("Attacking nearest unit!");
-             attack(u1, closestEnemy); // w going on there
-             } */
+
             if (closestEnemy != null && closestDistance == 1) {
                 if (getAbstractAction(u1) == null) { // ✅ Only attack if no action was set by LLM
                     System.out.println("Attacking nearest unit!");
@@ -985,6 +1464,14 @@ public class LLM_Gemini extends AbstractionLayerAI {
         //return translateActions(player, gs);
     }
 
+
+
+
+     */
+
+
+
+
     /**
      *
      * @param value = "String format that contain a lot of , . \n "
@@ -1002,6 +1489,52 @@ public class LLM_Gemini extends AbstractionLayerAI {
     }
 
 
+    static String sanitizeModelJson(String s) {
+        if (s == null) return "";
+        s = s.trim();
+
+        // Strip Markdown code fences if model adds them
+        if (s.startsWith("```")) {
+            int first = s.indexOf('\n');
+            if (first >= 0) s = s.substring(first + 1);
+            int close = s.lastIndexOf("```");
+            if (close > 0) s = s.substring(0, close);
+            s = s.trim();
+        }
+
+        // If the model prepended text, jump to first JSON object/array
+        int obj = s.indexOf('{');
+        int arr = s.indexOf('[');
+        int start = (obj == -1) ? arr : (arr == -1 ? obj : Math.min(obj, arr));
+        if (start > 0) s = s.substring(start).trim();
+
+        return s;
+    }
+
+    static JsonObject parseJsonStrictThenLenient(String raw) {
+        String cleaned = sanitizeModelJson(raw);
+        try {
+            return JsonParser.parseString(cleaned).getAsJsonObject();
+        } catch (JsonSyntaxException e) {
+            try {
+                com.google.gson.stream.JsonReader r =
+                        new com.google.gson.stream.JsonReader(new java.io.StringReader(cleaned));
+                r.setLenient(true);
+                return JsonParser.parseReader(r).getAsJsonObject();
+            } catch (Exception e2) {
+                throw e; // bubble up the original strict error
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1014,6 +1547,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
     // - idle(Unit u)
     // - buildIfNotAlreadyBuilding(Unit ally, UnitType building, Int x, Int y, Player p, PhysicalGameState pgs) (This function has been omitted from the LLM)
 
+
+    /*
     public String prompt(String prompt) {
 
         requestTokens = calculateTokens(MODEL, prompt); // 'prompt' is your user/game state text
@@ -1084,8 +1619,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
 
 
-                        // ⬇️ Print the raw JSON response string (BEFORE parsing)
-               // System.out.println("✅ Raw Response JSON from Gemini: gmu3r2g ");
+                // ⬇️ Print the raw JSON response string (BEFORE parsing)
+                // System.out.println("✅ Raw Response JSON from Gemini: gmu3r2g ");
                 System.out.println(response.toString());
 
                 // response count : ->
@@ -1094,7 +1629,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
                 totalTokens = requestTokens+responseTokens;
                 System.out.println(" totalTokens  -> > > " + totalTokens);
-               // System.out.println(" totalTokens  -> > > " + Integer.toString(totalTokens));
+                // System.out.println(" totalTokens  -> > > " + Integer.toString(totalTokens));
 
 
 
@@ -1126,7 +1661,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                 JsonArray partsArray = contentObj.getAsJsonArray("parts");
                 JsonObject firstPart = partsArray.get(0).getAsJsonObject();
 
-               // System.out.println(firstPart);
+                // System.out.println(firstPart);
 
                 return firstPart.get("text").getAsString();
             } else {
@@ -1145,14 +1680,85 @@ public class LLM_Gemini extends AbstractionLayerAI {
             e.printStackTrace();
             return "Error contacting Gemini API.";
         }
+    }  */
+
+
+
+    public String prompt(String finalPrompt) {
+        try {
+            // Build Ollama request body
+            JsonObject body = new JsonObject();
+            body.addProperty("model", MODEL);
+            body.addProperty("prompt", finalPrompt);
+            body.addProperty("stream", OLLAMA_STREAM);   // false -> single JSON
+            body.addProperty("format", OLLAMA_FORMAT);   // "json" -> enforce JSON output
+
+            // Optional generation knobs (tweak as needed):
+            // body.addProperty("temperature", 0.4);
+            // body.addProperty("num_ctx", 8192);
+
+            URL url = new URL(OLLAMA_HOST + "/api/generate");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // record request time for latency
+            promptTime = Instant.now();
+
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = body.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                os.write(input);
+            }
+
+            int code = conn.getResponseCode();
+            InputStream is = (code == HttpURLConnection.HTTP_OK)
+                    ? conn.getInputStream()
+                    : conn.getErrorStream();
+
+            StringBuilder sb = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8))) {
+                for (String line; (line = br.readLine()) != null; ) sb.append(line);
+            }
+
+            responseTime = Instant.now();
+            Latency = responseTime.toEpochMilli() - promptTime.toEpochMilli();
+
+            if (code != HttpURLConnection.HTTP_OK) {
+                System.err.println("❌ Ollama error (" + code + "): " + sb);
+                return "{\"thinking\":\"error\",\"moves\":[]}";
+            }
+
+            // Ollama /api/generate returns JSON like:
+            // {"model":"...","created_at":"...","response":"...TEXT...","done":true,...}
+            JsonObject top = JsonParser.parseString(sb.toString()).getAsJsonObject();
+
+            if (!top.has("response")) {
+                System.err.println("❌ Unexpected Ollama payload: " + sb);
+                return "{\"thinking\":\"invalid_response\",\"moves\":[]}";
+            }
+
+            String modelText = top.get("response").getAsString();
+
+            // (Optional) log the raw text for debugging
+            // System.out.println("OLLAMA raw response:\n" + modelText);
+
+            // Return the text **as-is** — your caller will parse to JSON later
+            return modelText;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"thinking\":\"exception\",\"moves\":[]}";
+        }
     }
+
 
 
     @Override
     public List<ParameterSpecification> getParameters()
     {
         List<ParameterSpecification> parameters = new ArrayList<>();
-        
+
         parameters.add(new ParameterSpecification("PathFinding", PathFinding.class, new AStarPathFinding()));
 
         return parameters;
@@ -1217,7 +1823,12 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param modelName The model i am using to know exactly how many tokens C/s
      * @param text      The text (prompt or response) to calculate tokens for
      * @return          The total token count for the given text
+     *
+     * not need for this are need to look for some thing else right now i am commenting this
+     *
      */
+
+   /*
     public int calculateTokens(String modelName, String text) {
         try {
             URL url = new URL(ENDPOINT_URL + modelName + ":countTokens?key=" + API_KEY);
@@ -1267,7 +1878,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             e.printStackTrace();
             return 0;
         }
-    }
+    } */
 
 
 

@@ -1,4 +1,6 @@
 package ai.abstraction;
+
+
 import ai.abstraction.pathfinding.AStarPathFinding;
 import ai.core.AI;
 import ai.abstraction.pathfinding.PathFinding;
@@ -29,9 +31,9 @@ import rts.Game;
 
 /**
  *
- * @author Brendan Smyers
+ * @author Mukesh
  */
-public class LLM_Gemini extends AbstractionLayerAI {
+public class mistral extends AbstractionLayerAI {
 
     /**
      * Static & non-static variables
@@ -39,13 +41,13 @@ public class LLM_Gemini extends AbstractionLayerAI {
      */
 
     // NOTE: TESTING ONLY gmu3r2g need to remove it are better ways to handile it in github
-    static final String API_KEY =  "";// "AIzaSyAO-cFtXYe1QZiNk7z1VOlB5Kj2TURXV4o"; /// remove it
+    static final String API_KEY =   "AIzaSyAO-cFtXYe1QZiNk7z1VOlB5Kj2TURXV4o"; /// remove it
 
 
     // gemini-1.5-flash (15 req/min)
     // gemini-2.0-flash (15 req/min)
     // gemini-2.5-flash
-    String MODEL = "gemini-2.5-flash";
+    //String MODEL = "gemini-2.5-flash";
     String fileName = "Response_format.csv";
     static final String ENDPOINT_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
     static final JsonObject MOVE_RESPONSE_SCHEMA;
@@ -88,6 +90,27 @@ public class LLM_Gemini extends AbstractionLayerAI {
     private boolean logsInitialized = false;
     private boolean logsInitializedone = false;
 
+
+    // ==== OLLAMA + MISTRAL CONFIG ====
+   //static final String mistral_HOST =
+         //   System.getenv().getOrDefault("mistral_HOST", "http://localhost:11434");
+    //static String MODEL = "llama3.1:8b";           // pick what you pulled (e.g., llama3.1, mistral, phi3)
+    static final String mistral_HOST =
+            System.getenv().getOrDefault("OLLAMA_HOST", "http://127.0.0.1:11434");
+
+    // Use the Ollama tag you pulled. Pin it if you created one: `ollama cp mistral mistral-fixed`
+    static String MODEL = System.getenv().getOrDefault("OLLAMA_MODEL", "mistral"); // or "mistral-fixed"
+
+    static final boolean mistral_STREAM = false;    // we want a single JSON in one response
+    static final String mistral_FORMAT = "json";    // forces model to return valid JSON (no prose)
+
+
+
+
+
+
+
+
     // is there any other way to give prompt in a better way to give Free to it ?
 
     /**
@@ -122,16 +145,16 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      Suggested strategy:
      1. Early Game - Economy Focus
-         - Harvest nonstop with workers.
-         - Build barracks once you have 5 resources.
+     - Harvest nonstop with workers.
+     - Build barracks once you have 5 resources.
      2. Mid Game - Army Development
-         - Train heavies, ranged, and lights using the barracks.
-         - Hunt enemy workers to slow their economy.
-         - Keep barracks safe at all costs.
+     - Train heavies, ranged, and lights using the barracks.
+     - Hunt enemy workers to slow their economy.
+     - Keep barracks safe at all costs.
      3. Late Game - Closing Out
-         - Group units and attack key targets together.
-         - Destroy enemy production buildings first.
-         - Maintain resource control to prevent comebacks.
+     - Group units and attack key targets together.
+     - Destroy enemy production buildings first.
+     - Maintain resource control to prevent comebacks.
      *
      Game state format:
      The game state consists the map size and a list of feature locations (zero-indexed) within the the map bounds. Units and buildings have different properties associated with their current state. All units and buildings (except resources) have an 'available' property. If a unit or building is available an action issued to it will be accepted.
@@ -271,7 +294,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
                               "train",
                               "build",
                               "harvest",
-                              "attack"
+                              "attack",
+                              "idle"
                             ]
                           }
                         },
@@ -303,7 +327,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
     }
 
-  // is there any other way to give prompt in a better way to give Free to it ?
+    // is there any other way to give prompt in a better way to give Free to it ?
 
 
     /**
@@ -315,7 +339,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param a_utt
      *
      */
-    public LLM_Gemini(UnitTypeTable a_utt) {
+    public mistral(UnitTypeTable a_utt) {
         this(a_utt, new AStarPathFinding());
 
         //
@@ -348,7 +372,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
          */
     }
 
-    public LLM_Gemini(UnitTypeTable a_utt,String aiName1, String aiName2){
+    public mistral(UnitTypeTable a_utt,String aiName1, String aiName2){
         this(a_utt, new AStarPathFinding());
         if((aiName1 != null && aiName2 != null) && (!(aiName1.isEmpty())  || !(aiName2.isEmpty())) && logsInitializedone != true) {
             this.aiName1 = aiName1;
@@ -364,7 +388,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param a_utt = ?
      * @param a_pf = ?
      */
-    public LLM_Gemini(UnitTypeTable a_utt, PathFinding a_pf) {
+    public mistral(UnitTypeTable a_utt, PathFinding a_pf) {
         super(a_pf); //
         System.out.println(" in this 2 nd mg546924 180 "+ a_utt);
         reset(a_utt); // method call
@@ -463,7 +487,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * ITERATIONS_BUDGET  in  aiwithComputationbudget
      */
     public void reset() {
-    	super.reset();
+        super.reset();
         TIME_BUDGET = -1;
         ITERATIONS_BUDGET = -1;
     }
@@ -472,7 +496,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
      *
      * @param a_utt
      */
-    public void reset(UnitTypeTable a_utt)  
+    public void reset(UnitTypeTable a_utt)
     {
         utt = a_utt;
         resourceType = utt.getUnitType("Resource");
@@ -494,7 +518,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
     @Override
     public AI clone() {
-        return new LLM_Gemini(utt, pf);
+        return new mistral(utt, pf);
     }
 
 
@@ -508,7 +532,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
     public PlayerAction getAction(int player, GameState gs) throws Exception {
         initLogsIfNeeded();
 
-      //   i will give file name over hear ;
+        //   i will give file name over hear ;
 
 
 
@@ -528,7 +552,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             System.out.println(pa);
             return pa;
             // till heare
-           // return translateActions(player, gs); need to add
+            // return translateActions(player, gs); need to add
         }
 
         PhysicalGameState pgs = gs.getPhysicalGameState();
@@ -583,7 +607,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             String unitPos = "(" + u.getX() + ", " + u.getY() + ")";
             String team = u.getPlayer() == player ? "Ally" : "Enemy";
             if (u.getType() == resourceType) { team = "Neutral"; }
-            
+
             features.add(unitPos + " " + team + " " + unitType + " " + unitStats);
         }
 
@@ -616,11 +640,11 @@ public class LLM_Gemini extends AbstractionLayerAI {
         // need to do in other way as off now llm
         // prompt will be passed only once so that we can save tokens
         if(promptstart == 0) {
-             finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
+            finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
             promptstart = promptstart+1;
         }
         else{
-             finalPrompt =  mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
+            finalPrompt =  mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
         }
 
         //  need to implement they  Context caching process
@@ -629,7 +653,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
         finalPrompt = PROMPT + "\n\n" + mapPrompt + "\n" + turnPrompt + "\n" + maxActionsPrompt + "\n\n" + featuresPrompt + "\n";
 
         System.out.println(" gmu3r2g 344 3  -----------------------------------  \n ");
-         System.out.println(finalPrompt);
+        System.out.println(finalPrompt);
         System.out.println("  : gmu3r2g 3421  ----------------------------------- ");
         System.out.println("mapPrompt"+mapPrompt);
         System.out.println("value_TimestampandScore"+value_TimestampandScore);
@@ -649,15 +673,15 @@ public class LLM_Gemini extends AbstractionLayerAI {
             System.out.println(" it is a string 530 llm gemini  ");
 
 
-            // Data rowsint
+        // Data rowsint
 
 
 
-            System.out.println("✅ CSV written successfully: " + fileName);
+        System.out.println("✅ CSV written successfully: " + fileName);
 
         System.out.println(" 479   ----------------------------------- ");
-        JsonParser parser = new JsonParser();
-        JsonObject jsonResponse = parser.parse(response).getAsJsonObject();
+        // JsonParser parser = new JsonParser();
+        JsonObject jsonResponse = parseJsonStrictThenLenient(response);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String prettyJson = gson.toJson(jsonResponse);
 
@@ -1002,6 +1026,129 @@ public class LLM_Gemini extends AbstractionLayerAI {
     }
 
 
+    static String sanitizeModelJson(String s) {
+        if (s == null) return "";
+        s = s.trim();
+
+        // Strip Markdown code fences if model adds them
+        if (s.startsWith("```")) {
+            int first = s.indexOf('\n');
+            if (first >= 0) s = s.substring(first + 1);
+            int close = s.lastIndexOf("```");
+            if (close > 0) s = s.substring(0, close);
+            s = s.trim();
+        }
+
+        // If the model prepended text, jump to first JSON object/array
+        int obj = s.indexOf('{');
+        int arr = s.indexOf('[');
+        int start = (obj == -1) ? arr : (arr == -1 ? obj : Math.min(obj, arr));
+        if (start > 0) s = s.substring(start).trim();
+
+        return s;
+    }
+    /*
+    static String tryHealTruncatedJson(String s) {
+        if (s == null) return null;
+        // drop trailing backslashes / dangling escapes
+        s = s.replaceAll("\\\\+$", "");
+        // cut to the last complete object/array close
+        int lastObj = s.lastIndexOf('}');
+        int lastArr = s.lastIndexOf(']');
+        int cut = Math.max(lastObj, lastArr);
+        if (cut > 0) {
+            String candidate = s.substring(0, cut + 1).trim();
+            if (candidate.startsWith("{")) return candidate;
+        }
+        return null;
+    } */
+
+    /*
+    static String safeTrim(String s, int max) {
+        if (s == null) return "";
+        return (s.length() <= max) ? s : (s.substring(0, max) + "...[truncated]");
+    } */
+
+/**
+    static JsonObject parseJsonStrictThenLenient(String raw) {
+        String cleaned = sanitizeModelJson(raw);
+        try {
+            return JsonParser.parseString(cleaned).getAsJsonObject();
+        } catch (JsonSyntaxException e) {
+            try {
+                com.google.gson.stream.JsonReader r =
+                        new com.google.gson.stream.JsonReader(new java.io.StringReader(cleaned));
+                r.setLenient(true);
+                return JsonParser.parseReader(r).getAsJsonObject();
+            } catch (Exception e2) {
+                throw e; // bubble up the original strict error
+            }
+        }
+    }
+ */
+static JsonObject parseJsonStrictThenLenient(String raw) {
+    String cleaned = sanitizeModelJson(raw);
+
+    // 1) Strict
+    try {
+        return JsonParser.parseString(cleaned).getAsJsonObject();
+    } catch (JsonSyntaxException strictEx) {
+        // 2) Try lenient
+        try {
+            com.google.gson.stream.JsonReader r =
+                    new com.google.gson.stream.JsonReader(new java.io.StringReader(cleaned));
+            r.setLenient(true);
+            return JsonParser.parseReader(r).getAsJsonObject();
+        } catch (Exception lenientEx) {
+            // 3) Attempt a truncation repair: cut to the last full '}' or ']'
+            String repaired = tryHealTruncatedJson(cleaned);
+            if (repaired != null) {
+                try {
+                    com.google.gson.stream.JsonReader r2 =
+                            new com.google.gson.stream.JsonReader(new java.io.StringReader(repaired));
+                    r2.setLenient(true);
+                    return JsonParser.parseReader(r2).getAsJsonObject();
+                } catch (Exception ignored) { /* fall through */ }
+            }
+            // 4) Final fallback: wrap raw text as thinking, empty moves (always valid)
+            JsonObject fallback = new JsonObject();
+            fallback.addProperty("thinking", safeTrim(cleaned, 2000)); // avoid giant logs
+            fallback.add("moves", new JsonArray());
+            return fallback;
+        }
+    }
+}
+
+    static String tryHealTruncatedJson(String s) {
+        if (s == null) return null;
+        // remove trailing backslashes or unterminated quotes
+        s = s.replaceAll("\\\\+$", "");
+        // naive brace balancing: cut to last complete '}' if it exists
+        int lastObj = s.lastIndexOf('}');
+        int lastArr = s.lastIndexOf(']');
+        int cut = Math.max(lastObj, lastArr);
+        if (cut > 0) {
+            String candidate = s.substring(0, cut + 1).trim();
+            // quick sanity: must start with '{'
+            if (candidate.startsWith("{")) return candidate;
+        }
+        return null;
+    }
+
+    static String safeTrim(String s, int max) {
+        if (s == null) return "";
+        if (s.length() <= max) return s;
+        return s.substring(0, max) + "...[truncated]";
+    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1014,6 +1161,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
     // - idle(Unit u)
     // - buildIfNotAlreadyBuilding(Unit ally, UnitType building, Int x, Int y, Player p, PhysicalGameState pgs) (This function has been omitted from the LLM)
 
+
+    /*
     public String prompt(String prompt) {
 
         requestTokens = calculateTokens(MODEL, prompt); // 'prompt' is your user/game state text
@@ -1084,8 +1233,8 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
 
 
-                        // ⬇️ Print the raw JSON response string (BEFORE parsing)
-               // System.out.println("✅ Raw Response JSON from Gemini: gmu3r2g ");
+                // ⬇️ Print the raw JSON response string (BEFORE parsing)
+                // System.out.println("✅ Raw Response JSON from Gemini: gmu3r2g ");
                 System.out.println(response.toString());
 
                 // response count : ->
@@ -1094,7 +1243,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
 
                 totalTokens = requestTokens+responseTokens;
                 System.out.println(" totalTokens  -> > > " + totalTokens);
-               // System.out.println(" totalTokens  -> > > " + Integer.toString(totalTokens));
+                // System.out.println(" totalTokens  -> > > " + Integer.toString(totalTokens));
 
 
 
@@ -1126,7 +1275,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
                 JsonArray partsArray = contentObj.getAsJsonArray("parts");
                 JsonObject firstPart = partsArray.get(0).getAsJsonObject();
 
-               // System.out.println(firstPart);
+                // System.out.println(firstPart);
 
                 return firstPart.get("text").getAsString();
             } else {
@@ -1145,14 +1294,94 @@ public class LLM_Gemini extends AbstractionLayerAI {
             e.printStackTrace();
             return "Error contacting Gemini API.";
         }
+    }  */
+
+
+
+    public String prompt(String finalPrompt) {
+        try {
+            // Build mistral request body
+               // "json" -> enforce JSON output
+
+            // Optional generation knobs (tweak as needed):
+            // body.addProperty("temperature", 0.4);
+            // body.addProperty("num_ctx", 8192);
+            JsonObject body = new JsonObject();
+            body.addProperty("model", MODEL);
+            body.addProperty("prompt", finalPrompt);
+            body.addProperty("stream", mistral_STREAM);   // falsesanit
+            body.addProperty("format", mistral_FORMAT);  // "json"
+
+            JsonObject options = new JsonObject();
+            options.addProperty("temperature", 0.3);
+            options.addProperty("top_p", 0.9);
+            options.addProperty("num_ctx", 8192);        // room for your big prompt
+            options.addProperty("num_predict", 1024);    // <-- key: prevent truncation
+            body.add("options", options);
+
+
+            URL url = new URL(mistral_HOST + "/api/generate");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // record request time for latency
+            promptTime = Instant.now();
+
+            try (OutputStream os = conn.getOutputStream()) {
+                byte[] input = body.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                os.write(input);
+            }
+
+            int code = conn.getResponseCode();
+            InputStream is = (code == HttpURLConnection.HTTP_OK)
+                    ? conn.getInputStream()
+                    : conn.getErrorStream();
+
+            StringBuilder sb = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is, java.nio.charset.StandardCharsets.UTF_8))) {
+                for (String line; (line = br.readLine()) != null; ) sb.append(line);
+            }
+
+            responseTime = Instant.now();
+            Latency = responseTime.toEpochMilli() - promptTime.toEpochMilli();
+
+            if (code != HttpURLConnection.HTTP_OK) {
+                System.err.println("❌ mistral error (" + code + "): " + sb);
+                return "{\"thinking\":\"error\",\"moves\":[]}";
+            }
+
+            // mistral /api/generate returns JSON like:
+            // {"model":"...","created_at":"...","response":"...TEXT...","done":true,...}
+            JsonObject top = JsonParser.parseString(sb.toString()).getAsJsonObject();
+
+            if (!top.has("response")) {
+                System.err.println("❌ Unexpected mistral payload: " + sb);
+                return "{\"thinking\":\"invalid_response\",\"moves\":[]}";
+            }
+
+            String modelText = top.get("response").getAsString();
+
+            // (Optional) log the raw text for debugging
+            // System.out.println("mistral raw response:\n" + modelText);
+
+            // Return the text **as-is** — your caller will parse to JSON later
+            return modelText;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{\"thinking\":\"exception\",\"moves\":[]}";
+        }
     }
+
 
 
     @Override
     public List<ParameterSpecification> getParameters()
     {
         List<ParameterSpecification> parameters = new ArrayList<>();
-        
+
         parameters.add(new ParameterSpecification("PathFinding", PathFinding.class, new AStarPathFinding()));
 
         return parameters;
@@ -1217,7 +1446,12 @@ public class LLM_Gemini extends AbstractionLayerAI {
      * @param modelName The model i am using to know exactly how many tokens C/s
      * @param text      The text (prompt or response) to calculate tokens for
      * @return          The total token count for the given text
+     *
+     * not need for this are need to look for some thing else right now i am commenting this
+     *
      */
+
+   /*
     public int calculateTokens(String modelName, String text) {
         try {
             URL url = new URL(ENDPOINT_URL + modelName + ":countTokens?key=" + API_KEY);
@@ -1267,7 +1501,7 @@ public class LLM_Gemini extends AbstractionLayerAI {
             e.printStackTrace();
             return 0;
         }
-    }
+    } */
 
 
 

@@ -5,6 +5,7 @@
  */
 package gui.frontend;
 
+import java.math.BigInteger;
 import ai.core.AI;
 import gui.JTextAreaWriter;
 import java.awt.Component;
@@ -396,6 +397,7 @@ public class FETournamentPane extends JPanel {
                     }
                     
                     int iterations = Integer.parseInt(iterationsField.getText());
+
                     int maxGameLength = Integer.parseInt(maxGameLengthField.getText());
                     int timeBudget = Integer.parseInt(timeBudgetField.getText());
                     int iterationsBudget = Integer.parseInt(iterationsBudgetField.getText());
