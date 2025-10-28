@@ -241,7 +241,7 @@ scancel 18437
 
 6. **Unit Type Table / Rules**
    - Set **Unit Type Table** = `Original - Both`
-   - Check:
+   - do not Check:
      - `Self-play matches`
      - `Game over if AI times out`
      - (Keep the other default checkboxes enabled.)
