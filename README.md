@@ -304,3 +304,8 @@ Press Ctrl+C in the terminal; the script cleans up the running game and exits.
 In   [`config.properties`](resources/config.properties) , you can see AI1 and AI2, and modify them.
 
 
+
+# to add Ollama model type this in the terminal 
+
+curl -fsSL https://ollama.com/install.sh | sh
+ollama run llama3.1:8b
