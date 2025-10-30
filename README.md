@@ -294,6 +294,9 @@ Env vars (optional): TOTAL_RUNS=1000; RUN_TIME_PER_GAME_SEC=60
 Apply → Run
 Option C: get the latest repo from GitHub and go to the script [`RunLoop.sh`](RunLoop.sh).
 
+# to know who is the winner 
+After the game ends, we can open the ResponseTimestamp(YYYY_MM_DD*).csv file and go to the "Score_in_every_run" column. If AI1 is Player zero P0 and AI2 is Player one P1, and p0 > p1, then Player zero is the winner; otherwise, Player one is the winner. We can modify the player in [`config.properties`](resources/config.properties)
+
 ## To Stop early
 Press Ctrl+C in the terminal; the script cleans up the running game and exits.
 
@@ -312,3 +315,5 @@ In   [`config.properties`](resources/config.properties) , you can see AI1 and AI
 
 - ollama run llama3.1:8b
 ```
+
+
