@@ -256,8 +256,8 @@ To modify the LLM prompt for Gemini, Ollama, etc, we can go to their main script
 We can see their response in here, as well as the "tournament_nn" folder created in their project folder 
 
 #
-##Running multiple games automatically
-#
+# Running multiple games automatically
+
 
 Run the game multiple times automatically with  [`RunLoop.sh`](RunLoop.sh).
 The script recompiles, launches a match, waits N seconds, kills it, and repeats.
@@ -267,29 +267,40 @@ JDK 17+ on your PATH (javac -version, java -version).
 Project layout includes src/, lib/ (jars), and bin/ (compiled out).
 Run from the project root.
 
-# first time only—make it executable
+### first time only—make it executable
 chmod +x [`RunLoop.sh`](RunLoop.sh)
 
-# run with defaults (e.g., 5 runs × 10s each)
-.[`RunLoop.sh`](RunLoop.sh)
+### run with defaults (e.g., 5 runs × 10s each) .[`RunLoop.sh`](RunLoop.sh)
 
 Customize the loop
 
 TOTAL_RUNS — how many matches to run
+
 RUN_TIME_PER_GAME_SEC — seconds to let each match play before auto-kill
 
 
 It's in lines 4 and 5 in [`RunLoop.sh`](RunLoop.sh)
-TOTAL_RUNS=10                         # << set to 1000 for one thousand runs
-RUN_TIME_PER_GAME_SEC="${RUN_TIME_PER_GAME_SEC:-400}"  # << set default seconds per run, it needs to be 500
 
-IntelliJ IDEA
+- TOTAL_RUNS=10                         # << set to 1000 for one thousand runs
+
+- RUN_TIME_PER_GAME_SEC="${RUN_TIME_PER_GAME_SEC:-400}"  # << set default seconds per run, it needs to be 500
+ 
+## IntelliJ IDEA
 Option A: Use the built-in Terminal and run the same commands as above. (one way to do)
 Option B: Run → Edit Configurations → “+” → Shell Script
 Script: <project>/[`RunLoop.sh`](RunLoop.sh)
 Working directory: project root
 Env vars (optional): TOTAL_RUNS=1000; RUN_TIME_PER_GAME_SEC=60
 Apply → Run
+Option C: get the latest repo from GitHub and go to the script [`RunLoop.sh`](RunLoop.sh).
 
-#To Stop early
+## To Stop early
 Press Ctrl+C in the terminal; the script cleans up the running game and exits.
+
+
+#
+# To modify the players in the multiple games automatically
+
+In   [`config.properties`](resources/config.properties) , you can see AI1 and AI2, and modify them.
+
+
