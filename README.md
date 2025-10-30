@@ -209,7 +209,7 @@ scancel 18437
 > Alternatively, you may need to **upgrade your plan** to avoid this issue.
 
 ## prompt
-To modify the LLM prompt for Gemini, Ollama, etc, we can go to their main script [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java). We can see a string named ' prompt and modify it based on your idea to win. 
+To modify the LLM prompt for Gemini, Ollama, etc, we can go to their main script [`LLM_Gemini.java`](src/ai/abstraction/LLM_Gemini.java). We can see a string named ' prompt and modify it based on your idea to win. Same with other LLM models in the project. 
 ##
 
 
@@ -253,4 +253,43 @@ To modify the LLM prompt for Gemini, Ollama, etc, we can go to their main script
 
 <img width="814" height="480" alt="Screenshot 2025-10-28 at 9 17 04 AM" src="https://github.com/user-attachments/assets/ac1a69f1-eff9-4a01-a9da-7374895badde" />
 
-we can see their response in here, as well as they "tournament_nn" folder created in they project folder 
+We can see their response in here, as well as the "tournament_nn" folder created in their project folder 
+
+#
+##Running multiple games automatically
+#
+
+Run the game multiple times automatically with  [`RunLoop.sh`](RunLoop.sh).
+The script recompiles, launches a match, waits N seconds, kills it, and repeats.
+
+Prerequisites
+JDK 17+ on your PATH (javac -version, java -version).
+Project layout includes src/, lib/ (jars), and bin/ (compiled out).
+Run from the project root.
+
+# first time only—make it executable
+chmod +x [`RunLoop.sh`](RunLoop.sh)
+
+# run with defaults (e.g., 5 runs × 10s each)
+.[`RunLoop.sh`](RunLoop.sh)
+
+Customize the loop
+
+TOTAL_RUNS — how many matches to run
+RUN_TIME_PER_GAME_SEC — seconds to let each match play before auto-kill
+
+
+It's in lines 4 and 5 in [`RunLoop.sh`](RunLoop.sh)
+TOTAL_RUNS=10                         # << set to 1000 for one thousand runs
+RUN_TIME_PER_GAME_SEC="${RUN_TIME_PER_GAME_SEC:-400}"  # << set default seconds per run, it needs to be 500
+
+IntelliJ IDEA
+Option A: Use the built-in Terminal and run the same commands as above. (one way to do)
+Option B: Run → Edit Configurations → “+” → Shell Script
+Script: <project>/[`RunLoop.sh`](RunLoop.sh)
+Working directory: project root
+Env vars (optional): TOTAL_RUNS=1000; RUN_TIME_PER_GAME_SEC=60
+Apply → Run
+
+#To Stop early
+Press Ctrl+C in the terminal; the script cleans up the running game and exits.
