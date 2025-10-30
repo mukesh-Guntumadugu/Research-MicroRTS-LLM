@@ -311,8 +311,6 @@ In   [`config.properties`](resources/config.properties) , you can see AI1 and AI
 # to add Ollama model type this in the terminal 
 
 ```
-- curl -fsSL https://ollama.com/install.sh | sh
-
 - ollama run llama3.1:8b
 ```
 
