@@ -53,7 +53,7 @@ public class ollama extends AbstractionLayerAI {
     // How often the LLM should act on the game state
     // More frequent LLM intervention is not necessarily better
     // Low = more frequent, higher = less freqeunt
-    static final Integer LLM_INTERVAL = 1;  // ? why can't i have less than that
+    static final Integer LLM_INTERVAL = 100;  // ? why can't i have less than that
     LocalDateTime now = LocalDateTime.now();
     String timestamp = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
 
