@@ -315,3 +315,24 @@ In   [`config.properties`](resources/config.properties) , you can see AI1 and AI
 ```
 
 
+
+# References:
+
+------------------------------------------------------------------------------------------------------------------------
+
+Empowering LLMs with Parameterized Skills for
+Adversarial Long-Horizon Planning
+
+Use: idea of prompt testing and playing with different models 
+
+
+https://arxiv.org/pdf/2509.13127
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
